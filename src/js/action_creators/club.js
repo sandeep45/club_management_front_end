@@ -1,0 +1,83 @@
+import * as WebUtil from '../web_util/'
+import * as mySchema from '../config/mySchema'
+import { normalize } from 'normalizr';
+import K from '../constants/'
+import { push } from 'react-router-redux'
+import {redirectOnUnAuthorized} from './helper'
+
+export const getClubs = () => dispatch => {
+  console.log("inside getClubs");
+  WebUtil.getClubs().then(
+    response => {
+      console.log("getClubs response: ", response);
+      const normalizedData = normalize(response.data, [mySchema.club]);
+      console.log("getClubs normalized data: ", normalizedData);
+      dispatch({
+        type: K.RECEIVE_ENTITY_ITEM,
+        payload: normalizedData
+      });
+    }
+  ).catch(redirectOnUnAuthorized.bind(this, dispatch))
+};
+
+export const getClub = (clubId) => dispatch => {
+  console.log("inside getClub: ", clubId);
+  WebUtil.getClub(clubId).then(
+    response => {
+      console.log("getClub response: ", response);
+      const normalizedData = normalize(response.data, mySchema.club);
+      console.log("getClubs normalized data: ", normalizedData);
+      dispatch({
+        type: K.RECEIVE_ENTITY_ITEM,
+        payload: normalizedData
+      })
+    }
+  ).catch(redirectOnUnAuthorized.bind(this, dispatch))
+};
+
+export const createClub = (params) => dispatch => {
+  console.log("inside createClub: ", params);
+  return WebUtil.createClub(params).then(
+    response => {
+      console.log("getClub response: ", response);
+      const normalizedData = normalize(response.data, mySchema.club);
+      console.log("getClubs normalized data: ", normalizedData);
+      dispatch({
+        type: K.RECEIVE_ENTITY_ITEM,
+        payload: normalizedData
+      })
+    }
+  ).catch(redirectOnUnAuthorized.bind(this, dispatch))
+};
+
+export const updateClub = (id, params) => dispatch => {
+  console.log("inside updateClub: ", id, params);
+  return WebUtil.updateClub(id, params).then(
+    response => {
+      console.log("getClub response: ", response);
+      const normalizedData = normalize(response.data, mySchema.club);
+      console.log("getClubs normalized data: ", normalizedData);
+      dispatch({
+        type: K.RECEIVE_ENTITY_ITEM,
+        payload: normalizedData
+      })
+    }
+  ).catch(redirectOnUnAuthorized.bind(this, dispatch))
+};
+
+export const removeClub = (id) => dispatch => {
+  console.log("inside deleteClub: ", id);
+  return WebUtil.removeClub(id).then(
+    response => {
+      console.log("deleteClub response: ", response);
+      dispatch({
+        type: K.REMOVE_ENTITY_ITEM,
+        payload: {
+          name: "clubs",
+          id: id,
+        }
+      })
+    }
+  ).catch(redirectOnUnAuthorized.bind(this, dispatch))
+};
+
