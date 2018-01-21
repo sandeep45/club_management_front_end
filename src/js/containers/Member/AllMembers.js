@@ -14,15 +14,9 @@ import MemberLookup from "../../components/Member/MemberLookup";
 const mapStateToProps = (state, ownProps) => {
   const match = ownProps.match;
   const clubId = ownProps.match.params.clubId;
-  let membersArray = reducers.getMembersArrayFromClubInUrl(state, ownProps);
+  let membersArray = reducers.getFilteredMembersArray(state, ownProps);
   const searchFields = reducers.getSearchFields(state, ownProps);
-  if(searchFields && searchFields.memberLookup){
-    membersArray = membersArray.filter(member => {
-      return member.name.includes(searchFields.memberLookup) ||
-        member.email.includes(searchFields.memberLookup)
-    })
-  }
-  // todo - filter line 17 based on data of line 18
+
   return {
     match,
     members:

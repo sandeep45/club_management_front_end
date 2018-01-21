@@ -2,6 +2,7 @@ import merge from 'lodash/merge'
 import K from '../constants/'
 import { createSelector } from 'reselect'
 import moment from 'moment'
+import {getSearchFields} from './searchFields'
 
 const initialState = {
   owners: { },
@@ -94,6 +95,19 @@ export const getCheckinFromIdInUrl = (state, ownProps) => {
   const checkinId = ownProps.match.params.checkinId;
   return checkinsHash[checkinId] || {};
 };
+
+export const getFilteredMembersArray = createSelector(
+  getMembersArray, getSearchFields,
+  (membersArray, searchFields) => {
+    if(searchFields && searchFields.memberLookup){
+      membersArray = membersArray.filter(member => {
+        return member.name.includes(searchFields.memberLookup) ||
+          member.email.includes(searchFields.memberLookup)
+      })
+    }
+    return membersArray;
+  }
+);
 
 export const getMembersArrayFromClubInUrl = createSelector(
   getClubFromIdInUrl, getMembersHash,

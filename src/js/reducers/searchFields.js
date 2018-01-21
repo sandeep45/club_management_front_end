@@ -1,7 +1,7 @@
 import K from '../constants'
 
 const initalState = {
-  memberLookup: null,
+  memberLookup: '',
 };
 
 const search = (state=initalState, action) => {

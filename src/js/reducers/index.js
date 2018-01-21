@@ -5,6 +5,8 @@ import count, * as fromCount from './count'
 import checkinActivity, * as fromCheckinActivity from './checkinActivity'
 import search, * as fromSearch from './searchFields'
 import { routerReducer } from 'react-router-redux'
+import { createSelector } from 'reselect'
+
 
 const myRootReducer = combineReducers({
   routing: routerReducer,
@@ -42,5 +44,18 @@ export const getAuthEmail = (state, ownProps) => fromEntities.getAuthEmail(state
 export const getCheckinActivity = (state, ownProps) => fromCheckinActivity.getCheckinActivity(state.checkinActivity, ownProps);
 
 export const getSearchFields = (state, ownProps) => fromSearch.getSearchFields(state.search, ownProps);
+
+export const getFilteredMembersArray = createSelector(
+  getMembersArray, getSearchFields,
+  (membersArray, searchFields) => {
+    if(searchFields && searchFields.memberLookup){
+      membersArray = membersArray.filter(member => {
+        return member.name.includes(searchFields.memberLookup) ||
+          member.email.includes(searchFields.memberLookup)
+      })
+    }
+    return membersArray;
+  }
+);
 
 export default myRootReducer
