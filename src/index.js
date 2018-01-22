@@ -9,7 +9,7 @@ import * as WebUtil from './js/web_util/'
 import * as reducers from './js/reducers'
 import * as action_creators from './js/action_creators'
 import merge from 'lodash/merge'
-import Instascan from 'instascan'
+// import Instascan from 'instascan'
 
 import registerServiceWorker from './registerServiceWorker';
 
@@ -20,7 +20,7 @@ window.WebUtil = WebUtil; // ONLY FOR DEBUGGING
 window.reducers = reducers; // ONLY FOR DEBUGGING
 window.action_creators = action_creators; // ONLY FOR DEBUGGING
 window.merge = merge; // ONLY FOR DEBUGGING
-window.Instascan = Instascan; // ONLY FOR DEBUGGING
+// window.Instascan = Instascan; // ONLY FOR DEBUGGING
 const target = document.querySelector('#root');
 
 render(

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Instascan from 'instascan'
+// import Instascan from 'instascan'
 import K, * as fromConstants from '../../constants'
 import {Well, Panel} from 'react-bootstrap'
 import PropTypes from 'prop-types'
@@ -25,7 +25,7 @@ class CameraScanner extends Component {
       continuous: true,
       video: document.getElementById('preview')
     };
-    this._scanner = new Instascan.Scanner(scannerOptions);
+    this._scanner = new window.Instascan.Scanner(scannerOptions);
     window._scanner = this._scanner;
     this._scanner.addListener('scan', content => {
       console.log(content);
@@ -38,7 +38,7 @@ class CameraScanner extends Component {
         console.error('No cameras found.');
       }
     };
-    Instascan.Camera.getCameras().
+    window.Instascan.Camera.getCameras().
       then(cameraDetectedCallback).
       catch(function (e) {
         console.error(e);
