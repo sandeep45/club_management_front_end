@@ -651,9 +651,9 @@ confirm checking - ask for fee / reject / already checked in - DONE
 find member - DONE
 delete a checkin - DONE
 
-top bar has members button
-top bar has Checkins Dashbaord button 
-to manual checkin get all members page and do manual checkin
+top bar has members button - DONE
+top bar has Checkins Dashbaord button - DONE 
+to manual checkin get all members page and do manual checkin - DONE
 
 problem
 club doesnt have checkins
