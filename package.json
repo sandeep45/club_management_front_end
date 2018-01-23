@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "gh-pages": "^1.1.0",
+    "history": "^4.7.2",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.4",
     "normalizr": "^3.2.4",

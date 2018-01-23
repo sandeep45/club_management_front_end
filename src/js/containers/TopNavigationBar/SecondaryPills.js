@@ -39,10 +39,10 @@ class SecondaryPills extends Component {
     return <div>
       <ul class="nav nav-pills">
         <li>
-          <a href="#" onClick={goToPage.bind(this, `/clubs/${clubId}/members`)}>Members</a>
+          <a href="javascript:void(0);" onClick={goToPage.bind(this, `/clubs/${clubId}/members`)}>Members</a>
         </li>
         <li>
-          <a href="#" onClick={goToPage.bind(this, `/clubs/${clubId}/checkins/dashboard`)}>
+          <a href="javascript:void(0);" onClick={goToPage.bind(this, `/clubs/${clubId}/checkins/dashboard`)}>
             Checkins Dashboard
           </a>
         </li>

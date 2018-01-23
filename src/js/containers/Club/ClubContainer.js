@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }, dispatch);
 };
 
-class Club extends Component {
+class ClubContainer extends Component {
   constructor(props) {
     super(props)
   }
@@ -59,6 +59,6 @@ class Club extends Component {
   }
 }
 
-Club = connect(mapStateToProps, mapDispatchToProps)(Club);
+ClubContainer = connect(mapStateToProps, mapDispatchToProps)(ClubContainer);
 
-export default Club
+export default ClubContainer

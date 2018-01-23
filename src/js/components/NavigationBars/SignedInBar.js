@@ -23,7 +23,7 @@ class SignedInBar extends Component {
       <Navbar collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#" onClick={goToPage.bind(this, "/")}>Club Management</a>
+            <a href="javascript:void(0)" onClick={goToPage.bind(this, "/")}>Club Management</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -32,11 +32,6 @@ class SignedInBar extends Component {
             <NavItem href="#" onClick={goToPage.bind(this, "/clubs")}>
               Clubs
             </NavItem>
-            {clubId != 0 ? <NavItem href="#"
-                               onClick={goToPage.bind(this, `/clubs/${clubId}/members`)}>
-                        Members
-                      </NavItem> : ""
-            }
           </Nav>
           <Nav pullRight>
             <NavItem href="#" onClick={signOut}>Sign Out</NavItem>
