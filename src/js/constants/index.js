@@ -2,6 +2,7 @@ import keyMirror from "keymirror"
 export * from './sounds'
 
 const appConstants = keyMirror({
+  REPLACE_ENTITY_ITEM: null,
   RECEIVE_ENTITY_ITEM: null,
   REMOVE_ENTITY_ITEM: null,
   INCREMENT_COUNT: null,

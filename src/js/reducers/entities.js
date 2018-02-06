@@ -17,6 +17,8 @@ const entities = (state=initialState, action) => {
   }
 
   switch(action.type){
+    case K.REPLACE_ENTITY_ITEM:
+      return replaceTheEntity(state, action);
     case K.RECEIVE_ENTITY_ITEM:
       return mergeInTheEntity(state, action);
     case K.REMOVE_ENTITY_ITEM:
@@ -30,6 +32,16 @@ const entities = (state=initialState, action) => {
 const mergeInTheEntity = (state, action) => {
   if(action.payload.entities){
     return merge( {} , state, action.payload.entities);
+  }else{
+    return state;
+  }
+};
+
+const replaceTheEntity = (state, action) => {
+  if(action.payload.entities){
+    console.log(state);
+    console.log({...state, ...action.payload.entities});
+    return {...state, ...action.payload.entities};
   }else{
     return state;
   }
@@ -113,7 +125,7 @@ export const getMembersArrayFromClubInUrl = createSelector(
   getClubFromIdInUrl, getMembersHash,
   (club, membersHash) => {
     const memberIds = club.members || [];
-    return memberIds.map( memberId => membersHash[memberId]);
+    return memberIds.map( memberId => membersHash[memberId]).filter(n => n);
   }
 );
 export const getCheckinsArrayFromMemberInUrl = createSelector(

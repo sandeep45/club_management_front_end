@@ -46,7 +46,7 @@ export const getCheckinActivity = (state, ownProps) => fromCheckinActivity.getCh
 export const getSearchFields = (state, ownProps) => fromSearch.getSearchFields(state.search, ownProps);
 
 export const getFilteredMembersArray = createSelector(
-  getMembersArray, getSearchFields,
+  getMembersArrayFromClubInUrl, getSearchFields,
   (membersArray, searchFields) => {
     if(searchFields && searchFields.memberLookup){
       membersArray = membersArray.filter(member => {

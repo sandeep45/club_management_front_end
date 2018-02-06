@@ -27,7 +27,7 @@ export const getMembersCheckedInToday = (clubId) => dispatch => {
       const normalizedData = normalize(response.data, [mySchema.member]);
       console.log("getMembersCheckedInToday normalized data: ", normalizedData);
       dispatch({
-        type: K.RECEIVE_ENTITY_ITEM,
+        type: K.REPLACE_ENTITY_ITEM,
         payload: normalizedData
       })
     }

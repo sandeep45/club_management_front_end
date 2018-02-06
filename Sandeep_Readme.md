@@ -712,6 +712,10 @@ http://soundbible.com/tags-error.html
 converting to base 64
 https://www.base64encode.org/
 
-happens to be displaying all the members in the UI under a club which has 0 members
+happens to be displaying all the members in the UI under a club which has 0 members - DONE 
+now fetch members of the clubId in URL
 
-when backend deletes a checkin we need to replace all checkins with new ones.
+when backend deletes a checkin we need to replace all checkins with new ones - DONE
+done by doing replaceEntity in state than merge state
+but now we have clubs which have members but the members have been removed as they didnt check in today
+so when looping over members i am removing the null items
