@@ -30,7 +30,7 @@ class MemberTable extends Component {
     const {members, match, searchFields} = this.props;
     const {showCheckinNotificationModal, checkedInMember, checkinResponseStatusCode} = this.state;
     return (
-        <Table striped bordered condensed hover>
+        <Table striped borderedhover>
           <thead>
             <tr>
               <th>#</th>

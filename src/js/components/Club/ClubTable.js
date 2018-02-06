@@ -21,7 +21,7 @@ class ClubTable extends Component {
     const {clubs, removeClub} = this.props;
 
     return (
-        <Table striped bordered condensed hover>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>#</th>

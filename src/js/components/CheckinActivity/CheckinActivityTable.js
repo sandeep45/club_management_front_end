@@ -18,7 +18,7 @@ class CheckinActivityTable extends Component {
   render() {
     const {checkinActivity} = this.props;
     return (
-      <Table striped bordered condensed hover>
+      <Table striped borderedhover>
         <thead>
           <tr>
             <th>Message</th>

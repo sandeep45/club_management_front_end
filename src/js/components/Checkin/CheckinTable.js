@@ -30,7 +30,7 @@ class CheckinTable extends Component {
     console.log("membersHash: ", membersHash);
     console.log("checkins: ", checkins);
     return (
-        <Table striped bordered condensed hover responsive>
+        <Table striped borderedhover responsive>
           <thead>
             <tr>
               <th>Member Id</th>

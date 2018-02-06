@@ -711,3 +711,7 @@ sound files
 http://soundbible.com/tags-error.html
 converting to base 64
 https://www.base64encode.org/
+
+happens to be displaying all the members in the UI under a club which has 0 members
+
+when backend deletes a checkin we need to replace all checkins with new ones.
