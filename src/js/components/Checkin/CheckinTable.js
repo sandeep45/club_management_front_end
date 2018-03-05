@@ -33,6 +33,7 @@ class CheckinTable extends Component {
         <Table striped borderedhover responsive>
           <thead>
             <tr>
+              <th>Checkin Id</th>
               <th>Member Id</th>
               <th>Member Name</th>
               <th>Member Email</th>
@@ -48,6 +49,7 @@ class CheckinTable extends Component {
               return (
                 <tr key={checkin.id}>
                   <td>{checkin.id}</td>
+                  <td>{checkin.member_id}</td>
                   <td>
                     {membersHash[checkin.member_id].name}
                   </td>
