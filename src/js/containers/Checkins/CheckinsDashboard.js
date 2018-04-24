@@ -10,6 +10,7 @@ import CheckinTable from '../../components/Checkin/CheckinTable'
 import { bindActionCreators } from 'redux'
 import {push} from "react-router-redux";
 import CheckinActivityTable from "../../components/CheckinActivity/CheckinActivityTable";
+import ManualCheckinBox from "../../components/Checkin/ManualCheckinBox";
 
 const mapStateToProps = (state, ownProps) => {
   const clubId = ownProps.match.params.clubId;
@@ -72,6 +73,10 @@ class CheckinsDashboard extends Component {
                             removeCheckin={removeCheckin}/>
             </Col>
             <Col xs={12} md={2}>
+
+              <ManualCheckinBox
+                updateQrCode={createCheckinFromQrCode} />
+
               <CameraScanner
                 updateQrCode={createCheckinFromQrCode} />
 
