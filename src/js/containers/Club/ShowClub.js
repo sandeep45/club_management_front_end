@@ -65,6 +65,7 @@ class ShowClub extends Component {
         <ListGroup fill>
           <ListGroupItem>Id: {clubId}</ListGroupItem>
           <ListGroupItem>name: {club.name} </ListGroupItem>
+          <ListGroupItem>name: {club.keyword} </ListGroupItem>
         </ListGroup>
       </Panel>
 

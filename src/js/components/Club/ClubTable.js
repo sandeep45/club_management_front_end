@@ -35,6 +35,7 @@ class ClubTable extends Component {
                 <tr key={club.id}>
                   <td>{club.id}</td>
                   <td>{club.name}</td>
+                  <td>{club.keyword}</td>
                   <td>
                     <Link to={`/clubs/${club.id}`}>Show</Link>{" | "}
                     <Link to={`/clubs/${club.id}/edit`}>Edit</Link>{" | "}

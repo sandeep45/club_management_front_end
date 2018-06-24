@@ -44,6 +44,12 @@ class ClubForm extends Component {
                          inputRef={c => this._nameInput = c} value={club.name}
                          onChange={this._nameChanged}/>
           </FormGroup>
+          <FormGroup controlId='keywordBox'>
+            <ControlLabel>Keyword Name</ControlLabel>
+            <FormControl type='text' placeholder='a memorable keyword goes here'
+                         inputRef={c => this._keywordInput = c} value={club.keyword}
+                         onChange={this._keywordChanged}/>
+          </FormGroup>
           <Button type="submit" onClick={this._submitClickHandler} bsStyle='primary'>
             Submit
           </Button>
@@ -57,12 +63,18 @@ class ClubForm extends Component {
     this.setState({club});
   };
 
+  _keywordChanged = e => {
+    const club = {...this.state.club, keyword: e.target.value};
+    this.setState({club});
+  };
+
   _submitClickHandler = evt => {
     evt.preventDefault();
     const {formAction, goToAfterAction} = this.props;
     console.log("on click of submit button: ");
     formAction({
-      name: this._nameInput.value
+      name: this._nameInput.value,
+      keyword: this._keywordInput.value
     }).then(
       response => {
         console.log("form action has been fired. now moving to listing page");
