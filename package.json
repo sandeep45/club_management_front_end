@@ -31,6 +31,7 @@
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
-    "moment": "^2.20.1"
+    "moment": "^2.20.1",
+    "redux-devtools-extension": "^2.13.5"
   }
 }
