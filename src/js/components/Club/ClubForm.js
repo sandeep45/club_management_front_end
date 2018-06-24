@@ -46,7 +46,7 @@ class ClubForm extends Component {
           </FormGroup>
           <FormGroup controlId='keywordBox'>
             <ControlLabel>Keyword Name</ControlLabel>
-            <FormControl type='text' placeholder='a memorable keyword goes here'
+            <FormControl type='text' placeholder='an easy name for texting goes here'
                          inputRef={c => this._keywordInput = c} value={club.keyword}
                          onChange={this._keywordChanged}/>
           </FormGroup>

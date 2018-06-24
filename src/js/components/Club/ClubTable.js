@@ -26,6 +26,7 @@ class ClubTable extends Component {
             <tr>
               <th>#</th>
               <th>Name</th>
+              <th>Keyword</th>
               <th>Actions</th>
             </tr>
           </thead>
