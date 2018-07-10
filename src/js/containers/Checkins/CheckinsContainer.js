@@ -3,12 +3,15 @@ import {connect} from 'react-redux'
 import { Route, Link, Switch } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { push } from 'react-router-redux'
+import CheckinsDashboard from "../Checkins/CheckinsDashboard";
 
 import * as actions from '../../action_creators';
 import * as reducers from '../../reducers';
 
 import NotFound from "../../components/Generic/NotFound";
 import AllCheckins from "./AllCheckins";
+import AllMembers from "../Member/AllMembers";
+import NewMember from "../Member/NewMember";
 // import ShowCheckin from "./ShowCheckin";
 // import NewCheckin from "../Checkin/NewCheckin";
 // import EditCheckin from "../Checkin/EditCheckin";
@@ -36,8 +39,8 @@ class CheckinContainer extends Component {
     return (
       <div className="container">
         <Switch>
-
           <Route exact path={match.path} component={AllCheckins}/>
+          <Route exact path={`${match.path}/dashboard`} component={CheckinsDashboard}/>
           {/*<Route exact path={`${match.path}/new`} component={NewCheckin}/>*/}
           {/*<Route exact path={`${match.path}/:memberId/edit`} component={EditCheckin}/>*/}
           {/*<Route path={`${match.path}/:memberId`} component={ShowCheckin}/>*/}

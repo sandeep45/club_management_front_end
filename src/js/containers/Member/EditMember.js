@@ -66,7 +66,7 @@ class EditMember extends Component {
         <hr />
         <Button bsStyle="default"
                 onClick={goToMembersIndexPage}>
-          View All Members
+          Members
         </Button>{" "}
       </div>
     );

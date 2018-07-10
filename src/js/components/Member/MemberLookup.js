@@ -22,7 +22,7 @@ class MemberLookup extends Component {
       <div>
         <FormGroup controlId='nameBox'>
           <ControlLabel>Lookup</ControlLabel>
-          <FormControl type='text' placeholder='type member name or email here'
+          <FormControl type='text' placeholder='type name or email here'
                        inputRef={c => this._lookupText = c} value={memberLookup}
                        autoComplete="off"
                        onChange={this.lookupTextChanged }/>

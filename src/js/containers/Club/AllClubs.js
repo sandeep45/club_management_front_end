@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
 import * as actions from '../../action_creators';
 import * as reducers from '../../reducers'
 
@@ -36,7 +35,7 @@ class AllClubs extends Component {
 
   _init = () => {
     this.props.getClubs();
-    document.title = `All Clubs`;
+    document.title = `Clubs`;
   };
 
   render() {
@@ -44,7 +43,7 @@ class AllClubs extends Component {
     return (
       <div>
         <PageHeader>
-          All Clubs
+          Clubs
           <small> / select one</small>
           <Button bsStyle='primary' style={{float:'right'}}
                   onClick={goToPage.bind(this, "/clubs/new")}>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import {Table, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+import Capitalize from 'capitalize'
 
 class ClubTable extends Component {
   constructor(props) {
@@ -24,7 +25,6 @@ class ClubTable extends Component {
         <Table striped bordered hover>
           <thead>
             <tr>
-              <th>#</th>
               <th>Name</th>
               <th>Keyword</th>
               <th>Actions</th>
@@ -34,13 +34,12 @@ class ClubTable extends Component {
             {clubs.map(club => {
               return (
                 <tr key={club.id}>
-                  <td>{club.id}</td>
-                  <td>{club.name}</td>
+                  <td>{club.name ? Capitalize(club.name) : ''}</td>
                   <td>{club.keyword}</td>
                   <td>
-                    <Link to={`/clubs/${club.id}`}>Show</Link>{" | "}
                     <Link to={`/clubs/${club.id}/edit`}>Edit</Link>{" | "}
-                    <Link to={`/clubs/${club.id}/members`}>View Members</Link>{" | "}
+                    <Link to={`/clubs/${club.id}/members`}>Members</Link>{" | "}
+                    <Link to={`/clubs/${club.id}/checkins`}>Checkins</Link>{" | "}
                     <Link to={`/clubs/${club.id}/checkins/dashboard`}>Checkins Dashboard</Link>{" | "}
                   </td>
                 </tr>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import {Table, FormGroup, HelpBlock, FormControl, ControlLabel, Button, Form, InputGroup, DropdownButton, MenuItem} from 'react-bootstrap'
 import QrCodeScanningModal from "../Generic/QrCodeScanningModal";
+import PhoneFormatter from 'phone-formatter'
 
 
 class MemberForm extends Component {
@@ -28,6 +29,7 @@ class MemberForm extends Component {
       full_time: '',
       phone_number: '',
       qr_code_number: '',
+      rating: '',
     }
   };
 
@@ -57,7 +59,7 @@ class MemberForm extends Component {
                          onChange={this._emailChanged}/>
           </FormGroup>
           <FormGroup controlId='fullTimeBox'>
-            <ControlLabel>Membership Type</ControlLabel>
+            <ControlLabel>Status</ControlLabel>
             <select value={member.full_time} onChange={this._fullTimeChanged}
                     ref={c => this._fullTimeInput= c}
                     style={{marginLeft: 10}}
@@ -67,10 +69,17 @@ class MemberForm extends Component {
             </select>
           </FormGroup>
           <FormGroup controlId='phoneNumberBox'>
-            <ControlLabel>Phone Number</ControlLabel>
-            <FormControl type='text' placeholder='1231231234'
-                         inputRef={c => this._phoneNumberInput = c} value={member.phone_number}
+            <ControlLabel>Phone #</ControlLabel>
+            <FormControl type='text' placeholder='123-123-1234'
+                         inputRef={c => this._phoneNumberInput = c}
+                         value={member.phone_number}
                          onChange={this._phoneNumberChanged} />
+          </FormGroup>
+          <FormGroup controlId='ratingBox'>
+            <ControlLabel>Rating</ControlLabel>
+            <FormControl type='text' placeholder='1500'
+                         inputRef={c => this._ratingInput = c} value={member.rating}
+                         onChange={this._ratingChanged} />
           </FormGroup>
           <FormGroup controlId='qrCodeNumberBox'>
             <ControlLabel>QR Code Number</ControlLabel>
@@ -117,6 +126,11 @@ class MemberForm extends Component {
     this.setState({member});
   };
 
+  _ratingChanged = e => {
+    const member = {...this.state.member, rating: e.target.value};
+    this.setState({member});
+  };
+
   _qrCodeNumberChangedViaScan = num => {
     const member = {...this.state.member, qr_code_number: num};
     this.setState({member});
@@ -130,8 +144,9 @@ class MemberForm extends Component {
     formAction({
       name: this._nameInput.value,
       email: this._emailInput.value,
-      phone_number: this._phoneNumberInput.value,
+      phone_number: this._phoneNumberInput.value ? PhoneFormatter.normalize(this._phoneNumberInput.value) : '',
       qr_code_number: this._qrCodeNumberInput.value,
+      rating: this._ratingInput.value,
       full_time: this._fullTimeInput.value,
     }).then(
       response => {

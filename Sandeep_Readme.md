@@ -719,3 +719,6 @@ when backend deletes a checkin we need to replace all checkins with new ones - D
 done by doing replaceEntity in state than merge state
 but now we have clubs which have members but the members have been removed as they didnt check in today
 so when looping over members i am removing the null items
+
+async await
+
