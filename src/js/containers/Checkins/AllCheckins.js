@@ -8,6 +8,8 @@ import * as reducers from '../../reducers'
 import CheckinTable from '../../components/Checkin/CheckinTable'
 import {PageHeader, Button} from 'react-bootstrap'
 import { push } from 'react-router-redux'
+import { Calendar } from 'react-date-range';
+import { OverlayTrigger, Popover, Tooltip } from "react-bootstrap"
 
 const mapStateToProps = (state, ownProps) => {
   const {match} = ownProps;
@@ -46,25 +48,45 @@ class AllCheckins extends Component {
 
   _init = () => {
     this.props.getCheckins();
-    document.title = `All Checkins`;
+    document.title = `Checkins`;
   };
 
   render() {
     const {clubId, memberId, goToNewCheckinsPage, goToAllClubs, goToAllMembers} = this.props;
     return (
       <div>
-        <PageHeader>All Checkins <small> / of member - {memberId} </small></PageHeader>
+        <PageHeader>
+          Checkins
+          <small> / of member - {memberId} </small>
+          <OverlayTrigger trigger="click" rootClose placement="bottom" overlay={
+            <Popover id="popover-positioned-bottom"
+              bsClass="popover"
+              className="calendar">
+                <Calendar
+                  onInit={this._handleCalendar}
+                  onChange={this._handleCalendar}
+                />
+              </Popover>}>
+                <Button bsStyle="warning" style={{float: 'right'}}>
+                  Calendar
+                </Button>
+          </OverlayTrigger>
+        </PageHeader>
         <CheckinTable {...this.props} />
         <hr />
         <Button bsStyle="default" onClick={goToAllMembers}>
-          View All Members
+          Members
         </Button>{" "}
         <Button bsStyle="default" onClick={goToAllClubs}>
-          View All Clubs
+          Clubs
         </Button>{" "}
       </div>
     );
   };
+
+  _handleCalendar = (date) => {
+    console.log(date);
+  }
 };
 
 AllCheckins = connect(mapStateToProps, mapDispatchToProps)(AllCheckins);

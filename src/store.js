@@ -1,5 +1,5 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
+import {createStore, applyMiddleware, compose} from 'redux'
+import {routerMiddleware} from 'react-router-redux'
 import thunk from 'redux-thunk'
 // import createHistory from 'history/createBrowserHistory'
 import createHashHistory from 'history/createHashHistory'
@@ -10,10 +10,8 @@ export const history = createHashHistory();
 
 const initialState = {};
 const enhancers = [];
-const middleware = [
-  thunk,
-  routerMiddleware(history)
-];
+const middleware = [thunk,
+  routerMiddleware(history)];
 
 if (process.env.NODE_ENV === 'development') {
   const devToolsExtension = window.devToolsExtension;

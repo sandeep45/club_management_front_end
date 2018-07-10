@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import Capitalize from 'capitalize'
 
 import * as actions from '../../action_creators';
 import * as reducers from '../../reducers'
@@ -14,6 +15,7 @@ import MemberLookup from "../../components/Member/MemberLookup";
 const mapStateToProps = (state, ownProps) => {
   const match = ownProps.match;
   const clubId = ownProps.match.params.clubId;
+  const club = reducers.getClubFromIdInUrl(state, ownProps);
   let membersArray = reducers.getFilteredMembersArray(state, ownProps);
   const searchFields = reducers.getSearchFields(state, ownProps);
 
@@ -21,6 +23,7 @@ const mapStateToProps = (state, ownProps) => {
     match,
     members:
     membersArray,
+    club,
     clubId,
     searchFields,
   };
@@ -50,23 +53,27 @@ class AllMembers extends Component {
 
   _init = () => {
     this.props.getMembers();
-    document.title = `All Members`;
+    document.title = `Members`;
   };
 
   render() {
-    const {clubId, goToNewMembersPage, goToAllClubs} = this.props;
+    const {club, clubId, goToNewMembersPage, goToAllClubs} = this.props;
     return (
       <div>
-        <PageHeader>All Members <small> / of club - {clubId} </small></PageHeader>
+        <PageHeader>
+          Members
+          <small> / of club - {club.name ? Capitalize(club.name) : ''} </small>
+          <Button bsStyle="primary" onClick={goToNewMembersPage} style={{float:'right'}}>
+            Create New Member
+          </Button>
+        </PageHeader>
+
         <MemberLookup {...this.props}  />
         <MemberTable {...this.props} />
-        <hr />
-        <Button bsStyle="primary" onClick={goToNewMembersPage}>
-          Create New Member
-        </Button>{" "}
+
         <Button bsStyle="default" onClick={goToAllClubs}>
-          View All Clubs
-        </Button>{" "}
+          Clubs
+        </Button>
       </div>
     );
   };

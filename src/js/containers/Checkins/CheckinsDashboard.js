@@ -10,13 +10,16 @@ import CheckinTable from '../../components/Checkin/CheckinTable'
 import { bindActionCreators } from 'redux'
 import {push} from "react-router-redux";
 import CheckinActivityTable from "../../components/CheckinActivity/CheckinActivityTable";
+import Capitalize from "capitalize";
 
 const mapStateToProps = (state, ownProps) => {
   const clubId = ownProps.match.params.clubId;
+  const club = reducers.getClubFromIdInUrl(state, ownProps);
   const todaysCheckins = reducers.getTodaysCheckinsArrayFromClubInUrl(state, ownProps);
   const membersHash = reducers.getMembersHash(state, ownProps);
   const checkinActivity = reducers.getCheckinActivity(state, ownProps);
   return {
+    club,
     clubId,
     todaysCheckins,
     membersHash,
@@ -52,16 +55,16 @@ class CheckinsDashboard extends Component {
 
 
   render() {
-    const {clubId, todaysCheckins, membersHash, getTodaysCheckins,
+    const {club, clubId, todaysCheckins, membersHash, getTodaysCheckins,
       removeCheckin, createCheckinFromQrCode, checkinActivity} = this.props;
     return (
       <div>
         <PageHeader>
-          Checkins Dashboard
-          <small> / of club - {clubId} </small>
+          Checkin's
+          <small> / of club - {club.name ? Capitalize(club.name) : ''} </small>
           <Button bsStyle="primary" style={{float:'right'}}
                   onClick={getTodaysCheckins} >
-            Reload Checkins
+            Reload Checkin's
           </Button>
         </PageHeader>
         <Grid>

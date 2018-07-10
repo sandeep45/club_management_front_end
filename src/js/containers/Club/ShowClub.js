@@ -73,10 +73,10 @@ class ShowClub extends Component {
         Delete this Club!
       </Button>{" "}
       <Link className="btn btn-primary" to={`${match.url}/members`}>
-        View Members
+        Members
       </Link>{" "}
       <Link className="btn btn-default" to={`/clubs`}>
-        View All Clubs
+        Clubs
       </Link>
       <ConfirmationModal visible={this.state.showModal}
                          closeModal={() => this.setState({showModal: false})}

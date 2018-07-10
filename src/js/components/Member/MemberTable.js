@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Table, Bootstrap, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import NotificationModal from "../Generic/NotificationModal";
+import PhoneFormatter from 'phone-formatter'
 
 class MemberTable extends Component {
   constructor(props) {
@@ -30,15 +31,17 @@ class MemberTable extends Component {
     const {members, match, searchFields} = this.props;
     const {showCheckinNotificationModal, checkedInMember, checkinResponseStatusCode} = this.state;
     return (
+      <div>
+        <h4>Total Members - {members.length}</h4>
         <Table striped borderedhover>
           <thead>
             <tr>
-              <th>#</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Membership Type</th>
-              <th>Phone Number</th>
-              <th>QR Code Number</th>
+              <th>Status</th>
+              <th>Phone #</th>
+              <th>QR Code</th>
+              <th>Rating</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -46,19 +49,19 @@ class MemberTable extends Component {
             {members.map(member => {
               return (
                 <tr key={member.id}>
-                  <td>{member.id}</td>
                   <td>{member.name}</td>
                   <td>{member.email}</td>
                   <td>{member.full_time == true ? "Full Time" : "Part Time"}</td>
-                  <td>{member.phone_number}</td>
+                  <td>{member.phone_number ? PhoneFormatter.format(member.phone_number, "(NNN) NNN-NNNN") : ''}</td>
                   <td>{member.qr_code_number}</td>
+                  <td>{member.rating}</td>
                   <td>
-                    <Link to={`${match.url}/${member.id}`}>Show</Link>{" | "}
                     <Link to={`${match.url}/${member.id}/edit`}>Edit</Link>{" | "}
-                    <Link to={`${match.url}/${member.id}/checkins`}>View Checkins</Link>{" | "}
-                    <Button onClick={this._createCheckin.bind(this, member)}  bsStyle="success">
-                      Do Check-in
-                    </Button>
+                    <Link to={`${match.url}/${member.id}/checkins`}>Checkins</Link>{" | "}
+                    <a href="javascript:void(0);"
+                       onClick={this._createCheckin.bind(this, member)}>
+                        Do Check-in
+                    </a>
                   </td>
                 </tr>
               );
@@ -72,6 +75,7 @@ class MemberTable extends Component {
             <p>{ (checkinResponseStatusCode == "201") && (checkedInMember.full_time == false) ? "Please make Payment" : "No Payment due"}</p>
           </NotificationModal>
         </Table>
+      </div>
     );
   };
 

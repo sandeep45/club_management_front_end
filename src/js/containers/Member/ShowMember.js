@@ -69,7 +69,7 @@ class ShowMember extends Component {
           <ListGroupItem>Id: {memberId}</ListGroupItem>
           <ListGroupItem>name: {member.name} </ListGroupItem>
           <ListGroupItem>email: {member.email} </ListGroupItem>
-          <ListGroupItem>Phone Number: {member.phone_number} </ListGroupItem>
+          <ListGroupItem>Phone #: {member.phone_number} </ListGroupItem>
           <ListGroupItem>QR Code Number: {member.qr_code_number} </ListGroupItem>
           <ListGroupItem>Full Time: {member.full_time == true ? "Full-Time" : "Part-Time"} </ListGroupItem>
         </ListGroup>
@@ -80,11 +80,11 @@ class ShowMember extends Component {
         Delete this Member!
       </Button>{" "}
       <Link className="btn btn-primary" to={`${match.url}/checkins`}>
-        View Checkins
+        Checkins
       </Link>{" "}
       <Button bsStyle="default"
               onClick={goToMembersIndexPage}>
-        View All Members
+        Members
       </Button>{" "}
       <ConfirmationModal visible={this.state.showModal}
                          closeModal={() => this.setState({showModal: false})}
