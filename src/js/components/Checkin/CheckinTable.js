@@ -31,6 +31,8 @@ class CheckinTable extends Component {
     console.log("membersHash: ", membersHash);
     console.log("checkins: ", checkins);
     return (
+      <div>
+        <h4>Total Checkins - {checkins.length}</h4>
         <Table striped borderedhover responsive>
           <thead>
             <tr>
@@ -74,6 +76,7 @@ class CheckinTable extends Component {
                              closeModal={() => this.setState({showDeleteConfirmationModal: false})}
                              actionButtonClicked={this._deleteCheckin}/>
         </Table>
+      </div>
     );
   };
 

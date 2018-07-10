@@ -3,13 +3,17 @@ import {connect} from 'react-redux'
 import { Route, Link, Switch } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { push } from 'react-router-redux'
-import CheckinsDashboard from "../Checkins/CheckinsDashboard";
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 import * as actions from '../../action_creators';
 import * as reducers from '../../reducers';
 
 import NotFound from "../../components/Generic/NotFound";
 import AllCheckins from "./AllCheckins";
+import CheckinsDashboard from "../Checkins/CheckinsDashboard";
+
 import AllMembers from "../Member/AllMembers";
 import NewMember from "../Member/NewMember";
 // import ShowCheckin from "./ShowCheckin";

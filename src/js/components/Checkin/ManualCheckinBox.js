@@ -30,6 +30,8 @@ class ManualCheckinBox extends Component {
              onChange={this._handleInput}
              onKeyPress={this._handleEnter}
              value={qrCode}
+             placeholder="Place Cursor here for Scanner to Work!"
+             style={{width: '100%', padding: 10, margin: 10}}
              ref={c => this._input = c}>
       </input>
     );

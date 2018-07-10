@@ -10,6 +10,7 @@ import AuthenticationContainer from "../Authentication/AuthenticationContainer.j
 import ClubContainer from "../Club/ClubContainer.js";
 import NotFound from "../../components/Generic/NotFound";
 import Home from "../Home/HomeContainer";
+import { ToastContainer } from 'react-toastify';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -46,6 +47,7 @@ class App extends Component {
           <Route path="/clubs" component={ClubContainer} />
           <Route component={NotFound}/>
         </Switch>
+        <ToastContainer />
       </div>
     );
   };

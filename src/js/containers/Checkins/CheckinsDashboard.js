@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {PageHeader, Button, Grid, Row, Col} from 'react-bootstrap'
-
 import * as actions from '../../action_creators';
 import * as reducers from '../../reducers';
 
@@ -68,25 +67,10 @@ class CheckinsDashboard extends Component {
             Reload Checkin's
           </Button>
         </PageHeader>
-        <Grid>
-          <Row>
-            <Col xs={12} md={10}>
-              <CheckinTable checkins={todaysCheckins} membersHash={membersHash}
-                            clubId={clubId}
-                            removeCheckin={removeCheckin}/>
-            </Col>
-            <Col xs={12} md={2}>
-
-              <ManualCheckinBox
-                updateQrCode={createCheckinFromQrCode} />
-
-              <CameraScanner
-                updateQrCode={createCheckinFromQrCode} />
-
-              <CheckinActivityTable checkinActivity={checkinActivity} />
-            </Col>
-          </Row>
-        </Grid>
+        <ManualCheckinBox updateQrCode={createCheckinFromQrCode} />
+        <CheckinTable checkins={todaysCheckins} membersHash={membersHash}
+                      clubId={clubId}
+                      removeCheckin={removeCheckin}/>
       </div>
     );
   }
