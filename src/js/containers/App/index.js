@@ -47,7 +47,8 @@ class App extends Component {
           <Route path="/clubs" component={ClubContainer} />
           <Route component={NotFound}/>
         </Switch>
-        <ToastContainer />
+        <ToastContainer position="top-right" autoClose={30000} newestOnTop
+                        closeOnClick/>
       </div>
     );
   };

@@ -57,6 +57,7 @@ class MemberTable extends Component {
                   <td>{member.rating}</td>
                   <td>
                     <Link to={`${match.url}/${member.id}/edit`}>Edit</Link>{" | "}
+                    <Link to={`${match.url}/${member.id}`}>Show</Link>{" | "}
                     <Link to={`${match.url}/${member.id}/checkins`}>Checkins</Link>{" | "}
                     <a href="javascript:void(0);"
                        onClick={this._createCheckin.bind(this, member)}>
