@@ -3,6 +3,7 @@ import entities, * as fromEntities from './entities'
 // import club, * as fromClub from './club'
 import count, * as fromCount from './count'
 import checkinActivity, * as fromCheckinActivity from './checkinActivity'
+import checkinDate, * as fromCheckinDate from './checkinDate'
 import search, * as fromSearch from './searchFields'
 import { routerReducer } from 'react-router-redux'
 import { createSelector } from 'reselect'
@@ -14,6 +15,7 @@ const myRootReducer = combineReducers({
   count,
   // club,
   checkinActivity,
+  checkinDate,
   search
 });
 
@@ -44,6 +46,8 @@ export const getAuthEmail = (state, ownProps) => fromEntities.getAuthEmail(state
 export const getCheckinActivity = (state, ownProps) => fromCheckinActivity.getCheckinActivity(state.checkinActivity, ownProps);
 
 export const getSearchFields = (state, ownProps) => fromSearch.getSearchFields(state.search, ownProps);
+
+export const getCheckinDate = (state, ownProps) => fromCheckinDate.getCheckinDate(state.checkinDate, ownProps);
 
 export const getFilteredMembersArray = createSelector(
   getMembersArrayFromClubInUrl, getSearchFields,

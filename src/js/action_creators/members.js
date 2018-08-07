@@ -3,6 +3,7 @@ import * as mySchema from '../config/mySchema'
 import { normalize } from 'normalizr';
 import K from '../constants/'
 import {redirectOnUnAuthorized} from "./helper";
+import * as reducers from '../reducers';
 
 export const getMembers = (clubId) => dispatch => {
   console.log("inside getMembers");
@@ -31,6 +32,26 @@ export const getMembersCheckedInToday = (clubId) => dispatch => {
       }
       dispatch({
         type: K.REPLACE_ENTITY_ITEM,
+        payload: normalizedData
+      })
+    }
+  ).catch(redirectOnUnAuthorized.bind(this, dispatch))
+};
+
+export const getMembersCheckedInOndate = (clubId, ) => (dispatch, getState) => {
+  console.log("inside getMembersCheckedInOndate");
+  const state = getState();
+  const selectedDate = reducers.getCheckinDate(state, null);
+  WebUtil.getMembersCheckedInOndate(clubId, selectedDate).then(
+    response => {
+      console.log("getMembersCheckedInOndate response: ", response);
+      const normalizedData = normalize(response.data, [mySchema.member]);
+      console.log("getMembersCheckedInOndate normalized data: ", normalizedData);
+      if(normalizedData && normalizedData.entities && !normalizedData.entities.members){
+        normalizedData.entities.members = {};
+      }
+      dispatch({
+        type: K.RECEIVE_ENTITY_ITEM,
         payload: normalizedData
       })
     }

@@ -11,6 +11,7 @@ const appConstants = keyMirror({
   DELETE_CLUB_ENTITY: null,
   ADD_CHECKIN_ACTIVITY: null,
   UPDATE_SEARCH_FIELDS: null,
+  SET_CHECKIN_DATE: null,
 });
 
 export default appConstants;
