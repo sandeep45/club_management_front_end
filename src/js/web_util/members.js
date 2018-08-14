@@ -40,7 +40,18 @@ export const getMembers = (clubId) => {
 };
 
 export const getMembersCheckedInToday = (clubId) => {
-  return axios.get(`/clubs/${clubId}/members/checked_in_today`, {
+   return axios.get(`/clubs/${clubId}/members/checked_in_today`, {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+};
+
+export const getMembersCheckedInOndate = (clubId, date) => {
+  return axios.get(`/clubs/${clubId}/members/checked_in_on_date`, {
+    params: {
+      date,
+    },
     headers: {
       Accept: "application/json"
     }

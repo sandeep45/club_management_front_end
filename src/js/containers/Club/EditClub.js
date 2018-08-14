@@ -62,7 +62,7 @@ class EditClub extends Component {
         <ClubForm {...this.props} />
         <hr />
         <Link className="btn btn-default" to={`/clubs`}>
-          View All Clubs
+          Clubs
         </Link>{" "}
       </div>
     );

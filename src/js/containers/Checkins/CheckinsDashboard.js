@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {PageHeader, Button, Grid, Row, Col} from 'react-bootstrap'
-
 import * as actions from '../../action_creators';
 import * as reducers from '../../reducers';
 
@@ -11,13 +10,16 @@ import { bindActionCreators } from 'redux'
 import {push} from "react-router-redux";
 import CheckinActivityTable from "../../components/CheckinActivity/CheckinActivityTable";
 import ManualCheckinBox from "../../components/Checkin/ManualCheckinBox";
+import Capitalize from "capitalize";
 
 const mapStateToProps = (state, ownProps) => {
   const clubId = ownProps.match.params.clubId;
+  const club = reducers.getClubFromIdInUrl(state, ownProps);
   const todaysCheckins = reducers.getTodaysCheckinsArrayFromClubInUrl(state, ownProps);
   const membersHash = reducers.getMembersHash(state, ownProps);
   const checkinActivity = reducers.getCheckinActivity(state, ownProps);
   return {
+    club,
     clubId,
     todaysCheckins,
     membersHash,
@@ -53,37 +55,22 @@ class CheckinsDashboard extends Component {
 
 
   render() {
-    const {clubId, todaysCheckins, membersHash, getTodaysCheckins,
+    const {club, clubId, todaysCheckins, membersHash, getTodaysCheckins,
       removeCheckin, createCheckinFromQrCode, checkinActivity} = this.props;
     return (
       <div>
         <PageHeader>
-          Checkins Dashboard
-          <small> / of club - {clubId} </small>
+          Checkin's
+          <small> / of club - {club.name ? Capitalize(club.name) : ''} </small>
           <Button bsStyle="primary" style={{float:'right'}}
                   onClick={getTodaysCheckins} >
-            Reload Checkins
+            Reload Checkin's
           </Button>
         </PageHeader>
-        <Grid>
-          <Row>
-            <Col xs={12} md={10}>
-              <CheckinTable checkins={todaysCheckins} membersHash={membersHash}
-                            clubId={clubId}
-                            removeCheckin={removeCheckin}/>
-            </Col>
-            <Col xs={12} md={2}>
-
-              <ManualCheckinBox
-                updateQrCode={createCheckinFromQrCode} />
-
-              <CameraScanner
-                updateQrCode={createCheckinFromQrCode} />
-
-              <CheckinActivityTable checkinActivity={checkinActivity} />
-            </Col>
-          </Row>
-        </Grid>
+        <ManualCheckinBox updateQrCode={createCheckinFromQrCode} />
+        <CheckinTable checkins={todaysCheckins} membersHash={membersHash}
+                      clubId={clubId}
+                      removeCheckin={removeCheckin}/>
       </div>
     );
   }

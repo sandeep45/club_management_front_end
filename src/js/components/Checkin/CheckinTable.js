@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Table, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import ConfirmationModal from "../Generic/ConfirmationModal";
+import DateFormat from "dateformat";
 
 class CheckinTable extends Component {
   constructor(props) {
@@ -30,19 +31,18 @@ class CheckinTable extends Component {
     console.log("membersHash: ", membersHash);
     console.log("checkins: ", checkins);
     return (
+      <div>
+        <h4>Total Checkins - {checkins.length}</h4>
         <Table striped borderedhover responsive>
           <thead>
             <tr>
-              <th>Checkin Id</th>
-              <th>Member Id</th>
-              <th>Member Name</th>
-              <th>Member Email</th>
-              <th>Member Rating</th>
-              <th>Member USATT Number</th>
-              <th>Member Membership Type</th>
-              <th>Member QR Code Number</th>
-              <th>Checkin Created At</th>
-              <th>Checkin Updated At</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Rating</th>
+              <th>USATT</th>
+              <th>Status</th>
+              <th>QR Code</th>
+              <th>Checkin</th>
               <th></th>
             </tr>
           </thead>
@@ -50,8 +50,6 @@ class CheckinTable extends Component {
             {checkins.map(checkin => {
               return (
                 <tr key={checkin.id}>
-                  <td>{checkin.id}</td>
-                  <td>{checkin.member_id}</td>
                   <td>
                     {membersHash[checkin.member_id].name}
                   </td>
@@ -70,8 +68,7 @@ class CheckinTable extends Component {
                   <td>
                     {membersHash[checkin.member_id].qr_code_number}
                   </td>
-                  <td>{checkin.created_at}</td>
-                  <td>{checkin.updated_at}</td>
+                  <td>{DateFormat(checkin.created_at, "mm-dd-yy h:MM TT")}</td>
                   <td>
                     <Button bsStyle="danger"
                             onClick={this._showDeleteConfirmationModal.bind(this, checkin)}
@@ -87,6 +84,7 @@ class CheckinTable extends Component {
                              closeModal={() => this.setState({showDeleteConfirmationModal: false})}
                              actionButtonClicked={this._deleteCheckin}/>
         </Table>
+      </div>
     );
   };
 

@@ -4,20 +4,25 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
+    "capitalize": "^1.0.0",
+    "dateformat": "^3.0.3",
     "gh-pages": "^1.1.0",
     "history": "^4.7.2",
     "keymirror": "^0.1.1",
     "lodash": "^4.17.4",
     "normalizr": "^3.2.4",
+    "phone-formatter": "0.0.2",
     "prop-types": "^15.6.0",
     "react": "^16.1.1",
     "react-bootstrap": "^0.31.5",
+    "react-date-range": "^0.9.4",
     "react-dom": "^16.1.1",
     "react-redux": "^5.0.6",
     "react-router": "4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.8",
     "react-scripts": "1.0.17",
+    "react-toastify": "^4.1.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1"
@@ -31,7 +36,8 @@
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
-    "moment": "^2.20.1",
-    "redux-devtools-extension": "^2.13.5"
+    "redux-devtools-extension": "^2.13.5",
+    "moment": "^2.22.2",
+    "prettier": "^1.11.1"
   }
 }

@@ -7,6 +7,7 @@ import {lookupMember} from './members';
 import {addCheckinActivity} from './checkinActivity';
 import * as reducers from '../reducers'
 import {speak} from './helper'
+import { toast } from 'react-toastify';
 
 export const getCheckins = (clubId, memberId) => dispatch => {
   console.log("inside getCheckins");
@@ -41,7 +42,8 @@ export const createCheckinFromQrCode = (clubId, qrCodeNumber) => (dispatch, getS
     error => {
       console.error("unable to find member with QR code: ", qrCodeNumber, clubId);
       speak("Member Not Found");
-      dispatch(addCheckinActivity(`Error. Unable to find Member by QR code: ${qrCodeNumber}`));
+      toast.error(`Member Not Found by QR code: ${qrCodeNumber}`);
+      // dispatch(addCheckinActivity(`Error. Unable to find Member by QR code: ${qrCodeNumber}`));
       throw error;
     }
   ).then(
@@ -52,21 +54,24 @@ export const createCheckinFromQrCode = (clubId, qrCodeNumber) => (dispatch, getS
       const member = membersHash[memberId];
       const greeting = `Welcome ${member.name}`;
       if(response.status == 208){
-        let txt = `${greeting}. You are already checked in.`;
-        dispatch(addCheckinActivity(txt));
+        let txt = `${greeting}. You are already checked in`;
+        // dispatch(addCheckinActivity(txt));
         console.log("txt");
         speak(txt);
+        toast.success(txt);
       }else{
         if(member.full_time == true){
           txt = `${greeting}. No fee due as full time member`;
-          dispatch(addCheckinActivity(txt));
+          // dispatch(addCheckinActivity(txt));
           console.log(txt);
           speak(txt);
+          toast.success(`txt`);
         }else{
-          txt = `${greeting}. Payment due as part-time member`;
-          dispatch(addCheckinActivity(txt));
+          txt = `${greeting}. Checkin successful but payment required!`;
+          // dispatch(addCheckinActivity(txt));
           console.log("txt");
           speak(txt);
+          toast.warn(txt);
         }
       }
       return response;

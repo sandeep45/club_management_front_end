@@ -82,11 +82,11 @@ class ShowMember extends Component {
         Delete this Member!
       </Button>{" "}
       <Link className="btn btn-primary" to={`${match.url}/checkins`}>
-        View Checkins
+        Checkins
       </Link>{" "}
       <Button bsStyle="default"
               onClick={goToMembersIndexPage}>
-        View All Members
+        Members
       </Button>{" "}
       <ConfirmationModal visible={this.state.showModal}
                          closeModal={() => this.setState({showModal: false})}

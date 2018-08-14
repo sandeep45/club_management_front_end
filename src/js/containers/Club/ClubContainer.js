@@ -14,7 +14,7 @@ import NewClub from '../Club/NewClub.js'
 import EditClub from '../Club/EditClub.js'
 import SignedInBar from "../TopNavigationBar/TopNavigationBarContainer";
 import MemberContainer from "../Member/MemberContainer";
-import CheckinsDashboard from "../Checkins/CheckinsDashboard";
+import CheckinsContainer from "../Checkins/CheckinsContainer";
 import SecondaryPills from "../TopNavigationBar/SecondaryPills";
 
 
@@ -50,7 +50,7 @@ class ClubContainer extends Component {
           <Route exact path={`${match.url}/new`} component={NewClub}/>
           <Route exact path={`${match.url}/:clubId/edit`} component={EditClub}/>
           <Route path={`${match.url}/:clubId/members`} component={MemberContainer}/>
-          <Route exact path={`${match.url}/:clubId/checkins/dashboard`} component={CheckinsDashboard}/>
+          <Route path={`${match.url}/:clubId/checkins`} component={CheckinsContainer}/>
           <Route exact path={`${match.url}/:clubId`} component={ShowClub}/>
           <Route component={NotFound}/>
         </Switch>
