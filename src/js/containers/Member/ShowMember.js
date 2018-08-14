@@ -69,6 +69,8 @@ class ShowMember extends Component {
           <ListGroupItem>Id: {memberId}</ListGroupItem>
           <ListGroupItem>name: {member.name} </ListGroupItem>
           <ListGroupItem>email: {member.email} </ListGroupItem>
+          <ListGroupItem>USATT Number: {member.usatt_number} </ListGroupItem>
+          <ListGroupItem>League Rating: {member.league_rating} </ListGroupItem>
           <ListGroupItem>Phone Number: {member.phone_number} </ListGroupItem>
           <ListGroupItem>QR Code Number: {member.qr_code_number} </ListGroupItem>
           <ListGroupItem>Full Time: {member.full_time == true ? "Full-Time" : "Part-Time"} </ListGroupItem>

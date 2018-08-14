@@ -28,6 +28,8 @@ class MemberForm extends Component {
       full_time: '',
       phone_number: '',
       qr_code_number: '',
+      league_rating: '',
+      usatt_number: '',
     }
   };
 
@@ -55,6 +57,18 @@ class MemberForm extends Component {
             <FormControl type='text' placeholder='John.Doe@example.com'
                          inputRef={c => this._emailInput = c} value={member.email}
                          onChange={this._emailChanged}/>
+          </FormGroup>
+          <FormGroup controlId='leagueRatingBox'>
+            <ControlLabel>Rating</ControlLabel>
+            <FormControl type='text' placeholder='2500'
+                         inputRef={c => this._leagueRatingInput = c} value={member.leagueRating}
+                         onChange={this._leagueRatingChanged}/>
+          </FormGroup>
+          <FormGroup controlId='usattNumberlBox'>
+            <ControlLabel>USATT Number</ControlLabel>
+            <FormControl type='text' placeholder='12345'
+                         inputRef={c => this._usattNumberInput = c} value={member.usattNumber}
+                         onChange={this._usattNumberChanged}/>
           </FormGroup>
           <FormGroup controlId='fullTimeBox'>
             <ControlLabel>Membership Type</ControlLabel>
@@ -111,7 +125,14 @@ class MemberForm extends Component {
     const member = {...this.state.member, full_time: e.target.value};
     this.setState({member});
   };
-
+  _leagueRatingChanged = e => {
+    const member = {...this.state.member, league_rating: e.target.value};
+    this.setState({member});
+  };
+  _usattNumberChanged = e => {
+    const member = {...this.state.member, usatt_number: e.target.value};
+    this.setState({member});
+  };
   _qrCodeNumberChanged = e => {
     const member = {...this.state.member, qr_code_number: e.target.value};
     this.setState({member});
@@ -133,6 +154,8 @@ class MemberForm extends Component {
       phone_number: this._phoneNumberInput.value,
       qr_code_number: this._qrCodeNumberInput.value,
       full_time: this._fullTimeInput.value,
+      usatt_number: this._usattNumberInput.value,
+      league_rating: this._leagueRatingInput.value,
     }).then(
       response => {
         console.log("form action has been fired. now moving to listing page");

@@ -37,6 +37,8 @@ class CheckinTable extends Component {
               <th>Member Id</th>
               <th>Member Name</th>
               <th>Member Email</th>
+              <th>Member Rating</th>
+              <th>Member USATT Number</th>
               <th>Member Membership Type</th>
               <th>Member QR Code Number</th>
               <th>Checkin Created At</th>
@@ -55,6 +57,12 @@ class CheckinTable extends Component {
                   </td>
                   <td>
                     {membersHash[checkin.member_id].email}
+                  </td>
+                  <td>
+                    {membersHash[checkin.member_id].league_rating}
+                  </td>
+                  <td>
+                    {membersHash[checkin.member_id].usatt_number}
                   </td>
                   <td>
                     {membersHash[checkin.member_id].full_time ? "Full-Time" : "Part-Time"}

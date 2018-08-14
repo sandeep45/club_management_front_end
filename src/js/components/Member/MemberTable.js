@@ -36,6 +36,8 @@ class MemberTable extends Component {
               <th>#</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Rating</th>
+              <th>USATT</th>
               <th>Membership Type</th>
               <th>Phone Number</th>
               <th>QR Code Number</th>
@@ -49,6 +51,8 @@ class MemberTable extends Component {
                   <td>{member.id}</td>
                   <td>{member.name}</td>
                   <td>{member.email}</td>
+                  <td>{member.league_rating}</td>
+                  <td>{member.usatt_number}</td>
                   <td>{member.full_time == true ? "Full Time" : "Part Time"}</td>
                   <td>{member.phone_number}</td>
                   <td>{member.qr_code_number}</td>
