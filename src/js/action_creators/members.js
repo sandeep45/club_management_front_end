@@ -7,7 +7,7 @@ import * as reducers from '../reducers';
 
 export const getMembers = (clubId) => dispatch => {
   console.log("inside getMembers");
-  WebUtil.getMembers(clubId).then(
+  return WebUtil.getMembers(clubId).then(
     response => {
       console.log("getMembers response: ", response);
       const normalizedData = normalize(response.data, [mySchema.member]);
@@ -92,6 +92,13 @@ export const lookupMember = (clubId, lookup_params) => dispatch => {
   ).catch(redirectOnUnAuthorized.bind(this, dispatch))
 };
 
+export const markAllPartTime = (clubId) => dispatch => {
+  console.log("inside markAllPartTime: ", clubId);
+  return WebUtil.markAllPartTime(clubId).catch(
+    redirectOnUnAuthorized.bind(this, dispatch)
+  )
+}
+;
 export const createMember = (clubId, params) => dispatch => {
   console.log("inside createMember: ", params);
   return WebUtil.createMember(clubId, params).then(

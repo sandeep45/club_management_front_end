@@ -31,6 +31,16 @@ export const lookupMember = (clubId, lookup_params) => {
   });
 };
 
+export const markAllPartTime = (clubId) => {
+  return axios.post(`/clubs/${clubId}/members/mark_all_part_time`, {}, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+};
+
+
 export const getMembers = (clubId) => {
   return axios.get(`/clubs/${clubId}/members`, {
     headers: {

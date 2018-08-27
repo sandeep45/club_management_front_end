@@ -11,6 +11,7 @@ import {PageHeader} from 'react-bootstrap'
 import { push } from 'react-router-redux'
 import {Button} from 'react-bootstrap'
 import MemberLookup from "../../components/Member/MemberLookup";
+import ConfirmationModal from '../../components/Generic/ConfirmationModal'
 
 const mapStateToProps = (state, ownProps) => {
   const match = ownProps.match;
@@ -37,13 +38,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     goToNewMembersPage: () => push(`${match.url}/new`),
     goToAllClubs: () => push(`/clubs`),
     createCheckin: (memberId) => actions.createCheckin(clubId, memberId),
-    updateSearchFields: actions.updateSearchFields
+    updateSearchFields: actions.updateSearchFields,
+    markAllPartTime: actions.markAllPartTime.bind(this, clubId),
   }, dispatch);
 };
 
 class AllMembers extends Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+      showModal: false
+    }
   };
 
   componentWillMount(){
@@ -63,9 +68,15 @@ class AllMembers extends Component {
         <PageHeader>
           Members
           <small> / of club - {club.name ? Capitalize(club.name) : ''} </small>
-          <Button bsStyle="primary" onClick={goToNewMembersPage} style={{float:'right'}}>
+          <Button bsStyle="primary" onClick={goToNewMembersPage} style={{float:'right', marginLeft: 10}}>
             Create New Member
           </Button>
+          <Button bsStyle="primary" onClick={() => this.setState({showModal: true})} style={{float:'right'}}>
+            Reset All Members To Part-Time
+          </Button>
+          <ConfirmationModal visible={this.state.showModal}
+                             closeModal={() => this.setState({showModal: false})}
+                             actionButtonClicked={this._markAllPartTime}/>
         </PageHeader>
 
         <MemberLookup {...this.props}  />
@@ -77,6 +88,22 @@ class AllMembers extends Component {
       </div>
     );
   };
+
+  _markAllPartTime = () => {
+    const {markAllPartTime, getMembers} = this.props;
+    markAllPartTime().then(
+      response => {
+        console.log("all members have been marked as part time");
+        return getMembers();
+      }
+    ).then(
+      response => {
+        console.log("all memebers have been fetched again");
+        this.setState({ showModal: false });
+      }
+    )
+  }
+
 };
 
 AllMembers = connect(mapStateToProps, mapDispatchToProps)(AllMembers);
