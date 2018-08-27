@@ -10,7 +10,7 @@ const checkinDate = (state=initalState, action) => {
 
   switch (action.type) {
     case K.SET_CHECKIN_DATE:
-      const newState = moment(action.payload).format('MM-DD-YYYY');
+      const newState = moment(action.payload, 'MM-DD-YYYY').format('MM-DD-YYYY');
       return newState;
     default:
       return state;

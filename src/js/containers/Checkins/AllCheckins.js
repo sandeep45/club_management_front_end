@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const {match} = ownProps;
   const {clubId, memberId} = match.params;
   return bindActionCreators({
-    getMembersCheckedInOndate: actions.getMembersCheckedInOndate.bind(this, clubId), // pass in selected DATE
+    getMembersCheckedInOndate: actions.getMembersCheckedInOndate.bind(this, clubId),
     removeCheckin: actions.removeCheckin,
     goToAllClubs: () => push(`/clubs`),
     goToAllMembers: () => push(`/clubs/${clubId}/members`),

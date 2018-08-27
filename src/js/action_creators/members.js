@@ -38,7 +38,7 @@ export const getMembersCheckedInToday = (clubId) => dispatch => {
   ).catch(redirectOnUnAuthorized.bind(this, dispatch))
 };
 
-export const getMembersCheckedInOndate = (clubId, ) => (dispatch, getState) => {
+export const getMembersCheckedInOndate = (clubId) => (dispatch, getState) => {
   console.log("inside getMembersCheckedInOndate");
   const state = getState();
   const selectedDate = reducers.getCheckinDate(state, null);
