@@ -62,13 +62,13 @@ class MemberForm extends Component {
           <FormGroup controlId='leagueRatingBox'>
             <ControlLabel>Rating</ControlLabel>
             <FormControl type='text' placeholder='2500'
-                         inputRef={c => this._leagueRatingInput = c} value={member.leagueRating}
+                         inputRef={c => this._leagueRatingInput = c} value={member.league_rating}
                          onChange={this._leagueRatingChanged}/>
           </FormGroup>
           <FormGroup controlId='usattNumberlBox'>
             <ControlLabel>USATT Number</ControlLabel>
             <FormControl type='text' placeholder='12345'
-                         inputRef={c => this._usattNumberInput = c} value={member.usattNumber}
+                         inputRef={c => this._usattNumberInput = c} value={member.usatt_number}
                          onChange={this._usattNumberChanged}/>
           </FormGroup>
           <FormGroup controlId='fullTimeBox'>

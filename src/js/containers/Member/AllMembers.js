@@ -73,12 +73,10 @@ class AllMembers extends Component {
           <Button bsStyle="primary" onClick={goToNewMembersPage} style={{float:'right', marginLeft: 10}}>
             New Member
           </Button>
-          <Button bsStyle="primary" onClick={() => this.setState({showRatingsModal: true})} style={{float:'right', marginLeft: 10}}>
+          <Button bsStyle="success" onClick={() => this.setState({showRatingsModal: true})} style={{float:'right', marginLeft: 10}}>
             Download Ratings
           </Button>
-          <Button bsStyle="primary" onClick={() => this.setState({showModal: true})} style={{float:'right'}}>
-            Reset to Part-Time
-          </Button>
+
           <ConfirmationModal visible={this.state.showModal}
                              closeModal={() => this.setState({showModal: false})}
                              actionButtonClicked={this._markAllPartTime}/>
@@ -90,6 +88,9 @@ class AllMembers extends Component {
         <MemberLookup {...this.props}  />
         <MemberTable {...this.props} />
 
+        <Button bsStyle="danger" onClick={() => this.setState({showModal: true})} style={{marginRight: 10}}>
+          Reset to Part-Time
+        </Button>
         <Button bsStyle="default" onClick={goToAllClubs}>
           Clubs
         </Button>
