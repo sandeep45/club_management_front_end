@@ -40,6 +40,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     createCheckin: (memberId) => actions.createCheckin(clubId, memberId),
     updateSearchFields: actions.updateSearchFields,
     markAllPartTime: actions.markAllPartTime.bind(this, clubId),
+    downloadRatings: actions.downloadRatings.bind(this, clubId),
   }, dispatch);
 };
 
@@ -47,6 +48,7 @@ class AllMembers extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showRatingsModal: false,
       showModal: false
     }
   };
@@ -67,16 +69,22 @@ class AllMembers extends Component {
       <div>
         <PageHeader>
           Members
-          <small> / of club - {club.name ? Capitalize(club.name) : ''} </small>
+          <small> / {club.name ? Capitalize(club.name) : ''} </small>
           <Button bsStyle="primary" onClick={goToNewMembersPage} style={{float:'right', marginLeft: 10}}>
-            Create New Member
+            New Member
+          </Button>
+          <Button bsStyle="primary" onClick={() => this.setState({showRatingsModal: true})} style={{float:'right', marginLeft: 10}}>
+            Download Ratings
           </Button>
           <Button bsStyle="primary" onClick={() => this.setState({showModal: true})} style={{float:'right'}}>
-            Reset All Members To Part-Time
+            Reset to Part-Time
           </Button>
           <ConfirmationModal visible={this.state.showModal}
                              closeModal={() => this.setState({showModal: false})}
                              actionButtonClicked={this._markAllPartTime}/>
+          <ConfirmationModal visible={this.state.showRatingsModal}
+                             closeModal={() => this.setState({showRatingsModal: false})}
+                             actionButtonClicked={this._downloadRatings}/>
         </PageHeader>
 
         <MemberLookup {...this.props}  />
@@ -102,7 +110,16 @@ class AllMembers extends Component {
         this.setState({ showModal: false });
       }
     )
-  }
+  };
+
+  _downloadRatings = () => {
+    const {downloadRatings} = this.props;
+    downloadRatings().then(
+      response => {
+        this.setState({ showRatingsModal: false });
+      }
+    )
+  };
 
 };
 

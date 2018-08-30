@@ -88,12 +88,6 @@ class MemberForm extends Component {
                          value={member.phone_number}
                          onChange={this._phoneNumberChanged} />
           </FormGroup>
-          <FormGroup controlId='ratingBox'>
-            <ControlLabel>Rating</ControlLabel>
-            <FormControl type='text' placeholder='1500'
-                         inputRef={c => this._ratingInput = c} value={member.rating}
-                         onChange={this._ratingChanged} />
-          </FormGroup>
           <FormGroup controlId='qrCodeNumberBox'>
             <ControlLabel>QR Code Number</ControlLabel>
             <InputGroup>
@@ -146,11 +140,6 @@ class MemberForm extends Component {
     this.setState({member});
   };
 
-  _ratingChanged = e => {
-    const member = {...this.state.member, rating: e.target.value};
-    this.setState({member});
-  };
-
   _qrCodeNumberChangedViaScan = num => {
     const member = {...this.state.member, qr_code_number: num};
     this.setState({member});
@@ -166,7 +155,6 @@ class MemberForm extends Component {
       email: this._emailInput.value,
       phone_number: this._phoneNumberInput.value ? PhoneFormatter.normalize(this._phoneNumberInput.value) : '',
       qr_code_number: this._qrCodeNumberInput.value,
-      rating: this._ratingInput.value,
       full_time: this._fullTimeInput.value,
       usatt_number: this._usattNumberInput.value,
       league_rating: this._leagueRatingInput.value,

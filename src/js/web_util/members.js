@@ -40,6 +40,14 @@ export const markAllPartTime = (clubId) => {
   });
 };
 
+export const downloadRatings = (clubId) => {
+  return axios.post(`/clubs/${clubId}/members/update_ratings`, {}, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+};
 
 export const getMembers = (clubId) => {
   return axios.get(`/clubs/${clubId}/members`, {

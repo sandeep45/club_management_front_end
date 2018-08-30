@@ -97,8 +97,23 @@ export const markAllPartTime = (clubId) => dispatch => {
   return WebUtil.markAllPartTime(clubId).catch(
     redirectOnUnAuthorized.bind(this, dispatch)
   )
-}
-;
+};
+
+export const downloadRatings = (clubId) => dispatch => {
+  console.log("inside downloadRatings: ", clubId);
+  return WebUtil.downloadRatings(clubId).then(
+    response => {
+      console.log("downloadRatings response: ", response);
+      const normalizedData = normalize(response.data, [mySchema.member]);
+      console.log("downloadRatings normalized data: ", normalizedData);
+      dispatch({
+        type: K.RECEIVE_ENTITY_ITEM,
+        payload: normalizedData
+      })
+    }
+  ).catch(redirectOnUnAuthorized.bind(this, dispatch))
+};
+
 export const createMember = (clubId, params) => dispatch => {
   console.log("inside createMember: ", params);
   return WebUtil.createMember(clubId, params).then(
