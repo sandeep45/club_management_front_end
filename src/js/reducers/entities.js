@@ -156,6 +156,17 @@ export const getTodaysCheckinsArrayFromClubInUrl = (state, ownProps) => {
   return todayCheckins;
 };
 
+export const getCheckedInMembersFromClubInUrl = (state, ownProps) => {
+  const allCheckinsOfClub = getCheckinsArrayFromClubInUrl(state, ownProps);
+  const todayCheckins = allCheckinsOfClub.filter(
+    checkin => moment(checkin.created_at || null).isSame(moment(), 'day')
+  );
+  const members = getMembersHash(state, ownProps);
+  const checkedInMembers = todayCheckins.map(checkin => members[checkin.member_id]);
+  debugger;
+  return checkedInMembers;
+};
+
 export const getAuthEmail = (state) => {
   const ownersHash = getOwnersHash(state);
   const ownerId = Object.keys(ownersHash)[0];

@@ -1,3 +1,23 @@
+Pending
+
+Show Checked in Members sorted by table number
+
+Number of Tables : 8
+People per group : 4
+it will give 32 people a table number
+
+update table numbers by these two options 
+- straight by rating
+- every other by rating
+- manually
+
+Assign Tables
+Mmember | tableNumber
+
+Print sheet for individual table
+
+pencil icon so they can do member update from checkins dashboard
+ 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

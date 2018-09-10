@@ -31,6 +31,7 @@ class MemberForm extends Component {
       qr_code_number: '',
       league_rating: '',
       usatt_number: '',
+      table_number: '',
     }
   };
 
@@ -89,7 +90,7 @@ class MemberForm extends Component {
                          onChange={this._phoneNumberChanged} />
           </FormGroup>
           <FormGroup controlId='qrCodeNumberBox'>
-            <ControlLabel>QR Code Number</ControlLabel>
+            <ControlLabel>QR Code #</ControlLabel>
             <InputGroup>
               <InputGroup.Button>
                 <Button bsStyle='default' onClick={this._showQrScanningModal}>Scan Code</Button>
@@ -98,6 +99,13 @@ class MemberForm extends Component {
                            inputRef={c => this._qrCodeNumberInput = c} value={member.qr_code_number}
                            onChange={this._qrCodeNumberChanged}/>
             </InputGroup>
+          </FormGroup>
+          <FormGroup controlId='qrCodeNumberBox'>
+            <ControlLabel>Table #</ControlLabel>
+            <FormControl type='text' placeholder='123-123-1234'
+                         inputRef={c => this._tableNumberInput = c}
+                         value={member.table_number}
+                         onChange={this._tableNumberChanged} />
           </FormGroup>
           <Button type="submit" onClick={this._submitClickHandler} bsStyle='primary'>
             Submit
@@ -139,12 +147,16 @@ class MemberForm extends Component {
     const member = {...this.state.member, qr_code_number: e.target.value};
     this.setState({member});
   };
+  _tableNumberChanged = e => {
+    const member = {...this.state.member, table_number: e.target.value};
+    this.setState({member});
+  };
 
   _qrCodeNumberChangedViaScan = num => {
     const member = {...this.state.member, qr_code_number: num};
     this.setState({member});
     this._hideQrScanningModal();
-  }
+  };
 
   _submitClickHandler = evt => {
     evt.preventDefault();
@@ -158,6 +170,7 @@ class MemberForm extends Component {
       full_time: this._fullTimeInput.value,
       usatt_number: this._usattNumberInput.value,
       league_rating: this._leagueRatingInput.value,
+      table_number: this._tableNumberInput.value,
     }).then(
       response => {
         console.log("form action has been fired. now moving to listing page");

@@ -39,10 +39,11 @@ class MemberTable extends Component {
               <th>Name</th>
               <th>Email</th>
               <th>Rating</th>
-              <th>USATT</th>
+              <th>USATT #</th>
               <th>Membership Type</th>
-              <th>Phone Number</th>
-              <th>QR Code Number</th>
+              <th>Phone #</th>
+              <th>QR Code #</th>
+              <th>Table #</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -57,7 +58,7 @@ class MemberTable extends Component {
                   <td>{member.full_time == true ? "Full Time" : "Part Time"}</td>
                   <td>{member.phone_number ? PhoneFormatter.format(member.phone_number, "(NNN) NNN-NNNN") : ''}</td>
                   <td>{member.qr_code_number}</td>
-                  <td>{member.rating}</td>
+                  <td>{member.table_number}</td>
                   <td>
                     <Link to={`${match.url}/${member.id}/edit`}>Edit</Link>{" | "}
                     <Link to={`${match.url}/${member.id}`}>Show</Link>{" | "}
