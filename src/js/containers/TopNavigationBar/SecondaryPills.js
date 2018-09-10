@@ -46,6 +46,11 @@ class SecondaryPills extends Component {
             Checkins Dashboard
           </a>
         </li>
+        <li>
+          <a href="javascript:void(0);" onClick={goToPage.bind(this, `/clubs/${clubId}/tables_break_out`)}>
+            Tables Break Out
+          </a>
+        </li>
       </ul>
     </div>;
   };

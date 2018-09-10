@@ -15,6 +15,7 @@ import EditClub from '../Club/EditClub.js'
 import SignedInBar from "../TopNavigationBar/TopNavigationBarContainer";
 import MemberContainer from "../Member/MemberContainer";
 import CheckinsContainer from "../Checkins/CheckinsContainer";
+import TablesBreakOut from "./TablesBreakOut";
 import SecondaryPills from "../TopNavigationBar/SecondaryPills";
 
 
@@ -49,6 +50,7 @@ class ClubContainer extends Component {
           <Route exact path={match.url} component={AllClubs}/>
           <Route exact path={`${match.url}/new`} component={NewClub}/>
           <Route exact path={`${match.url}/:clubId/edit`} component={EditClub}/>
+          <Route path={`${match.url}/:clubId/tables_break_out`} component={TablesBreakOut}/>
           <Route path={`${match.url}/:clubId/members`} component={MemberContainer}/>
           <Route path={`${match.url}/:clubId/checkins`} component={CheckinsContainer}/>
           <Route exact path={`${match.url}/:clubId`} component={ShowClub}/>

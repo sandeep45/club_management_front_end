@@ -163,7 +163,6 @@ export const getCheckedInMembersFromClubInUrl = (state, ownProps) => {
   );
   const members = getMembersHash(state, ownProps);
   const checkedInMembers = todayCheckins.map(checkin => members[checkin.member_id]);
-  debugger;
   return checkedInMembers;
 };
 

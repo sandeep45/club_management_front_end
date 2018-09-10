@@ -39,6 +39,7 @@ class ClubTable extends Component {
                   <td>
                     <Link to={`/clubs/${club.id}/edit`}>Edit</Link>{" | "}
                     <Link to={`/clubs/${club.id}/members`}>Members</Link>{" | "}
+                    <Link to={`/clubs/${club.id}/tables_break_out`}>Tables Break Out</Link>{" | "}
                     <Link to={`/clubs/${club.id}/checkins`}>Checkins</Link>{" | "}
                     <Link to={`/clubs/${club.id}/checkins/dashboard`}>Checkins Dashboard</Link>{" | "}
                   </td>

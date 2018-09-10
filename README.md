@@ -1,14 +1,31 @@
+Number of Tables : 8
+People per group : 4
+Table assignment options:
+- straight by rating
+- every other by rating
+- clear All Tables
+
+Table 1
+Table 2
+Table 3
+...
+...
+...
+
+No Table
+
+Each Table Will show Members of that table
+Member Name, Member Rating, Edit
+
+
 Pending
 
 Show Checked in Members sorted by table number
 
-Number of Tables : 8
-People per group : 4
 it will give 32 people a table number
 
 update table numbers by these two options 
-- straight by rating
-- every other by rating
+
 - manually
 
 Assign Tables
