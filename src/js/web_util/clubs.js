@@ -1,5 +1,16 @@
 import axios from 'axios'
 
+export const assignTablesStraightForClub = (clubId, numberOfTables, peoplePerTable) => {
+  return axios.post(`/clubs/${clubId}/assign_tables_straight`, {
+    number_of_tables: numberOfTables,
+    people_per_table: peoplePerTable
+  }, {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+};
+
 // CRUD
 
 export const createClub = (params) => {

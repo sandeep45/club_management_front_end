@@ -81,3 +81,18 @@ export const removeClub = (id) => dispatch => {
   ).catch(redirectOnUnAuthorized.bind(this, dispatch))
 };
 
+export const assignTablesStraightForClub = (clubId, numberOfTables, peoplePerTable) => dispatch => {
+  console.log("inside assignTablesStraightForClub: ", clubId);
+  WebUtil.assignTablesStraightForClub(clubId, numberOfTables, peoplePerTable).then(
+    response => {
+      console.log("getClub response: ", response);
+      const normalizedData = normalize(response.data, [mySchema.member]);
+      console.log("getClubs normalized data: ", normalizedData);
+      dispatch({
+        type: K.RECEIVE_ENTITY_ITEM,
+        payload: normalizedData
+      })
+    }
+  ).catch(redirectOnUnAuthorized.bind(this, dispatch))
+};
+

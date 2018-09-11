@@ -1,3 +1,7 @@
+update memeber after checking in as it updates table number on it
+logging out on doing table assignment
+
+
 Number of Tables : 8
 People per group : 4
 Table assignment options:

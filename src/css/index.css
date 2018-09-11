@@ -17,7 +17,7 @@
     font-size: 12pt;
   }
   .no-print { display: none !important; }
-  .printable {display:block }
+  .printable {display:block !important; }
   .page-break  { display:block; page-break-before:always; }
   table {
     width: 100%;

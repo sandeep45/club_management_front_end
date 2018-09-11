@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import {Table, Button} from 'react-bootstrap'
+import playOrder from '../../constants/playOrder'
 
 class PlayOrder extends Component {
   constructor(props) {
@@ -8,23 +9,31 @@ class PlayOrder extends Component {
   };
 
   static defaultProps = {
-    numberOfPlayers: 0
+    members: [],
+    tableNumber: 0,
   };
 
   static propTypes = {
-    numberOfPlayers: PropTypes.number.isRequired
+    members: PropTypes.array.isRequired,
+    tableNumber: PropTypes.number.isRequired
   };
 
   render() {
-    const {numberOfPlayers} = this.props;
-
+    const {members, tableNumber} = this.props;
+    let myMembers = members.filter(m => m.table_number === tableNumber);
+    let numberOfPlayers = myMembers.length;
+    let matches = playOrder[numberOfPlayers] || [];
+    console.log(numberOfPlayers);
+    console.log(playOrder);
     return (
-      <div className={`printable`}>
-        <Table striped bordered hover condensed>
-          <tbody>
-          </tbody>
-        </Table>
-        <hr />
+      <div className={`printable hidden`}>
+        <ul className={'list-inline'}>
+        {matches.map( (match) => {
+          return (
+            <li>&bull; #{match[0]} vs. #{match[1]}</li>
+          );
+        })}
+        </ul>
       </div>
     );
   };

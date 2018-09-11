@@ -23,6 +23,7 @@ class UnassignedMembers extends Component {
 
     return (
       <div className={'no-print'}>
+        <hr/>
         <h4>
           Unassigned Members
         </h4>

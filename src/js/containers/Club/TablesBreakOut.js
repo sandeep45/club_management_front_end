@@ -27,6 +27,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators({
     getClub: actions.getClub.bind(this, clubId),
     getMembersCheckedInToday: actions.getMembersCheckedInToday.bind(this, clubId),
+    assignTablesStraightForClub: (numberOfTables, peoplePerTable) => actions.assignTablesStraightForClub(clubId, numberOfTables, peoplePerTable),
     goToClubsIndexPage: () => push("/clubs"),
   }, dispatch);
 };
@@ -62,7 +63,8 @@ class TablesBreakOut extends Component {
   };
 
   render() {
-    const {clubId, club, match, members, getMembersCheckedInToday} = this.props;
+    const {clubId, club, match, members,
+      assignTablesStraightForClub, getMembersCheckedInToday} = this.props;
     return <div>
       <PageHeader className={'no-print'}>
         Table Break Out
@@ -76,7 +78,7 @@ class TablesBreakOut extends Component {
           Reload Members
         </Button>
       </PageHeader>
-      <AllPlayTables members={members} />
+      <AllPlayTables members={members}  assignTablesStraightForClub={assignTablesStraightForClub}/>
     </div>;
   };
 
