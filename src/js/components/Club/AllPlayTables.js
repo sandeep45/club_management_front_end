@@ -4,6 +4,7 @@ import {Table, Button, FormGroup, ControlLabel, FormControl} from 'react-bootstr
 import {Link} from 'react-router-dom'
 import Capitalize from 'capitalize'
 import SinglePlayTable from "./SinglePlayTable";
+import UnassignedMembers from "./UnassignedMembers";
 
 class AllPlayTables extends Component {
   constructor(props) {
@@ -42,9 +43,10 @@ class AllPlayTables extends Component {
                          onChange={this._peoplePerTableChanged}/>
           </FormGroup>
         </form>
+        <UnassignedMembers members={members} />
         {[...Array(numberOfTables)].map( (currVal, idx, arr) => {
           return (
-            <SinglePlayTable members={members} tableNumber={idx} />
+            <SinglePlayTable members={members} tableNumber={idx+1} />
           );
         })}
 

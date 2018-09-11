@@ -4,37 +4,33 @@ import {Table, Button} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import Capitalize from 'capitalize'
 
-class SinglePlayTable extends Component {
+class UnassignedMembers extends Component {
   constructor(props) {
     super(props);
   };
 
   static defaultProps = {
     members: [],
-    tableNumber: 0,
   };
 
   static propTypes = {
     members: PropTypes.array.isRequired,
-    tableNumber: PropTypes.number.isRequired
   };
 
   render() {
-    const {members, tableNumber} = this.props;
-    let myMembers = members.filter(m => m.table_number === tableNumber);
+    const {members} = this.props;
+    let myMembers = members.filter(m => m.table_number === 0);
 
     return (
-      <div className={`${tableNumber !== 0 ? 'printable': 'no-print'} page-break`}>
+      <div className={'no-print'}>
         <h4>
-          Table # {tableNumber}
+          Unassigned Members
         </h4>
         <Table striped bordered hover>
           <thead>
           <tr>
             <th>#</th>
             <th>Player</th>
-            {myMembers.map( (currVal,idx,arr) => <th>{idx+1}</th>)}
-            <th>Win/Loss</th>
           </tr>
           </thead>
           <tbody>
@@ -43,8 +39,6 @@ class SinglePlayTable extends Component {
               <tr key={member.id}>
                 <td>{index+1}</td>
                 <td>{member.name ? Capitalize(member.name) : ''} ({member.league_rating})</td>
-                {myMembers.map( (currVal,idx, arr) => <td>{index+1 == idx+1 ? "N/A" : " "}</td>)}
-                <td> &nbsp; </td>
               </tr>
             );
           })}
@@ -57,4 +51,4 @@ class SinglePlayTable extends Component {
 
 };
 
-export default SinglePlayTable
+export default UnassignedMembers
