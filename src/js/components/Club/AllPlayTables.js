@@ -32,7 +32,7 @@ class AllPlayTables extends Component {
 
     return (
       <div>
-        <Form className={'no-print'}>
+        <Form className={'no-print'} onSubmit={e => e.preventDefault()}>
           <FormGroup controlId='nameBox'>
             <ControlLabel>Number of Tables</ControlLabel>{'  '}
             <FormControl type='text' placeholder='10'
