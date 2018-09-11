@@ -10,39 +10,51 @@ class SinglePlayTable extends Component {
   };
 
   static defaultProps = {
-    members: []
+    members: [],
+    tableNumber: 0,
   };
 
   static propTypes = {
     members: PropTypes.array.isRequired,
+    tableNumber: PropTypes.number.isRequired
   };
 
   render() {
-    const {members} = this.props;
+    const {members, tableNumber} = this.props;
+    let myMembers = members.filter(m => m.table_number === tableNumber);
 
     return (
-      <Table striped bordered hover>
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Rating</th>
-          <th>Table #</th>
-        </tr>
-        </thead>
-        <tbody>
-        {members.map(member => {
-          return (
-            <tr key={member.id}>
-              <td>{member.name ? Capitalize(member.name) : ''}</td>
-              <td>{member.league_rating}</td>
-              <td>{member.table_number}</td>
-            </tr>
-          );
-        })}
-        </tbody>
-      </Table>
+      <div className={`${tableNumber !== 0 ? 'printable': 'no-print'} page-break`}>
+        <h4>
+          Table # {tableNumber}
+        </h4>
+        <Table striped bordered hover>
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Player</th>
+            {members.map( (currVal,idx,arr) => <th>{idx}</th>)}
+            <th>Win/Loss</th>
+          </tr>
+          </thead>
+          <tbody>
+          {myMembers.map((member, index, arr) => {
+            return (
+              <tr key={member.id}>
+                <td>{index}</td>
+                <td>{member.name ? Capitalize(member.name) : ''} ({member.league_rating})</td>
+                {members.map( (currVal,idx, arr) => <td>{index == idx ? "N/A" : " "}</td>)}
+                <td> &nbsp; </td>
+              </tr>
+            );
+          })}
+          </tbody>
+        </Table>
+        <hr />
+      </div>
     );
   };
+
 };
 
 export default SinglePlayTable

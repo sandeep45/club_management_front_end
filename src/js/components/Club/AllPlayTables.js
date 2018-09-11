@@ -28,7 +28,7 @@ class AllPlayTables extends Component {
 
     return (
       <div>
-        <form>
+        <form className={'no-print'}>
           <FormGroup controlId='nameBox'>
             <ControlLabel>Number of Tables</ControlLabel>
             <FormControl type='text' placeholder='10'
@@ -36,31 +36,31 @@ class AllPlayTables extends Component {
                          onChange={this._numberOfTablesChanged }/>
           </FormGroup>
           <FormGroup controlId='emailBox'>
-            <ControlLabel>Email</ControlLabel>
+            <ControlLabel>Number of People Per Table</ControlLabel>
             <FormControl type='text' placeholder='5'
                          inputRef={c => this._peoplePerTableInput = c} value={peoplePerTable}
                          onChange={this._peoplePerTableChanged}/>
           </FormGroup>
         </form>
-        <SinglePlayTable members={members} />
-        <hr />
-        <SinglePlayTable members={members} />
-        <hr />
-        <SinglePlayTable members={members} />
-        <hr />
+        {[...Array(numberOfTables)].map( (currVal, idx, arr) => {
+          return (
+            <SinglePlayTable members={members} tableNumber={idx} />
+          );
+        })}
+
       </div>
     );
   };
 
   _peoplePerTableChanged = (e) => {
     this.setState({
-      peoplePerTable: e.target.value
+      peoplePerTable: parseInt(e.target.value) || 0
     })
   };
 
   _numberOfTablesChanged = (e) => {
     this.setState({
-      numberOfTables: e.target.value
+      numberOfTables: parseInt(e.target.value) || 0
     })
   };
 

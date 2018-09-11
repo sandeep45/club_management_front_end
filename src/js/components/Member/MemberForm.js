@@ -102,7 +102,7 @@ class MemberForm extends Component {
           </FormGroup>
           <FormGroup controlId='qrCodeNumberBox'>
             <ControlLabel>Table #</ControlLabel>
-            <FormControl type='text' placeholder='123-123-1234'
+            <FormControl type='text' placeholder='5'
                          inputRef={c => this._tableNumberInput = c}
                          value={member.table_number}
                          onChange={this._tableNumberChanged} />

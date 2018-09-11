@@ -20,7 +20,7 @@ class SignedInBar extends Component {
     const {email, signOut, goToPage, clubId} = this.props;
     console.log("props in signedInBar: ", this.props);
     return (
-      <Navbar collapseOnSelect>
+      <Navbar collapseOnSelect className={'no-print'}>
         <Navbar.Header>
           <Navbar.Brand>
             <a href="javascript:void(0)" onClick={goToPage.bind(this, "/clubs")}>Club Management</a>

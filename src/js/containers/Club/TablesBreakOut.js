@@ -64,9 +64,13 @@ class TablesBreakOut extends Component {
   render() {
     const {clubId, club, match, members, getMembersCheckedInToday} = this.props;
     return <div>
-      <PageHeader>
+      <PageHeader className={'no-print'}>
         Table Break Out
         <small> / of club - {club.name ? Capitalize(club.name) : ''} </small>
+        <Button bsStyle="success" style={{float:'right', marginLeft: 20}}
+                onClick={() => window.print() } >
+          Print
+        </Button>
         <Button bsStyle="primary" style={{float:'right'}}
                 onClick={getMembersCheckedInToday} >
           Reload Members
