@@ -23,9 +23,9 @@ class MoveTable extends Component {
     return (
       <FormControl componentClass="select" placeholder="select table number"
                    onChange={this._tableNumberChanged.bind(this, member.id)}>
-        {[...Array(numberOfTables)].map( (currVal, idx, arr) => {
+        {[...Array(numberOfTables+1)].map( (currVal, idx, arr) => {
           return (
-            <option selected={member.table_number == idx+1} value={idx+1}>{idx+1}</option>
+            <option selected={member.table_number == idx} value={idx}>{idx}</option>
           );
         })}
       </FormControl>
