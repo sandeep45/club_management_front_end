@@ -23,10 +23,11 @@ class AllPlayTables extends Component {
   static propTypes = {
     members: PropTypes.array.isRequired,
     assignTablesStraightForClub: PropTypes.func.isRequired,
+    updateMember: PropTypes.func.isRequired,
   };
 
   render() {
-    const {members} = this.props;
+    const {members, updateMember} = this.props;
     const {numberOfTables, peoplePerTable} = this.state;
 
     return (
@@ -48,11 +49,12 @@ class AllPlayTables extends Component {
             Assign Tables Straight
           </Button>
         </Form>
-        <UnassignedMembers members={members} />
+        <UnassignedMembers members={members} updateMember={updateMember} numberOfTables={numberOfTables}/>
         {[...Array(numberOfTables)].map( (currVal, idx, arr) => {
           return (
             <div>
-              <SinglePlayTable members={members} tableNumber={idx+1} />
+              <SinglePlayTable members={members} tableNumber={idx+1}
+                               updateMember={updateMember} numberOfTables={numberOfTables} />
               <PlayOrder members={members} tableNumber={idx+1} />
             </div>
           );

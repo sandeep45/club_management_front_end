@@ -29,6 +29,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getMembersCheckedInToday: actions.getMembersCheckedInToday.bind(this, clubId),
     assignTablesStraightForClub: (numberOfTables, peoplePerTable) => actions.assignTablesStraightForClub(clubId, numberOfTables, peoplePerTable),
     goToClubsIndexPage: () => push("/clubs"),
+    updateMember: (memberId, obj) => actions.updateMember(clubId, memberId, obj)
   }, dispatch);
 };
 
@@ -63,7 +64,7 @@ class TablesBreakOut extends Component {
   };
 
   render() {
-    const {clubId, club, match, members,
+    const {clubId, club, match, members, updateMember,
       assignTablesStraightForClub, getMembersCheckedInToday} = this.props;
     return <div>
       <PageHeader className={'no-print'}>
@@ -78,7 +79,9 @@ class TablesBreakOut extends Component {
           Reload Members
         </Button>
       </PageHeader>
-      <AllPlayTables members={members}  assignTablesStraightForClub={assignTablesStraightForClub}/>
+      <AllPlayTables members={members}
+                     assignTablesStraightForClub={assignTablesStraightForClub}
+                     updateMember={updateMember} />
     </div>;
   };
 

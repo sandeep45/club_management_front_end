@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {Table, Button} from 'react-bootstrap'
+import {Table, Button, FormControl, Form} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import Capitalize from 'capitalize'
+import MoveTable from "./MoveTable";
 
 class SinglePlayTable extends Component {
   constructor(props) {
@@ -16,11 +17,13 @@ class SinglePlayTable extends Component {
 
   static propTypes = {
     members: PropTypes.array.isRequired,
-    tableNumber: PropTypes.number.isRequired
+    tableNumber: PropTypes.number.isRequired,
+    numberOfTables: PropTypes.number.isRequired,
+    updateMember: PropTypes.func.isRequired,
   };
 
   render() {
-    const {members, tableNumber} = this.props;
+    const {members, tableNumber, numberOfTables, updateMember} = this.props;
     let myMembers = members.filter(m => m.table_number === tableNumber);
 
     return (
@@ -32,6 +35,7 @@ class SinglePlayTable extends Component {
           <thead>
           <tr>
             <th>#</th>
+            <th>Move Table</th>
             <th>Player</th>
             {myMembers.map( (currVal,idx,arr) => <th>{idx+1}</th>)}
             <th>Win/Loss</th>
@@ -42,7 +46,13 @@ class SinglePlayTable extends Component {
             return (
               <tr key={member.id}>
                 <td>{index+1}</td>
-                <td>{member.name ? Capitalize(member.name) : ''} ({member.league_rating})</td>
+                <td>
+                  <MoveTable numberOfTables={numberOfTables} updateMember={updateMember} member={member} />
+                </td>
+                <td>
+                  {member.name ? Capitalize(member.name) : ''}{' '}
+                  ({member.league_rating}){' '}
+                </td>
                 {myMembers.map( (currVal,idx, arr) => <td>{index+1 == idx+1 ? "N/A" : " "}</td>)}
                 <td> &nbsp; </td>
               </tr>
@@ -55,6 +65,14 @@ class SinglePlayTable extends Component {
     );
   };
 
+  _tableNumberChanged = (memberId, e) => {
+    const {updateMember} = this.props;
+    let tableNumber = e.target.value;
+    if(!tableNumber){
+      tableNumber = 0;
+    }
+    updateMember(memberId, {table_number: tableNumber})
+  }
 };
 
 export default SinglePlayTable
