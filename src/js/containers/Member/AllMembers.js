@@ -18,12 +18,30 @@ const mapStateToProps = (state, ownProps) => {
   const clubId = ownProps.match.params.clubId;
   const club = reducers.getClubFromIdInUrl(state, ownProps);
   let membersArray = reducers.getFilteredMembersArray(state, ownProps);
+  membersArray = membersArray.sort((a,b) => {
+    let name1 = "";
+    let name2 = "";
+    if(a && a.name){
+      name1 = a.name.toLowerCase();
+    }
+    if(b && b.name){
+      name2 = b.name.toLowerCase();
+    }
+    console.log(name1, name2, name1.toLowerCase() > name2.toLowerCase());
+
+    if (name1 > name2){
+      return 1
+    }else if (name1 < name2){
+      return -1
+    }else{
+      return 0
+    }
+  });
   const searchFields = reducers.getSearchFields(state, ownProps);
 
   return {
     match,
-    members:
-    membersArray,
+    members: membersArray,
     club,
     clubId,
     searchFields,

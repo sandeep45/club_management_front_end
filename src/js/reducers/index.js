@@ -55,8 +55,8 @@ export const getFilteredMembersArray = createSelector(
   (membersArray, searchFields) => {
     if(searchFields && searchFields.memberLookup){
       membersArray = membersArray.filter(member => {
-        return member.name.includes(searchFields.memberLookup) ||
-          member.email.includes(searchFields.memberLookup)
+        return member.name.toLowerCase().includes(searchFields.memberLookup.toLowerCase()) ||
+          member.email.toLowerCase().includes(searchFields.memberLookup.toLowerCase())
       })
     }
     return membersArray;

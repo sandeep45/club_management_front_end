@@ -24,4 +24,9 @@
     max-width: 100%;
     margin-bottom: 20px;
   }
+  div.printable table.table-bordered, div.printable table.table-bordered>tbody>tr>td, div.printable table.table-bordered>thead>tr>th {
+    border-color: #000 !important;
+    border-width: 2px !important;;
+    border-collapse: collapse !important;;
+  }
 }

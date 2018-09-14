@@ -24,7 +24,7 @@ class SinglePlayTable extends Component {
 
   render() {
     const {members, tableNumber, numberOfTables, updateMember} = this.props;
-    let myMembers = members.filter(m => m.table_number === tableNumber);
+    let myMembers = members.filter(m => m.table_number === tableNumber).sort((a,b) => b.league_rating - a.league_rating);
 
     return (
       <div className={`${tableNumber !== 0 ? 'printable': 'no-print'} page-break`}>
@@ -35,7 +35,7 @@ class SinglePlayTable extends Component {
           <thead>
           <tr>
             <th>#</th>
-            <th>Move Table</th>
+            <th className={'no-print'}>Move Table</th>
             <th>Player</th>
             {myMembers.map( (currVal,idx,arr) => <th>{idx+1}</th>)}
             <th>Win/Loss</th>
@@ -46,14 +46,14 @@ class SinglePlayTable extends Component {
             return (
               <tr key={member.id}>
                 <td>{index+1}</td>
-                <td>
+                <td className={'no-print'}>
                   <MoveTable numberOfTables={numberOfTables} updateMember={updateMember} member={member} />
                 </td>
                 <td>
                   {member.name ? Capitalize(member.name) : ''}{' '}
                   ({member.league_rating}){' '}
                 </td>
-                {myMembers.map( (currVal,idx, arr) => <td>{index+1 == idx+1 ? "N/A" : " "}</td>)}
+                {myMembers.map( (currVal,idx, arr) => <td>{index+1 == idx+1 ? ":-)" : " "}</td>)}
                 <td> &nbsp; </td>
               </tr>
             );

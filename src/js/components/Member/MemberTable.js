@@ -33,7 +33,7 @@ class MemberTable extends Component {
     return (
       <div>
         <h4>Total Members - {members.length}</h4>
-        <Table striped borderedhover>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>Name</th>
