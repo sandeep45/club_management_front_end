@@ -53,26 +53,18 @@ export const createCheckinFromQrCode = (clubId, qrCodeNumber) => (dispatch, getS
       const membersHash = reducers.getMembersHash(state);
       const member = membersHash[memberId];
       const greeting = `Welcome ${member.name}`;
-      if(response.status == 208){
-        let txt = `${greeting}. You are already checked in`;
+      if(member.full_time == true){
+        txt = `${greeting}`;
         // dispatch(addCheckinActivity(txt));
-        console.log("txt");
+        console.log(txt);
         speak(txt);
         toast.success(txt);
       }else{
-        if(member.full_time == true){
-          txt = `${greeting}. No fee due as full time member`;
-          // dispatch(addCheckinActivity(txt));
-          console.log(txt);
-          speak(txt);
-          toast.success(`txt`);
-        }else{
-          txt = `${greeting}. Checkin successful but payment required!`;
-          // dispatch(addCheckinActivity(txt));
-          console.log("txt");
-          speak(txt);
-          toast.warn(txt);
-        }
+        txt = `${greeting}. Please make payment!`;
+        // dispatch(addCheckinActivity(txt));
+        console.log("txt");
+        speak(txt);
+        toast.error(txt);
       }
       return response;
     }
