@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {Table, Button} from 'react-bootstrap'
+import {Table, Button, Label} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import ConfirmationModal from "../Generic/ConfirmationModal";
 import DateFormat from "dateformat";
@@ -63,7 +63,7 @@ class CheckinTable extends Component {
                     {membersHash[checkin.member_id].usatt_number}
                   </td>
                   <td>
-                    {membersHash[checkin.member_id].full_time ? "Full-Time" : "Part-Time"}
+                    {membersHash[checkin.member_id].full_time ? <Label className='label-success'>Full-Time</Label> : <Label className='label-danger'>Part-Time</Label>}
                   </td>
                   <td>
                     {membersHash[checkin.member_id].qr_code_number}
