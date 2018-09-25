@@ -27,12 +27,18 @@ class CheckinTable extends Component {
   };
 
   render() {
-    const {checkins, membersHash} = this.props;
-    console.log("membersHash: ", membersHash);
-    console.log("checkins: ", checkins);
+    const {checkins, membersHash, checkedInMembers} = this.props;
+    const partTimeCheckins = checkedInMembers.filter(m => m.full_time == false);
+    const fullTimeCheckins = checkedInMembers.filter(m => m.full_time == true);
+
     return (
       <div>
-        <h4>Total Checkins - {checkins.length}</h4>
+        <h4>
+          <Label bsStyle="default">Total - {checkins.length}</Label>{' '}
+          <Label bsStyle="danger">Part-Time - {partTimeCheckins.length}</Label>{' '}
+          <Label bsStyle="success">Full-Time - {fullTimeCheckins.length}</Label>{' '}
+        </h4>
+
         <Table striped borderedhover responsive>
           <thead>
             <tr>

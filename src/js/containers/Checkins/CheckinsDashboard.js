@@ -18,12 +18,14 @@ const mapStateToProps = (state, ownProps) => {
   const todaysCheckins = reducers.getTodaysCheckinsArrayFromClubInUrl(state, ownProps);
   const membersHash = reducers.getMembersHash(state, ownProps);
   const checkinActivity = reducers.getCheckinActivity(state, ownProps);
+  const checkedInMembers = reducers.getCheckedInMembersFromClubInUrl(state, ownProps);
   return {
     club,
     clubId,
     todaysCheckins,
     membersHash,
     checkinActivity,
+    checkedInMembers
   };
 };
 
@@ -56,7 +58,7 @@ class CheckinsDashboard extends Component {
 
   render() {
     const {club, clubId, todaysCheckins, membersHash, getTodaysCheckins,
-      removeCheckin, createCheckinFromQrCode, checkinActivity} = this.props;
+      removeCheckin, createCheckinFromQrCode, checkinActivity, checkedInMembers} = this.props;
     return (
       <div>
         <PageHeader>
@@ -69,7 +71,7 @@ class CheckinsDashboard extends Component {
         </PageHeader>
         <ManualCheckinBox updateQrCode={createCheckinFromQrCode} />
         <CheckinTable checkins={todaysCheckins} membersHash={membersHash}
-                      clubId={clubId}
+                      clubId={clubId} checkedInMembers={checkedInMembers}
                       removeCheckin={removeCheckin}/>
       </div>
     );
