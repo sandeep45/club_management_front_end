@@ -27,7 +27,8 @@ class CheckinTable extends Component {
   };
 
   render() {
-    const {checkins, membersHash, checkedInMembers} = this.props;
+    let {checkins, membersHash, checkedInMembers} = this.props;
+    checkedInMembers = [];
     const partTimeCheckins = checkedInMembers.filter(m => m.full_time == false);
     const fullTimeCheckins = checkedInMembers.filter(m => m.full_time == true);
 
