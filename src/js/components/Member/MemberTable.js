@@ -39,7 +39,6 @@ class MemberTable extends Component {
               <th>Name</th>
               <th>Email</th>
               <th>Rating</th>
-              <th>USATT #</th>
               <th>Membership Type</th>
               <th>Phone #</th>
               <th>QR Code #</th>
@@ -54,8 +53,7 @@ class MemberTable extends Component {
                   <td>{member.name}</td>
                   <td>{member.email}</td>
                   <td>{member.league_rating}</td>
-                  <td>{member.usatt_number}</td>
-                  <td>{member.full_time == true ? "Full Time" : "Part Time"}</td>
+                  <td>{member.membership_kind}</td>
                   <td>{member.phone_number ? PhoneFormatter.format(member.phone_number, "(NNN) NNN-NNNN") : ''}</td>
                   <td>{member.qr_code_number}</td>
                   <td>{member.table_number}</td>
@@ -76,8 +74,8 @@ class MemberTable extends Component {
                              closeModal={this._hideCheckinNotificationModal}
                              title={checkinResponseStatusCode == "201" ? "New Checkin Created" : "Already checked in"}>
             <p>Welcome {checkedInMember.name} / {checkedInMember.email} / {checkedInMember.id} </p>
-            <p>Full Time Member: {checkedInMember.full_time ==  true ? "Yes" : "No" }</p>
-            <p>{ (checkinResponseStatusCode == "201") && (checkedInMember.full_time == false) ? "Please make Payment" : "No Payment due"}</p>
+            <p>Membership Type: {checkedInMember.membership_kind}</p>
+            <p>{ (checkinResponseStatusCode == "201") && (checkedInMember.membership_kind == 'part_time') ? "Please make Payment" : "No Payment due"}</p>
           </NotificationModal>
         </Table>
       </div>

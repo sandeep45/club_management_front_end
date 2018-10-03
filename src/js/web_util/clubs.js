@@ -11,6 +11,28 @@ export const assignTablesStraightForClub = (clubId, numberOfTables, peoplePerTab
   });
 };
 
+export const assignTablesEveryOtherForClub = (clubId, numberOfTables, peoplePerTable) => {
+  return axios.post(`/clubs/${clubId}/assign_tables_every_other`, {
+    number_of_tables: numberOfTables,
+    people_per_table: peoplePerTable
+  }, {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+};
+
+export const assignTablesRandomForClub = (clubId, numberOfTables, peoplePerTable) => {
+  return axios.post(`/clubs/${clubId}/assign_tables_random`, {
+    number_of_tables: numberOfTables,
+    people_per_table: peoplePerTable
+  }, {
+    headers: {
+      Accept: "application/json"
+    }
+  });
+};
+
 // CRUD
 
 export const createClub = (params) => {

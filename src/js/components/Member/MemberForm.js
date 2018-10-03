@@ -26,7 +26,7 @@ class MemberForm extends Component {
     member: {
       name: '',
       email: '',
-      full_time: '',
+      membership_kind: '',
       phone_number: '',
       qr_code_number: '',
       league_rating: '',
@@ -72,14 +72,15 @@ class MemberForm extends Component {
                          inputRef={c => this._usattNumberInput = c} value={member.usatt_number}
                          onChange={this._usattNumberChanged}/>
           </FormGroup>
-          <FormGroup controlId='fullTimeBox'>
+          <FormGroup controlId='membershipTypeBox'>
             <ControlLabel>Status</ControlLabel>
-            <select value={member.full_time} onChange={this._fullTimeChanged}
-                    ref={c => this._fullTimeInput= c}
+            <select value={member.membership_kind} onChange={this._membershipTypeChanged}
+                    ref={c => this._membershipType= c}
                     style={{marginLeft: 10}}
             >
-              <option value="true">Full Time</option>
-              <option value="false">Part Time</option>
+              <option value="part_time">Part Time</option>
+              <option value="full_time">Full Time</option>
+              <option value="complimentary">Complimentary</option>
             </select>
           </FormGroup>
           <FormGroup controlId='phoneNumberBox'>
@@ -131,8 +132,8 @@ class MemberForm extends Component {
     const member = {...this.state.member, phone_number: e.target.value};
     this.setState({member});
   };
-  _fullTimeChanged = e => {
-    const member = {...this.state.member, full_time: e.target.value};
+  _membershipTypeChanged = e => {
+    const member = {...this.state.member, membership_kind: e.target.value};
     this.setState({member});
   };
   _leagueRatingChanged = e => {
@@ -167,7 +168,7 @@ class MemberForm extends Component {
       email: this._emailInput.value,
       phone_number: this._phoneNumberInput.value ? PhoneFormatter.normalize(this._phoneNumberInput.value) : '',
       qr_code_number: this._qrCodeNumberInput.value,
-      full_time: this._fullTimeInput.value,
+      membership_kind: this._membershipType.value,
       usatt_number: this._usattNumberInput.value,
       league_rating: this._leagueRatingInput.value,
       table_number: this._tableNumberInput.value,

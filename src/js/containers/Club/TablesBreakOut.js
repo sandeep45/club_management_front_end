@@ -28,6 +28,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     getClub: actions.getClub.bind(this, clubId),
     getMembersCheckedInToday: actions.getMembersCheckedInToday.bind(this, clubId),
     assignTablesStraightForClub: (numberOfTables, peoplePerTable) => actions.assignTablesStraightForClub(clubId, numberOfTables, peoplePerTable),
+    assignTablesEveryOtherForClub: (numberOfTables, peoplePerTable) => actions.assignTablesEveryOtherForClub(clubId, numberOfTables, peoplePerTable),
+    assignTablesRandomForClub: (numberOfTables, peoplePerTable) => actions.assignTablesRandomForClub(clubId, numberOfTables, peoplePerTable),
     goToClubsIndexPage: () => push("/clubs"),
     updateMember: (memberId, obj) => actions.updateMember(clubId, memberId, obj)
   }, dispatch);
@@ -63,15 +65,22 @@ class TablesBreakOut extends Component {
     this.props.getMembersCheckedInToday();
   };
 
+  _print = () => {
+    window.print()
+  };
+
   render() {
     const {clubId, club, match, members, updateMember,
-      assignTablesStraightForClub, getMembersCheckedInToday} = this.props;
+      assignTablesStraightForClub,
+      assignTablesEveryOtherForClub,
+      assignTablesRandomForClub,
+      getMembersCheckedInToday} = this.props;
     return <div>
       <PageHeader className={'no-print'}>
         Table Break Out
         <small> / of club - {club.name ? Capitalize(club.name) : ''} </small>
         <Button bsStyle="success" style={{float:'right', marginLeft: 20}}
-                onClick={() => window.print() } >
+                onClick={this._print} >
           Print
         </Button>
         <Button bsStyle="primary" style={{float:'right'}}
@@ -81,6 +90,8 @@ class TablesBreakOut extends Component {
       </PageHeader>
       <AllPlayTables members={members}
                      assignTablesStraightForClub={assignTablesStraightForClub}
+                     assignTablesEveryOtherForClub={assignTablesEveryOtherForClub}
+                     assignTablesRandomForClub={assignTablesRandomForClub}
                      updateMember={updateMember} />
     </div>;
   };

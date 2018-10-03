@@ -96,3 +96,33 @@ export const assignTablesStraightForClub = (clubId, numberOfTables, peoplePerTab
   ).catch(redirectOnUnAuthorized.bind(this, dispatch))
 };
 
+export const assignTablesEveryOtherForClub = (clubId, numberOfTables, peoplePerTable) => dispatch => {
+  console.log("inside assignTablesEveryOtherForClub: ", clubId);
+  WebUtil.assignTablesEveryOtherForClub(clubId, numberOfTables, peoplePerTable).then(
+    response => {
+      console.log("getClub response: ", response);
+      const normalizedData = normalize(response.data, [mySchema.member]);
+      console.log("getClubs normalized data: ", normalizedData);
+      dispatch({
+        type: K.RECEIVE_ENTITY_ITEM,
+        payload: normalizedData
+      })
+    }
+  ).catch(redirectOnUnAuthorized.bind(this, dispatch))
+};
+
+export const assignTablesRandomForClub = (clubId, numberOfTables, peoplePerTable) => dispatch => {
+  console.log("inside assignTablesEveryOtherForClub: ", clubId);
+  WebUtil.assignTablesRandomForClub(clubId, numberOfTables, peoplePerTable).then(
+    response => {
+      console.log("getClub response: ", response);
+      const normalizedData = normalize(response.data, [mySchema.member]);
+      console.log("getClubs normalized data: ", normalizedData);
+      dispatch({
+        type: K.RECEIVE_ENTITY_ITEM,
+        payload: normalizedData
+      })
+    }
+  ).catch(redirectOnUnAuthorized.bind(this, dispatch))
+};
+

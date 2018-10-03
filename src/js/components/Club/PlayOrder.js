@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {Table, Button} from 'react-bootstrap'
+import {Table, Button, Col, Row} from 'react-bootstrap'
 import playOrder from '../../constants/playOrder'
+
 
 class PlayOrder extends Component {
   constructor(props) {
@@ -20,20 +21,25 @@ class PlayOrder extends Component {
 
   render() {
     const {members, tableNumber} = this.props;
-    let myMembers = members.filter(m => m.table_number === tableNumber);
+    let myMembers = members.filter(m => m.table_number === tableNumber).sort((a,b) => b.league_rating - a.league_rating);
     let numberOfPlayers = myMembers.length;
     let matches = playOrder[numberOfPlayers] || [];
-    console.log(numberOfPlayers);
-    console.log(playOrder);
     return (
-      <div className={`printable hidden`}>
-        <ul className={'list-inline'}>
+      <div className={`printable page-break`}>
+        <h4>
+          Play Order for Table # {tableNumber}
+        </h4>
+        <ul className={''}>
         {matches.map( (match) => {
           return (
-            <li>&bull; #{match[0]} vs. #{match[1]}</li>
+            <li>
+              #{match[0]} <strong>vs.</strong> #{match[1]}{' '}
+              - ( {myMembers[match[0]-1].name} <strong>vs.</strong> {myMembers[match[1]-1].name} )
+            </li>
           );
         })}
         </ul>
+        <hr />
       </div>
     );
   };

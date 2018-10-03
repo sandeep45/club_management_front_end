@@ -54,7 +54,6 @@ class UnassignedMembers extends Component {
           })}
           </tbody>
         </Table>
-        <hr />
       </div>
     );
   };

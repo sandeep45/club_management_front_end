@@ -11,6 +11,11 @@
   max-width: 290px !important;
 }
 
+.small-column {
+  width: 100px;
+  white-space: nowrap;
+}
+
 @media print {
   body {
     background: white;
@@ -23,10 +28,53 @@
     width: 100%;
     max-width: 100%;
     margin-bottom: 20px;
+    page-break-inside: avoid;
+    overflow: hidden;
+    table-layout: fixed;
   }
   div.printable table.table-bordered, div.printable table.table-bordered>tbody>tr>td, div.printable table.table-bordered>thead>tr>th {
     border-color: #000 !important;
     border-width: 2px !important;;
     border-collapse: collapse !important;;
+    word-break: break-all;
+    vertical-align: middle;
+    text-align: center;
+  }
+  .col-sm-6, .col-md-6, .col-lg-6 {
+    width: 50%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .col-sm-4, .col-md-4, .col-lg-4 {
+    width: 33.33333333%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .col-sm-12, .col-md-12, .col-lg-12 {
+    width: 100%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .small-column {
+    width: 30px;
+    white-space: nowrap;
+  }
+  .player-name {
+    width: 200px;
+    word-break: break-all;
+    vertical-align: middle;
+  }
+  .small-player-name {
+    width: 100px;
+    word-break: break-all;
   }
 }

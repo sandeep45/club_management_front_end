@@ -33,13 +33,13 @@ class SinglePlayTable extends Component {
         </h4>
         <Table striped bordered hover>
           <thead>
-          <tr>
-            <th>#</th>
-            <th className={'no-print'}>Move Table</th>
-            <th>Player</th>
-            {myMembers.map( (currVal,idx,arr) => <th>{idx+1}</th>)}
-            <th>Win/Loss</th>
-          </tr>
+            <tr>
+              <th>#</th>
+              <th className={'no-print'}>Move Table</th>
+              <th className={'player-name'}>Player</th>
+              {myMembers.map( (currVal,idx,arr) => <th>{idx+1}</th>)}
+              <th>Win/Loss</th>
+            </tr>
           </thead>
           <tbody>
           {myMembers.map((member, index, arr) => {

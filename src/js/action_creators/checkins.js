@@ -53,7 +53,7 @@ export const createCheckinFromQrCode = (clubId, qrCodeNumber) => (dispatch, getS
       const membersHash = reducers.getMembersHash(state);
       const member = membersHash[memberId];
       const greeting = `Welcome ${member.name}`;
-      if(member.full_time == true){
+      if(member.membership_kind == 'full_time' || member.membership_kind == 'complimentary'){
         txt = `${greeting}`;
         // dispatch(addCheckinActivity(txt));
         console.log(txt);

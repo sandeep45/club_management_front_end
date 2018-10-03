@@ -28,9 +28,12 @@ class CheckinTable extends Component {
 
   render() {
     let {checkins, membersHash, checkedInMembers} = this.props;
-    checkedInMembers = [];
-    const partTimeCheckins = checkedInMembers.filter(m => m.full_time == false);
-    const fullTimeCheckins = checkedInMembers.filter(m => m.full_time == true);
+    if(!checkedInMembers){
+      checkedInMembers = [];
+    }
+    const partTimeCheckins = checkedInMembers.filter(m => m.membership_kind == 'part_time');
+    const fullTimeCheckins = checkedInMembers.filter(m => m.membership_kind == 'full_time');
+    const complimentaryCheckins = checkedInMembers.filter(m => m.membership_kind == 'complimentary');
 
     return (
       <div>
@@ -38,6 +41,7 @@ class CheckinTable extends Component {
           <Label bsStyle="default">Total - {checkins.length}</Label>{' '}
           <Label bsStyle="danger">Part-Time - {partTimeCheckins.length}</Label>{' '}
           <Label bsStyle="success">Full-Time - {fullTimeCheckins.length}</Label>{' '}
+          <Label bsStyle="info">Complimentary - {complimentaryCheckins.length}</Label>{' '}
         </h4>
 
         <Table striped borderedhover responsive>
@@ -46,7 +50,6 @@ class CheckinTable extends Component {
               <th>Name</th>
               <th>Email</th>
               <th>Rating</th>
-              <th>USATT</th>
               <th>Status</th>
               <th>QR Code</th>
               <th>Checkin</th>
@@ -67,10 +70,7 @@ class CheckinTable extends Component {
                     {membersHash[checkin.member_id].league_rating}
                   </td>
                   <td>
-                    {membersHash[checkin.member_id].usatt_number}
-                  </td>
-                  <td>
-                    {membersHash[checkin.member_id].full_time ? <Label className='label-success'>Full-Time</Label> : <Label className='label-danger'>Part-Time</Label>}
+                    {membersHash[checkin.member_id].membership_kind}
                   </td>
                   <td>
                     {membersHash[checkin.member_id].qr_code_number}

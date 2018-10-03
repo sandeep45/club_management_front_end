@@ -1,4 +1,7 @@
-update memeber after checking in as it updates table number on it
+To clone i added `-mistersingh179` as thats the profile i want it to use.
+git clone git@github.com-mistersingh179:mistersingh179/club_management_front_end.git
+
+update member after checking in as it updates table number on it
 logging out on doing table assignment
 
 

@@ -74,7 +74,7 @@ class ShowMember extends Component {
           <ListGroupItem>Phone Number: {member.phone_number} </ListGroupItem>
           <ListGroupItem>QR Code Number: {member.qr_code_number} </ListGroupItem>
           <ListGroupItem>Table Number: {member.table_number} </ListGroupItem>
-          <ListGroupItem>Full Time: {member.full_time == true ? "Full-Time" : "Part-Time"} </ListGroupItem>
+          <ListGroupItem>Membership Type: {member.membership_kind} </ListGroupItem>
         </ListGroup>
       </Panel>
 
