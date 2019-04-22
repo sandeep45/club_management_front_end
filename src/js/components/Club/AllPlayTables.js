@@ -137,7 +137,7 @@ class AllPlayTables extends Component {
         <UnassignedMembers members={members} updateMember={updateMember} numberOfTables={numberOfTables}/>
         {[...Array(numberOfTables)].map( (currVal, idx, arr) => {
           return (
-            <div>
+            <div key={idx}>
               <SinglePlayTable members={members} tableNumber={idx+1}
                                updateMember={updateMember} numberOfTables={numberOfTables} />
               {displayPlayOrder ? <PlayOrder members={members} tableNumber={idx+1} /> : '' }

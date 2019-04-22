@@ -37,7 +37,7 @@ class SecondaryPills extends Component {
   render() {
     const {clubId, goToPage} = this.props;
     return <div className={'no-print'}>
-      <ul class="nav nav-pills">
+      <ul className="nav nav-tabs">
         <li>
           <a href="javascript:void(0);" onClick={goToPage.bind(this, `/clubs/${clubId}/members`)}>Members</a>
         </li>

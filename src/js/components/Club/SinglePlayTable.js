@@ -37,7 +37,7 @@ class SinglePlayTable extends Component {
               <th>#</th>
               <th className={'no-print'}>Move Table</th>
               <th className={'player-name'}>Player</th>
-              {myMembers.map( (currVal,idx,arr) => <th>{idx+1}</th>)}
+              {myMembers.map( (currVal,idx,arr) => <th key={idx}>{idx+1}</th>)}
               <th>Result</th>
             </tr>
           </thead>
@@ -53,7 +53,7 @@ class SinglePlayTable extends Component {
                   {member.name ? Capitalize(member.name) : ''}{' '}
                   ({member.league_rating}){' '}
                 </td>
-                {myMembers.map( (currVal,idx, arr) => <td>{index+1 == idx+1 ? ":-)" : " "}</td>)}
+                {myMembers.map( (currVal,idx, arr) => <td key={idx}>{index+1 == idx+1 ? ":-)" : " "}</td>)}
                 <td> &nbsp; </td>
               </tr>
             );
