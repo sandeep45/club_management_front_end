@@ -70,7 +70,7 @@ class CheckinTable extends Component {
                     {membersHash[checkin.member_id].league_rating}
                   </td>
                   <td>
-                    {membersHash[checkin.member_id].membership_kind}
+                    {this._statusLabel(membersHash[checkin.member_id].membership_kind)}
                   </td>
                   <td>
                     {membersHash[checkin.member_id].qr_code_number}
@@ -94,6 +94,17 @@ class CheckinTable extends Component {
       </div>
     );
   };
+  
+  _statusLabel = (membership_kind) => {
+    switch(membership_kind){
+      case 'part_time':
+        return <Label className='label-danger'>Part-Time</Label>;
+      case 'full_time':
+        return <Label className='label-success'>Full-Time</Label>;
+      case 'complimentary':
+        return <Label className='label-info'>Complimentary</Label>;
+    }
+  }
 
   _showDeleteConfirmationModal = (checkin) => {
     this.setState({checkinToBeDeleted: checkin});
