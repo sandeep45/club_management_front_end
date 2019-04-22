@@ -30,7 +30,7 @@
     margin-bottom: 20px;
     page-break-inside: avoid;
     overflow: hidden;
-    table-layout: fixed;
+    /*table-layout: fixed;*/
   }
   div.printable table.table-bordered, div.printable table.table-bordered>tbody>tr>td, div.printable table.table-bordered>thead>tr>th {
     border-color: #000 !important;
@@ -39,9 +39,26 @@
     word-break: break-all;
     vertical-align: middle;
     text-align: center;
+    white-space: nowrap;
   }
   .col-sm-6, .col-md-6, .col-lg-6 {
     width: 50%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .col-sm-2, .col-md-2, .col-lg-2 {
+    width: 16.666666%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  .col-sm-3, .col-md-3, .col-lg-3 {
+    width: 25%;
     float: left;
     position: relative;
     min-height: 1px;
@@ -63,10 +80,6 @@
     min-height: 1px;
     padding-right: 15px;
     padding-left: 15px;
-  }
-  .small-column {
-    width: 30px;
-    white-space: nowrap;
   }
   .player-name {
     width: 200px;

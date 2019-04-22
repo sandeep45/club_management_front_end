@@ -38,7 +38,7 @@ class SinglePlayTable extends Component {
               <th className={'no-print'}>Move Table</th>
               <th className={'player-name'}>Player</th>
               {myMembers.map( (currVal,idx,arr) => <th>{idx+1}</th>)}
-              <th>Win/Loss</th>
+              <th>Result</th>
             </tr>
           </thead>
           <tbody>

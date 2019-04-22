@@ -12,13 +12,15 @@ class PlayScore extends Component {
   static defaultProps = {
     members: [],
     tableNumber: 0,
-    columns: 3
+    columns: 3,
+    displayPlayerNamesInScoreTables: false
   };
 
   static propTypes = {
     members: PropTypes.array.isRequired,
     tableNumber: PropTypes.number.isRequired,
-    columns: PropTypes.number.isRequired
+    columns: PropTypes.number.isRequired,
+    displayPlayerNamesInScoreTables: PropTypes.bool.isRequired
   };
 
   _columnClass = () => {
@@ -37,6 +39,12 @@ class PlayScore extends Component {
       case 3:
         str = `col-lg-4 col-md-4 col-sm-4`;
         break;
+      case 4:
+        str = `col-lg-3 col-md-3 col-sm-3`;
+        break;
+      case 6:
+        str = `col-lg-2 col-md-2 col-sm-2`;
+        break;
       default:
         str = `no-print`;
         break;
@@ -44,13 +52,14 @@ class PlayScore extends Component {
     return str;
   }
   render() {
-    const {members, tableNumber, columns} = this.props;
+    const {members, tableNumber, columns,
+      displayPlayerNamesInScoreTables} = this.props;
     let myMembers = members.filter(m => m.table_number === tableNumber).sort((a,b) => b.league_rating - a.league_rating);
     let numberOfPlayers = myMembers.length;
     let matches = playOrder[numberOfPlayers] || [];
     let matchChunks = _.chunk(matches, columns);
     return (
-      <div className={`container-responsive printable hidden page-break`}>
+      <div className={`container-responsive hidden printable page-break`}>
         <h4>
           Score Card for Table # {tableNumber}
         </h4>
@@ -63,16 +72,22 @@ class PlayScore extends Component {
                     <Table striped bordered hover responsive>
                       <thead>
                       <tr>
-                        <th className='small-column'></th>
-                        <th className='small-player-name'>{myMembers[match[0]-1].name}</th>
-                        <th className='small-player-name'>{myMembers[match[1]-1].name}</th>
+                        <th></th>
+                        {/*<th className='small-player-name'>{myMembers[match[0]-1].name}</th>*/}
+                        {/*<th className='small-player-name'>{myMembers[match[1]-1].name}</th>*/}
+                        <th className='small-player-name'>
+                          {this._playerIdentification(match[0], myMembers)}
+                        </th>
+                        <th className='small-player-name'>
+                          {this._playerIdentification(match[1], myMembers)}
+                        </th>
                       </tr>
                       </thead>
                       <tbody>
                       {[1,2,3,4,5].map(i => {
                         return (
                           <tr>
-                            <td className='small-column'>#{i}</td>
+                            <td>#{i}</td>
                             <td> </td>
                             <td> </td>
                           </tr>
@@ -90,7 +105,15 @@ class PlayScore extends Component {
       </div>
     );
   };
-
+  
+  _playerIdentification(index, myMembers) {
+    const {displayPlayerNamesInScoreTables} = this.props;
+    if(displayPlayerNamesInScoreTables == true){
+      return myMembers[index-1].name ;
+    }else{
+      return index;
+    }
+  }
 };
 
 export default PlayScore

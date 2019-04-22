@@ -65,10 +65,6 @@ class TablesBreakOut extends Component {
     this.props.getMembersCheckedInToday();
   };
 
-  _print = () => {
-    window.print()
-  };
-
   render() {
     const {clubId, club, match, members, updateMember,
       assignTablesStraightForClub,
@@ -79,10 +75,6 @@ class TablesBreakOut extends Component {
       <PageHeader className={'no-print'}>
         Table Break Out
         <small> / of club - {club.name ? Capitalize(club.name) : ''} </small>
-        <Button bsStyle="success" style={{float:'right', marginLeft: 20}}
-                onClick={this._print} >
-          Print
-        </Button>
         <Button bsStyle="primary" style={{float:'right'}}
                 onClick={getMembersCheckedInToday} >
           Reload Members
