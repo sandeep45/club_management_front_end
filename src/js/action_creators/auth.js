@@ -30,6 +30,31 @@ export const signIn = params => dispatch => {
   )
 };
 
+export const signUp = params => dispatch => {
+  console.log("inside signUp: ", params);
+  return WebUtil.signUp(params).then(
+    response => {
+      const {headers} = response;
+      
+      axios.defaults.headers.common['access-token'] = headers['access-token'];
+      axios.defaults.headers.common['client'] = headers['client'];
+      axios.defaults.headers.common['token-type'] = 'Bearer';
+      axios.defaults.headers.common['uid'] = response.data.data.uid;
+      
+      const normalizedData = normalize(response.data.data, mySchema.owner);
+      dispatch({
+        type: K.RECEIVE_ENTITY_ITEM,
+        payload: normalizedData
+      });
+      
+      dispatch(push("/clubs"));
+    },
+    error => {
+      console.log(error);
+    }
+  )
+};
+
 export const signOut = ()=> dispatch => {
   console.log("inside signOut: ");
   return WebUtil.signOut().then(

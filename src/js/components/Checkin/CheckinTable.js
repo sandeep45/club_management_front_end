@@ -60,10 +60,10 @@ class CheckinTable extends Component {
             {checkins.map(checkin => {
               return (
                 <tr key={checkin.id}>
-                  <td>
+                  <td className={`nowrap`}>
                     {membersHash[checkin.member_id].name}
                   </td>
-                  <td>
+                  <td className={`nowrap`}>
                     {membersHash[checkin.member_id].email}
                   </td>
                   <td>

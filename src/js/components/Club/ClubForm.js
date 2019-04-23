@@ -22,7 +22,11 @@ class ClubForm extends Component {
 
   static defaultProps = {
     club: {
-      name: ''
+      name: '',
+      keyword: '',
+      simply_compete_username: '',
+      simply_compete_password: '',
+      simply_compete_league_id: '',
     }
   };
 
@@ -37,7 +41,7 @@ class ClubForm extends Component {
     const {club} = this.state;
     return (
       <div>
-        <Form>
+        <Form autoComplete="off">
           <FormGroup controlId='nameBox'>
             <ControlLabel>Club Name</ControlLabel>
             <FormControl type='text' placeholder='a memorable name goes here'
@@ -49,6 +53,26 @@ class ClubForm extends Component {
             <FormControl type='text' placeholder='an easy name for texting goes here'
                          inputRef={c => this._keywordInput = c} value={club.keyword}
                          onChange={this._keywordChanged}/>
+          </FormGroup>
+          <FormGroup controlId='simplyCompeteUsernameBox'>
+            <ControlLabel>SimplyCompete Username</ControlLabel>
+            <FormControl type='email' placeholder='username to your SimplyCompete Account'
+                         autoComplete="new-password"
+                         inputRef={c => this._simplyCompeteUsernameInput = c} value={club.simply_compete_username}
+                         onChange={this._simplyCompeteUsernameChanged}/>
+          </FormGroup>
+          <FormGroup controlId='simplyCompetePasswordBox'>
+            <ControlLabel>SimplyCompete Password</ControlLabel>
+            <FormControl type='password' placeholder='password to your SimplyCompete Account'
+                         autoComplete="new-password"
+                         inputRef={c => this._simplyCompetePasswordInput = c} value={club.simply_compete_password}
+                         onChange={this._simplyCompetePasswordChanged}/>
+          </FormGroup>
+          <FormGroup controlId='simplyCompeteLeagueIdBox'>
+            <ControlLabel>SimplyCompete League Id</ControlLabel>
+            <FormControl type='text' placeholder='league id to your SimplyCompete Account'
+                         inputRef={c => this._simplyCompeteLeagueIdInput = c} value={club.simply_compete_league_id}
+                         onChange={this._simplyCompeteLeagueIdChanged}/>
           </FormGroup>
           <Button type="submit" onClick={this._submitClickHandler} bsStyle='primary'>
             Submit
@@ -68,13 +92,31 @@ class ClubForm extends Component {
     this.setState({club});
   };
 
+  _simplyCompeteUsernameChanged = e => {
+    const club = {...this.state.club, simply_compete_username: e.target.value};
+    this.setState({club});
+  };
+
+  _simplyCompetePasswordChanged = e => {
+    const club = {...this.state.club, simply_compete_password: e.target.value};
+    this.setState({club});
+  };
+  
+  _simplyCompeteLeagueIdChanged = e => {
+    const club = {...this.state.club, simply_compete_league_id: e.target.value};
+    this.setState({club});
+  };
+
   _submitClickHandler = evt => {
     evt.preventDefault();
     const {formAction, goToAfterAction} = this.props;
     console.log("on click of submit button: ");
     formAction({
       name: this._nameInput.value,
-      keyword: this._keywordInput.value
+      keyword: this._keywordInput.value,
+      simply_compete_username: this._simplyCompeteUsernameInput.value,
+      simply_compete_password: this._simplyCompetePasswordInput.value,
+      simply_compete_league_id: this._simplyCompeteLeagueIdInput.value
     }).then(
       response => {
         console.log("form action has been fired. now moving to listing page");

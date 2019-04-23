@@ -16,16 +16,18 @@ class WelcomeMessage extends Component {
     return (
       <div className='container'>
         <Jumbotron style={{marginTop: 20}}>
-          <h1>Ping Pong Club Management</h1>
-          <p>Software to manage your ping pong club. Create multiple leagues, add members, automate player check-in via sms or bar code and print play formats.</p>
+          <h1>Table Tennis League Management</h1>
+          <p>This is software to manage your league. Here you can track your members, automate player check-in via text messaging or bar code scanning at location,
+            distribute players as per their rating among groups, assign them to tables, print play order sheets etc.</p>
           <p>
-            <Button bsStyle="primary">
-              Learn More
+            <Button bsStyle="primary"
+                    onClick={goToPage.bind(this, "/authentication/sign_up")}>
+              Sign Up
             </Button>{" "}
             <Button bsStyle="success"
                     onClick={goToPage.bind(this, "/authentication/sign_in")}>
               Sign In
-            </Button>
+            </Button>{" "}
           </p>
         </Jumbotron>
       </div>

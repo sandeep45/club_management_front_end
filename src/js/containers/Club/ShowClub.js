@@ -66,6 +66,9 @@ class ShowClub extends Component {
           <ListGroupItem>Id: {clubId}</ListGroupItem>
           <ListGroupItem>name: {club.name} </ListGroupItem>
           <ListGroupItem>keyword: {club.keyword} </ListGroupItem>
+          <ListGroupItem>Simply Compete Username: {club.simply_compete_username} </ListGroupItem>
+          <ListGroupItem>Simply Compete Password: ***** </ListGroupItem>
+          <ListGroupItem>Simply Compete League Id: {club.simply_compete_league_id} </ListGroupItem>
         </ListGroup>
       </Panel>
 

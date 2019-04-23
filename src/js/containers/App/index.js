@@ -10,6 +10,8 @@ import AuthenticationContainer from "../Authentication/AuthenticationContainer.j
 import ClubContainer from "../Club/ClubContainer.js";
 import NotFound from "../../components/Generic/NotFound";
 import Home from "../Home/HomeContainer";
+import Tos from "./tos";
+import Pp from "./pp";
 import { ToastContainer } from 'react-toastify';
 
 
@@ -43,12 +45,15 @@ class App extends Component {
       <div>
         <Switch>
           <Route exact path="/" component={Home}/>
+          <Route exact path="/tos" component={Tos}/>
+          <Route exact path="/pp" component={Pp}/>
           <Route path="/authentication" component={AuthenticationContainer} />
           <Route path="/clubs" component={ClubContainer} />
           <Route component={NotFound}/>
         </Switch>
         <ToastContainer position="top-right" autoClose={30000} newestOnTop
                         closeOnClick/>
+        <div id="push"></div>
       </div>
     );
   };

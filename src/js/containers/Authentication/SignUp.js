@@ -14,37 +14,37 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators({
-    signIn: actions.signIn
+    signUp: actions.signUp
   }, dispatch);
 };
 
-class SignIn extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
   };
-
+  
   componentWillMount(){
-    console.log("SignIn Container has mounted");
+    console.log("SignUp Container has mounted");
     this._init();
   };
-
+  
   componentWillReceiveProps(nextProps){
-
+  
   };
-
+  
   static defaultProps = {
-
+  
   };
-
+  
   static propTypes = {
-    signIn: PropTypes.func.isRequired,
+    signUp: PropTypes.func.isRequired,
   };
-
+  
   _init = () => {
-    console.log("in init of SignIn");
-    document.title = `Sign In`;
+    console.log("in init of SignUp");
+    document.title = `Sign Up`;
   };
-
+  
   render() {
     return (
       <div>
@@ -58,7 +58,7 @@ class SignIn extends Component {
                            inputRef={ref => { this._email = ref; }} />
             </Col>
           </FormGroup>
-
+          
           <FormGroup controlId="formHorizontalPassword">
             <Col componentClass={ControlLabel} sm={2}>
               Password
@@ -71,19 +71,29 @@ class SignIn extends Component {
   
           <FormGroup controlId="formHorizontalPassword">
             <Col componentClass={ControlLabel} sm={2}>
-    
+              Password Confirmation
             </Col>
             <Col sm={10}>
-              By clicking Sign In, you agree to our{' '}
+              <FormControl type="password" placeholder="Password"
+                           inputRef={ref => { this._password_confirmation = ref; }} />
+            </Col>
+          </FormGroup>
+  
+          <FormGroup controlId="formHorizontalPassword">
+            <Col componentClass={ControlLabel} sm={2}>
+            
+            </Col>
+            <Col sm={10}>
+              By clicking Sign Up, you agree to our{' '}
               <a href="#tos">Terms of Use</a>, and{' '}
               <a href="#pp">Privacy Policy</a>.
             </Col>
           </FormGroup>
-
+  
           <FormGroup>
             <Col smOffset={2} sm={10}>
               <Button type="submit" onClick={this._submitClicked} bsStyle='primary'>
-                Sign In
+                Sign Up
               </Button>
             </Col>
           </FormGroup>
@@ -92,19 +102,20 @@ class SignIn extends Component {
       </div>
     );
   };
-
+  
   _submitClicked = (e) => {
-    const {signIn} = this.props;
+    const {signUp} = this.props;
     console.log("submit has been clicked");
     e.preventDefault();
     const that = this;
-    signIn({
+    signUp({
       email: this._email.value,
-      password: this._password.value
+      password: this._password.value,
+      password_confirmation: this._password_confirmation.value
     });
   }
 };
 
-SignIn = connect(mapStateToProps, mapDispatchToProps)(SignIn);
+SignUp = connect(mapStateToProps, mapDispatchToProps)(SignUp);
 
-export default SignIn;
+export default SignUp;
