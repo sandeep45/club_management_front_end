@@ -42,7 +42,6 @@ class MemberTable extends Component {
               <th>Membership Type</th>
               <th>Phone #</th>
               <th>QR Code #</th>
-              <th>Table #</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -56,7 +55,6 @@ class MemberTable extends Component {
                   <td>{member.membership_kind}</td>
                   <td>{member.phone_number ? PhoneFormatter.format(member.phone_number, "(NNN) NNN-NNNN") : ''}</td>
                   <td>{member.qr_code_number}</td>
-                  <td>{member.table_number}</td>
                   <td>
                     <Link to={`${match.url}/${member.id}/edit`}>Edit</Link>{" | "}
                     <Link to={`${match.url}/${member.id}`}>Show</Link>{" | "}

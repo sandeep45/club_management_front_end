@@ -3,15 +3,22 @@ import PropTypes from 'prop-types';
 import {Table, FormGroup, HelpBlock, FormControl, ControlLabel, Button, Form, InputGroup, DropdownButton, MenuItem} from 'react-bootstrap'
 import QrCodeScanningModal from "../Generic/QrCodeScanningModal";
 import PhoneFormatter from 'phone-formatter'
-
+import * as WebUtil from '../../web_util'
+import _ from 'lodash'
 
 class MemberForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       member: props.member,
-      showQrScanningModal: false
+      showQrScanningModal: false,
+      memberGlobalSearchResult: {}
     }
+    this._memberGlobalSearch = _.debounce(this._memberGlobalSearch, 2000, {
+      leading: false,
+      maxWait: 10000,
+      trailing: true
+    })
   };
 
   componentWillReceiveProps(nextProps){
@@ -43,7 +50,7 @@ class MemberForm extends Component {
   };
 
   render() {
-    const {member} = this.state;
+    const {member, memberGlobalSearchResult} = this.state;
     const {showQrScanningModal} = this.state;
     return (
       <div>
@@ -58,7 +65,8 @@ class MemberForm extends Component {
             <ControlLabel>Email</ControlLabel>
             <FormControl type='text' placeholder='John.Doe@example.com'
                          inputRef={c => this._emailInput = c} value={member.email}
-                         onChange={this._emailChanged}/>
+                         onChange={this._emailChanged}
+            />
           </FormGroup>
           <FormGroup controlId='leagueRatingBox'>
             <ControlLabel>Rating</ControlLabel>
@@ -76,7 +84,7 @@ class MemberForm extends Component {
             <ControlLabel>Status</ControlLabel>
             <select value={member.membership_kind} onChange={this._membershipTypeChanged}
                     ref={c => this._membershipType= c}
-                    style={{marginLeft: 10}}
+                    className={`form-control`}
             >
               <option value="part_time">Part Time</option>
               <option value="full_time">Full Time</option>
@@ -91,17 +99,13 @@ class MemberForm extends Component {
                          onChange={this._phoneNumberChanged} />
           </FormGroup>
           <FormGroup controlId='qrCodeNumberBox'>
-            <ControlLabel>QR Code #</ControlLabel>
-            <InputGroup>
-              <InputGroup.Button>
-                <Button bsStyle='default' onClick={this._showQrScanningModal}>Scan Code</Button>
-              </InputGroup.Button>
-              <FormControl type='text' placeholder='John.Doe@example.com'
-                           inputRef={c => this._qrCodeNumberInput = c} value={member.qr_code_number}
-                           onChange={this._qrCodeNumberChanged}/>
-            </InputGroup>
+            <ControlLabel>QR Code # – {this._memberExistsNotification()}</ControlLabel>
+            <FormControl type='text' placeholder='12345'
+                         inputRef={c => this._qrCodeNumberInput = c}
+                         value={member.qr_code_number}
+                         onChange={this._qrCodeNumberChanged}/>
           </FormGroup>
-          <FormGroup controlId='qrCodeNumberBox'>
+          <FormGroup controlId='TableNumberBox' className={'hidden'}>
             <ControlLabel>Table #</ControlLabel>
             <FormControl type='text' placeholder='5'
                          inputRef={c => this._tableNumberInput = c}
@@ -118,6 +122,19 @@ class MemberForm extends Component {
     );
   };
 
+  _memberExistsNotification = () => {
+    const {memberGlobalSearchResult} = this.state;
+    if(memberGlobalSearchResult.success){
+      return (
+        `A QR Code has already been issued from club – ${memberGlobalSearchResult.club_keyword}. There is no need to issue a new QR Code.`
+      );
+    }else {
+      return (
+        `Please issue a new QR code and scan its value below.`
+      )
+    }
+  }
+  
   _nameChanged = e => {
     const member = {...this.state.member, name: e.target.value};
     this.setState({member});
@@ -126,11 +143,13 @@ class MemberForm extends Component {
   _emailChanged = e => {
     const member = {...this.state.member, email: e.target.value};
     this.setState({member});
+    this._memberGlobalSearch();
   };
 
   _phoneNumberChanged = e => {
     const member = {...this.state.member, phone_number: e.target.value};
     this.setState({member});
+    this._memberGlobalSearch();
   };
   _membershipTypeChanged = e => {
     const member = {...this.state.member, membership_kind: e.target.value};
@@ -187,6 +206,23 @@ class MemberForm extends Component {
   _hideQrScanningModal = evt => this.setState({ showQrScanningModal: false });
   _showQrScanningModal = evt => this.setState({ showQrScanningModal: true });
 
+  _memberGlobalSearch = () => {
+    const {email, phone_number} = this.state.member;
+    console.log('doing global search with: ', email, phone_number);
+    WebUtil.globalSearch(email, phone_number).then(response => {
+      console.log(response.data);
+      if(response && response.data){
+        this.setState({
+          memberGlobalSearchResult: response.data
+        });
+        const member = {...this.state.member, qr_code_number: response.data.qr_code_number};
+        this.setState({member});
+      }
+    },
+    error => {
+      console.log(error);
+    })
+  }
 };
 
 export default MemberForm

@@ -62,7 +62,7 @@ class AllPlayTables extends Component {
               <ControlLabel>Number of People Per Table</ControlLabel>{'  '}
               <select value={peoplePerTable} onChange={this._peoplePerTableChanged}
                       ref={c => this._peoplePerTableInput= c}
-                      style={{marginLeft: 10}}
+                      className={`form-control`}
               >
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -90,7 +90,7 @@ class AllPlayTables extends Component {
               <ControlLabel>Play Order</ControlLabel>{'  '}
               <select value={displayPlayOrder} onChange={this._displayPlayOrderChanged}
                       ref={c => this._displayPlayOrderInput= c}
-                      style={{marginLeft: 10}}
+                      className={`form-control`}
               >
                 <option value="true">yes</option>
                 <option value="false">no</option>
@@ -100,7 +100,7 @@ class AllPlayTables extends Component {
               <ControlLabel>Score Tables</ControlLabel>{'  '}
               <select value={displayScoreTables} onChange={this._displayScoreTablesChanged}
                       ref={c => this._displayScoreTablesInput= c}
-                      style={{marginLeft: 10}}
+                      className={`form-control`}
               >
                 <option value="true">yes</option>
                 <option value="false">no</option>
@@ -110,7 +110,7 @@ class AllPlayTables extends Component {
               <ControlLabel>Number of Score Tables Per Row</ControlLabel>{'  '}
               <select value={columns} onChange={this._columnsChanged}
                       ref={c => this._columnsInput= c}
-                      style={{marginLeft: 10}}
+                      className={`form-control`}
               >
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -123,7 +123,7 @@ class AllPlayTables extends Component {
               <ControlLabel>Names in Score Tables</ControlLabel>{'  '}
               <select value={displayPlayerNamesInScoreTables} onChange={this._displayPlayerNamesInScoreTablesChanged}
                       ref={c => this.displayPlayerNamesInScoreTables= c}
-                      style={{marginLeft: 10}}
+                      className={`form-control`}
               >
                 <option value="true">yes</option>
                 <option value="false">no</option>
