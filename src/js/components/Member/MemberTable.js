@@ -49,8 +49,8 @@ class MemberTable extends Component {
             {members.map(member => {
               return (
                 <tr key={member.id}>
-                  <td className={`nowrap`}>{member.name}</td>
-                  <td className={`nowrap`}>{member.email}</td>
+                  <td className={`contained-column`}>{member.name}</td>
+                  <td className={`contained-column`}>{member.email}</td>
                   <td>{member.league_rating}</td>
                   <td>{member.membership_kind}</td>
                   <td>{member.phone_number ? PhoneFormatter.format(member.phone_number, "(NNN) NNN-NNNN") : ''}</td>
