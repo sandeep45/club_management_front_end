@@ -1,22 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {
-  Form,
-  Table,
-  Button,
-  FormGroup,
-  ControlLabel,
-  FormControl,
-  ListGroup,
-  ListGroupItem,
-  Panel
-} from "react-bootstrap";
+import { Form, Button, FormGroup, ControlLabel, Panel } from "react-bootstrap";
 import {Link} from 'react-router-dom'
 import Capitalize from 'capitalize'
 import SinglePlayTable from "./SinglePlayTable";
 import UnassignedMembers from "./UnassignedMembers";
-import PlayOrder from "./PlayOrder";
 import PlayScore from "./PlayScore";
+import GroupOfThree from "../PlayOrder/GroupOfThree";
+import GroupOfFour from "../PlayOrder/GroupOfFour";
+import GroupOfFive from "../PlayOrder/GroupOfFive";
+import GroupOfSix from "../PlayOrder/GroupOfSix";
+import _ from "lodash"
+import { toast } from 'react-toastify';
 
 class AllPlayTables extends Component {
   constructor(props) {
@@ -25,7 +20,7 @@ class AllPlayTables extends Component {
       numberOfTables: 6,
       peoplePerTable: 5,
       columns: 3,
-      displayPlayOrder: false,
+      displayPlayOrder: true,
       displayScoreTables: false,
       displayPlayerNamesInScoreTables: false
     }
@@ -54,9 +49,12 @@ class AllPlayTables extends Component {
           <Form onSubmit={e => e.preventDefault()}>
             <FormGroup controlId='nameBox'>
               <ControlLabel>Number of Tables</ControlLabel>{'  '}
-              <FormControl type='text' placeholder='10'
-                           inputRef={c => this._numberOfTablesInput = c} value={numberOfTables}
-                           onChange={this._numberOfTablesChanged }/>
+              <select value={numberOfTables} onChange={this._numberOfTablesChanged}
+                      ref={c => this._numberOfTablesInput= c}
+                      className={`form-control`}
+              >
+                {_.times(20, (n) => <option value={n+1}>{n+1}</option>)}
+              </select>
             </FormGroup>{'  '}
             <FormGroup controlId='emailBox'>
               <ControlLabel>Number of People Per Table</ControlLabel>{'  '}
@@ -72,13 +70,12 @@ class AllPlayTables extends Component {
                 <option value="7">7</option>
               </select>
             </FormGroup>
+            <Button type="submit" onClick={this._assignTablesEveryOtherForClub} bsStyle='primary'>
+              Assign Tables Every Other
+            </Button>{"   "}
             <Button type="submit" onClick={this._assignTablesStraightForClub} bsStyle='default'>
               Assign Tables Straight
             </Button>{"   "}
-            <Button type="submit" onClick={this._assignTablesEveryOtherForClub} bsStyle='default'>
-              Assign Tables Every Other
-            </Button>
-            {"   "}
             <Button type="submit" onClick={this._assignTablesRandomForClub} bsStyle='default'>
               Assign Tables Random
             </Button>
@@ -129,7 +126,7 @@ class AllPlayTables extends Component {
                 <option value="false">no</option>
               </select>
             </FormGroup>
-            <Button bsStyle="default" onClick={window.print} >
+            <Button bsStyle="primary" onClick={window.print} >
               Print
             </Button>
           </Form>
@@ -140,7 +137,7 @@ class AllPlayTables extends Component {
             <div key={idx}>
               <SinglePlayTable members={members} tableNumber={idx+1}
                                updateMember={updateMember} numberOfTables={numberOfTables} />
-              {displayPlayOrder ? <PlayOrder members={members} tableNumber={idx+1} /> : '' }
+              {this._playOrder(idx+1)}
               {displayScoreTables ? <PlayScore members={members} tableNumber={idx+1}
                          columns={columns}
                          displayPlayerNamesInScoreTables={displayPlayerNamesInScoreTables} /> : '' }
@@ -152,6 +149,32 @@ class AllPlayTables extends Component {
     );
   };
 
+  _playOrder = (tableNumber) => {
+    
+    const {members} = this.props;
+    const {displayPlayOrder} = this.state;
+    
+    let myMembers = members.filter(m => m.table_number === tableNumber).sort((a,b) => b.league_rating - a.league_rating);
+    let num = myMembers.length;
+    
+    if(displayPlayOrder == false){
+      return '';
+    }
+    
+    switch(num){
+      case 3:
+        return <GroupOfThree />;
+      case 4:
+        return <GroupOfFour />;
+      case 5:
+        return <GroupOfFive />;
+      case 6:
+        return <GroupOfSix />;
+      default:
+        return '';
+    }
+  }
+  
   _peoplePerTableChanged = (e) => {
     this.setState({
       peoplePerTable: parseInt(e.target.value) || 0

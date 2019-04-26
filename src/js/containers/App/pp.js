@@ -126,7 +126,7 @@ class Pp extends Component {
         <p>It typically takes about 90 days to delete an account after account closure, but some information may remain in backup copies for a reasonable period of time. Please note that content you create and share on the Service is owned by Your Organization and may remain on the Service and be accessible even if Your Organization deactivates or terminates Your Account.</p>
   
         <h2>GDPR RECOURSE FOR EU INDIVIDUALS</h2>
-        <p>If you are an EU individual with questions or concerns regarding the handling of your personal data pursuant to GDPR regulations, we encourage you to contact Simply Compete at: privacy@simplycompete.com</p>
+        <p>If you are an EU individual with questions or concerns regarding the handling of your personal data pursuant to GDPR regulations, we encourage you to contact Simply Compete at: mistersingh179@gmail.com</p>
   
         <p>You also have the right to contact your local Data Protection Authority. For more information on this option and to locate your DPA go to: http://ec.europa.eu/justice/article-29/structure/data-protection-authorities/index_en.htm</p>
   
@@ -140,7 +140,7 @@ class Pp extends Component {
         <p>Note that Simply Compete may be required to release EU and Swiss personal data in response to lawful requests by public authorities including to meet national security and law enforcement requirements.</p>
   
         <h2>PRIVACY SHIELD INDEPENDENT RECOURSE MECHANISM</h2>
-        <p>In compliance with the Privacy Shield Principles, TheTableTennisClub.com commits to resolve complaints about your privacy and our collection or use of your personal information transferred to the United States pursuant to Privacy Shield. European Union and Swiss individuals with Privacy Shield inquiries or complaints should first contact TheTableTennisClub.com at: privacy@simplycompete.com</p>
+        <p>In compliance with the Privacy Shield Principles, TheTableTennisClub.com commits to resolve complaints about your privacy and our collection or use of your personal information transferred to the United States pursuant to Privacy Shield. European Union and Swiss individuals with Privacy Shield inquiries or complaints should first contact TheTableTennisClub.com at: mistersingh179@gmail.com</p>
   
         <p>TheTableTennisClub.com has further committed to refer unresolved privacy complaints under the Privacy Shield Principles to an independent dispute resolution mechanism, the BBB EU PRIVACY SHIELD, operated by the Council of Better Business Bureaus. If you do not receive timely acknowledgment of your complaint, or if your complaint is not satisfactorily addressed, please visit www.bbb.org/EU-privacy-shield/for-eu-consumers  for more information and to file a complaint. This service is provided free of charge to you.</p>
   

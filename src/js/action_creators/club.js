@@ -4,6 +4,7 @@ import { normalize } from 'normalizr';
 import K from '../constants/'
 import { push } from 'react-router-redux'
 import {redirectOnUnAuthorized} from './helper'
+import { toast } from 'react-toastify';
 
 export const getClubs = () => dispatch => {
   console.log("inside getClubs");
@@ -91,7 +92,8 @@ export const assignTablesStraightForClub = (clubId, numberOfTables, peoplePerTab
       dispatch({
         type: K.RECEIVE_ENTITY_ITEM,
         payload: normalizedData
-      })
+      });
+      toast.info(`Tables have been assigned Straight based on player ranking.`, { autoClose: 5000 });
     }
   ).catch(redirectOnUnAuthorized.bind(this, dispatch))
 };
@@ -106,7 +108,8 @@ export const assignTablesEveryOtherForClub = (clubId, numberOfTables, peoplePerT
       dispatch({
         type: K.RECEIVE_ENTITY_ITEM,
         payload: normalizedData
-      })
+      });
+      toast.info(`Tables have been assigned based on Every Other Formulae.`, { autoClose: 5000 });
     }
   ).catch(redirectOnUnAuthorized.bind(this, dispatch))
 };
@@ -121,7 +124,8 @@ export const assignTablesRandomForClub = (clubId, numberOfTables, peoplePerTable
       dispatch({
         type: K.RECEIVE_ENTITY_ITEM,
         payload: normalizedData
-      })
+      });
+      toast.info(`Tables have been assigned randomly.`, { autoClose: 5000 });
     }
   ).catch(redirectOnUnAuthorized.bind(this, dispatch))
 };

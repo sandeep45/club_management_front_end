@@ -4,7 +4,6 @@ import {Table, Button, FormControl, InputGroup} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import Capitalize from 'capitalize'
 import SinglePlayTable from "./SinglePlayTable";
-import PlayOrder from "./PlayOrder";
 import MoveTable from "./MoveTable";
 
 class UnassignedMembers extends Component {
