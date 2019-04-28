@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {Table, Bootstrap, Button} from 'react-bootstrap'
+import {Table, Bootstrap, Button, Dropdown, DropdownButton, MenuItem} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import NotificationModal from "../Generic/NotificationModal";
 import PhoneFormatter from 'phone-formatter'
 
 class MemberTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCheckinNotificationModal: false,
-      checkinResponseStatusCode: 201,
       checkedInMember: {
         name: "unknown"
       }
@@ -25,11 +22,13 @@ class MemberTable extends Component {
     members: PropTypes.array.isRequired,
     match: PropTypes.object.isRequired,
     createCheckin: PropTypes.func.isRequired,
+    updateCheckin: PropTypes.func.isRequired,
+    goToPage: PropTypes.func.isRequired,
   };
 
   render() {
-    const {members, match, searchFields} = this.props;
-    const {showCheckinNotificationModal, checkedInMember, checkinResponseStatusCode} = this.state;
+    const {members, match, searchFields, goToPage} = this.props;
+    const {checkedInMember} = this.state;
     return (
       <div>
         <h4>Total Members - {members.length}</h4>
@@ -56,25 +55,30 @@ class MemberTable extends Component {
                   <td>{member.phone_number ? PhoneFormatter.format(member.phone_number, "(NNN) NNN-NNNN") : ''}</td>
                   <td>{member.qr_code_number}</td>
                   <td>
-                    <Link to={`${match.url}/${member.id}/edit`}>Edit</Link>{" | "}
-                    <Link to={`${match.url}/${member.id}`}>Show</Link>{" | "}
-                    <Link to={`${match.url}/${member.id}/checkins`}>Checkins</Link>{" | "}
-                    <a href="javascript:void(0);"
-                       onClick={this._createCheckin.bind(this, member)}>
-                        Do Check-in
-                    </a>
+                    <DropdownButton bsStyle={`default`} title={'Options'} id={`dropdown-basic`}>
+                      <MenuItem onSelect={goToPage.bind(this, `${match.url}/${member.id}/edit`)}>
+                        Edit Member
+                      </MenuItem>
+                      <MenuItem onSelect={goToPage.bind(this, `${match.url}/${member.id}`)}>
+                        Member Profile
+                      </MenuItem>
+                      <MenuItem divider />
+                      <MenuItem onSelect={goToPage.bind(this, `${match.url}/${member.id}/checkins`)}>
+                        All Check-in's
+                      </MenuItem>
+                      <MenuItem divider />
+                      <MenuItem onSelect={this._createCheckin.bind(this, member)}>
+                        Create Check-in
+                      </MenuItem>
+                      <MenuItem onSelect={this._createCheckinAndMarkPaid.bind(this, member)}>
+                        Check-in & Mark paid
+                      </MenuItem>
+                    </DropdownButton>
                   </td>
                 </tr>
               );
             })}
           </tbody>
-          <NotificationModal visible={showCheckinNotificationModal}
-                             closeModal={this._hideCheckinNotificationModal}
-                             title={checkinResponseStatusCode == "201" ? "New Checkin Created" : "Already checked in"}>
-            <p>Welcome {checkedInMember.name} / {checkedInMember.email} / {checkedInMember.id} </p>
-            <p>Membership Type: {checkedInMember.membership_kind}</p>
-            <p>{ (checkinResponseStatusCode == "201") && (checkedInMember.membership_kind == 'part_time') ? "Please make Payment" : "No Payment due"}</p>
-          </NotificationModal>
         </Table>
       </div>
     );
@@ -89,8 +93,6 @@ class MemberTable extends Component {
     createCheckin(member.id).then(
       response => {
         console.log("create checkin success for:" , member);
-        this.setState({checkinResponseStatusCode: response.status});
-        this._showCheckinNotificationModal();
       },
       error => {
         console.error("got error creating checkin");
@@ -98,9 +100,21 @@ class MemberTable extends Component {
       }
     )
   };
-
-  _hideCheckinNotificationModal = evt => this.setState({ showCheckinNotificationModal: false });
-  _showCheckinNotificationModal = evt => this.setState({ showCheckinNotificationModal: true });
+  
+  _createCheckinAndMarkPaid = (member) => {
+    const {createCheckin, updateCheckin} = this.props;
+    console.log("in _createCheckin with: ", member.id);
+    createCheckin(member.id).then(
+      response => {
+        console.log("create checkin success for:" , member);
+        updateCheckin(member.id, response.data.id, {paid: true})
+      },
+      error => {
+        console.error("got error creating checkin");
+        alert(error);
+      }
+    )
+  };
 
 };
 

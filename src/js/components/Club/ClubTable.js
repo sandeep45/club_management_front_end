@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {Table, Button} from 'react-bootstrap'
+import { Table, Button, MenuItem, DropdownButton } from "react-bootstrap";
 import {Link} from 'react-router-dom'
 import Capitalize from 'capitalize'
 
@@ -16,10 +16,11 @@ class ClubTable extends Component {
   static propTypes = {
     clubs: PropTypes.array.isRequired,
     removeClub: PropTypes.func.isRequired,
+    goToPage: PropTypes.func.isRequired,
   };
 
   render() {
-    const {clubs, removeClub} = this.props;
+    const {clubs, removeClub, goToPage} = this.props;
 
     return (
         <Table striped bordered hover>
@@ -37,12 +38,27 @@ class ClubTable extends Component {
                   <td>{club.name ? Capitalize(club.name) : ''}</td>
                   <td>{club.keyword}</td>
                   <td>
-                    <Link to={`/clubs/${club.id}/edit`}>Edit</Link>{" | "}
-                    <Link to={`/clubs/${club.id}/members`}>Members</Link>{" | "}
-                    <Link to={`/clubs/${club.id}/play_dates`}>Play Dates</Link>{" | "}
-                    <Link to={`/clubs/${club.id}/tables_break_out`}>Tables Break Out</Link>{" | "}
-                    <Link to={`/clubs/${club.id}/checkins`}>Checkins</Link>{" | "}
-                    <Link to={`/clubs/${club.id}/checkins/dashboard`}>Checkins Dashboard</Link>{" | "}
+  
+                    <Button bsStyle="link" onClick={goToPage.bind(this, `/clubs/${club.id}/members`)}>
+                      Members
+                    </Button>
+                    <Button bsStyle="link" onClick={goToPage.bind(this, `/clubs/${club.id}/tables_break_out`)}>
+                      Table Break-Out
+                    </Button>
+                    <Button bsStyle="link" onClick={goToPage.bind(this, `/clubs/${club.id}/checkins/dashboard`)}>
+                      Check-in's Dashboard
+                    </Button>
+                    <DropdownButton bsStyle={`link`} title={'More Options'} id={`dropdown-basic`}>
+                      <MenuItem onSelect={goToPage.bind(this, `/clubs/${club.id}/edit`)}>
+                        Edit Club
+                      </MenuItem>
+                      <MenuItem onSelect={goToPage.bind(this, `/clubs/${club.id}/checkins`)}>
+                        Check-in's Reporting
+                      </MenuItem>
+                      <MenuItem onSelect={goToPage.bind(this, `/clubs/${club.id}/play_dates`)}>
+                        Setup Play Dates
+                      </MenuItem>
+                    </DropdownButton>
                   </td>
                 </tr>
               );

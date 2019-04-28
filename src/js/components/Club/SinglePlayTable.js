@@ -29,7 +29,7 @@ class SinglePlayTable extends Component {
     return (
       <div className={`${tableNumber !== 0 ? 'printable': 'no-print'} page-break`}>
         <h4>
-          Table # {tableNumber}
+          Members at Table # {tableNumber}
         </h4>
         <Table striped bordered hover>
           <thead>

@@ -51,7 +51,7 @@ class App extends Component {
           <Route path="/clubs" component={ClubContainer} />
           <Route component={NotFound}/>
         </Switch>
-        <ToastContainer position="top-right" autoClose={15000} newestOnTop
+        <ToastContainer position="top-right" autoClose={5000} newestOnTop
                         closeOnClick/>
         <div id="push"></div>
       </div>

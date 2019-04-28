@@ -34,6 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators({
     getTodaysCheckins: actions.getMembersCheckedInToday.bind(this, clubId),
     removeCheckin: actions.removeCheckin,
+    updateCheckin: actions.updateCheckin,
     createCheckinFromQrCode: actions.createCheckinFromQrCode.bind(this, clubId),
     addCheckinActivity: actions.addCheckinActivity
   }, dispatch);
@@ -58,7 +59,8 @@ class CheckinsDashboard extends Component {
 
   render() {
     const {club, clubId, todaysCheckins, membersHash, getTodaysCheckins,
-      removeCheckin, createCheckinFromQrCode, checkinActivity, checkedInMembers} = this.props;
+      removeCheckin, updateCheckin,
+      createCheckinFromQrCode, checkinActivity, checkedInMembers} = this.props;
     return (
       <div>
         <PageHeader>
@@ -72,7 +74,8 @@ class CheckinsDashboard extends Component {
         <ManualCheckinBox updateQrCode={createCheckinFromQrCode} />
         <CheckinTable checkins={todaysCheckins} membersHash={membersHash}
                       clubId={clubId} checkedInMembers={checkedInMembers}
-                      removeCheckin={removeCheckin}/>
+                      removeCheckin={removeCheckin}
+                      updateCheckin={updateCheckin}/>
       </div>
     );
   }

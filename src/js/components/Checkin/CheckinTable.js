@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {Table, Button, Label} from 'react-bootstrap'
+import { Table, Button, Label, MenuItem, DropdownButton } from "react-bootstrap";
 import {Link} from 'react-router-dom'
 import ConfirmationModal from "../Generic/ConfirmationModal";
 import DateFormat from "dateformat";
@@ -23,6 +23,7 @@ class CheckinTable extends Component {
     checkins: PropTypes.array.isRequired,
     membersHash: PropTypes.object.isRequired,
     removeCheckin: PropTypes.func.isRequired,
+    updateCheckin: PropTypes.func.isRequired,
     clubId: PropTypes.number.isRequired,
   };
 
@@ -34,6 +35,8 @@ class CheckinTable extends Component {
     const partTimeCheckins = checkedInMembers.filter(m => m.membership_kind == 'part_time');
     const fullTimeCheckins = checkedInMembers.filter(m => m.membership_kind == 'full_time');
     const complimentaryCheckins = checkedInMembers.filter(m => m.membership_kind == 'complimentary');
+    const paidCheckins = checkins.filter(c => c.paid == true);
+    const unpaidCheckins = checkins.filter(c => c.paid == false);
 
     return (
       <div>
@@ -43,8 +46,13 @@ class CheckinTable extends Component {
           <Label bsStyle="success">Full-Time - {fullTimeCheckins.length}</Label>{' '}
           <Label bsStyle="info">Complimentary - {complimentaryCheckins.length}</Label>{' '}
         </h4>
+        <h4>
+          <Label bsStyle="default">Total - {checkins.length}</Label>{' '}
+          <Label bsStyle="danger">Unpaid- {unpaidCheckins.length}</Label>{' '}
+          <Label bsStyle="success">Paid - {paidCheckins.length}</Label>{' '}
+        </h4>
 
-        <Table striped borderedhover responsive>
+        <Table striped bordered hover>
           <thead>
             <tr>
               <th>Name</th>
@@ -53,6 +61,7 @@ class CheckinTable extends Component {
               <th>Status</th>
               <th>QR Code</th>
               <th>Checkin</th>
+              <th>Paid</th>
               <th></th>
             </tr>
           </thead>
@@ -77,11 +86,23 @@ class CheckinTable extends Component {
                   </td>
                   <td>{DateFormat(checkin.created_at, "mm-dd-yy h:MM TT")}</td>
                   <td>
-                    <Button bsStyle="danger"
-                            onClick={this._showDeleteConfirmationModal.bind(this, checkin)}
-                            >
-                      Delete this Checkin!
-                    </Button>{" "}
+                    <Label bsStyle={checkin.paid == true ? 'success' : 'danger'}>
+                      {checkin.paid == true ? 'Paid' : 'Unpaid'}
+                    </Label>
+                  </td>
+                  <td>
+                    <DropdownButton bsStyle={`default`} title={'Options'} id={`dropdown-basic`}>
+                      <MenuItem onSelect={this._showDeleteConfirmationModal.bind(this, checkin)}>
+                        Delete Check-in
+                      </MenuItem>
+                      <MenuItem divider={true}/>
+                      <MenuItem onSelect={this._updateCheckin.bind(this, checkin, {paid: true})}>
+                        Mark Paid
+                      </MenuItem>
+                      <MenuItem onSelect={this._updateCheckin.bind(this, checkin, {paid: false})}>
+                        Mark Up-Paid
+                      </MenuItem>
+                    </DropdownButton>
                   </td>
                 </tr>
               );
@@ -117,6 +138,12 @@ class CheckinTable extends Component {
     console.log("deleting of checkin has been confirmed for checkin:", checkinToBeDeleted);
     removeCheckin(clubId, checkinToBeDeleted.member_id, checkinToBeDeleted.id);
     this.setState({ showDeleteConfirmationModal: false });
+  }
+  
+  _updateCheckin = (checkin, params) => {
+    const {clubId, updateCheckin} = this.props;
+    console.log("updating checkin: ", checkin, params);
+    updateCheckin(clubId, checkin.member_id, checkin.id, params);
   }
 };
 

@@ -44,7 +44,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     removeCheckin: actions.removeCheckin,
     goToAllClubs: () => push(`/clubs`),
     goToAllMembers: () => push(`/clubs/${clubId}/members`),
-    setCheckingDate: actions.setCheckinDate
+    setCheckingDate: actions.setCheckinDate,
+    updateCheckin: actions.updateCheckin,
   }, dispatch);
 };
 

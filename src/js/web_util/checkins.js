@@ -27,3 +27,12 @@ export const removeCheckin = (clubId, memberId, checkinId) => {
     }
   });
 };
+
+export const updateCheckin = (clubId, memberId, checkinId, params) => {
+  return axios.put(`/clubs/${clubId}/members/${memberId}/checkins/${checkinId}`, params, {
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+};

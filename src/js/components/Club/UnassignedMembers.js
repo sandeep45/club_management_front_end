@@ -29,7 +29,7 @@ class UnassignedMembers extends Component {
       <div className={'no-print'}>
         <hr/>
         <h4>
-          Unassigned Members
+          Members without a Table
         </h4>
         <Table striped bordered hover>
           <thead>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Form, Button, FormGroup, ControlLabel, Panel } from "react-bootstrap";
+import { Form, Button, FormGroup, ControlLabel, Panel, MenuItem, DropdownButton } from "react-bootstrap";
 import {Link} from 'react-router-dom'
 import Capitalize from 'capitalize'
 import SinglePlayTable from "./SinglePlayTable";
@@ -70,15 +70,17 @@ class AllPlayTables extends Component {
                 <option value="7">7</option>
               </select>
             </FormGroup>
-            <Button type="submit" onClick={this._assignTablesEveryOtherForClub} bsStyle='primary'>
-              Assign Tables Every Other
-            </Button>{"   "}
-            <Button type="submit" onClick={this._assignTablesStraightForClub} bsStyle='default'>
-              Assign Tables Straight
-            </Button>{"   "}
-            <Button type="submit" onClick={this._assignTablesRandomForClub} bsStyle='default'>
-              Assign Tables Random
-            </Button>
+            <DropdownButton bsStyle={`default`} title={'Table Assignment Options'} id={`dropdown-basic`}>
+              <MenuItem onSelect={this._assignTablesEveryOtherForClub}>
+                Every Other
+              </MenuItem>
+              <MenuItem onSelect={this._assignTablesStraightForClub}>
+                Straight
+              </MenuItem>
+              <MenuItem onSelect={this._assignTablesRandomForClub}>
+                Random
+              </MenuItem>
+            </DropdownButton>
           </Form>
         </Panel>
         <Panel header="Print Options" bsStyle="primary" className={'no-print'}>
@@ -126,7 +128,7 @@ class AllPlayTables extends Component {
                 <option value="false">no</option>
               </select>
             </FormGroup>
-            <Button bsStyle="primary" onClick={window.print} >
+            <Button bsStyle="success" onClick={window.print} >
               Print
             </Button>
           </Form>

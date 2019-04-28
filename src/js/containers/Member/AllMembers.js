@@ -56,9 +56,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     goToNewMembersPage: () => push(`${match.url}/new`),
     goToAllClubs: () => push(`/clubs`),
     createCheckin: (memberId) => actions.createCheckin(clubId, memberId),
+    updateCheckin: actions.updateCheckin.bind(this, clubId),
     updateSearchFields: actions.updateSearchFields,
     markAllPartTime: actions.markAllPartTime.bind(this, clubId),
     downloadRatings: actions.downloadRatings.bind(this, clubId),
+    goToPage: url => push(url)
   }, dispatch);
 };
 
@@ -107,7 +109,7 @@ class AllMembers extends Component {
         <MemberTable {...this.props} />
 
         <Button bsStyle="danger" onClick={() => this.setState({showModal: true})} style={{marginRight: 10}}>
-          Reset to Part-Time
+          Reset All Members to Part-Time Status
         </Button>
         <Button bsStyle="default" onClick={goToAllClubs}>
           Clubs
