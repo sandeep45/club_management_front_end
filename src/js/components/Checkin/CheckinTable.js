@@ -36,7 +36,7 @@ class CheckinTable extends Component {
     const fullTimeCheckins = checkedInMembers.filter(m => m.membership_kind == 'full_time');
     const complimentaryCheckins = checkedInMembers.filter(m => m.membership_kind == 'complimentary');
     const paidCheckins = checkins.filter(c => c.paid == true);
-    const unpaidCheckins = checkins.filter(c => c.paid == false);
+    const unpaidCheckinsCount = partTimeCheckins.length - paidCheckins.length;
 
     return (
       <div>
@@ -47,9 +47,8 @@ class CheckinTable extends Component {
           <Label bsStyle="info">Complimentary - {complimentaryCheckins.length}</Label>{' '}
         </h4>
         <h4>
-          <Label bsStyle="default">Total - {checkins.length}</Label>{' '}
-          <Label bsStyle="danger">Unpaid- {unpaidCheckins.length}</Label>{' '}
           <Label bsStyle="success">Paid - {paidCheckins.length}</Label>{' '}
+          <Label bsStyle="danger">Unpaid- {unpaidCheckinsCount}</Label>{' '}
         </h4>
 
         <Table striped bordered hover>
@@ -61,7 +60,6 @@ class CheckinTable extends Component {
               <th>Status</th>
               <th>QR Code</th>
               <th>Checkin</th>
-              <th>Paid</th>
               <th></th>
             </tr>
           </thead>
@@ -79,30 +77,14 @@ class CheckinTable extends Component {
                     {membersHash[checkin.member_id].league_rating}
                   </td>
                   <td>
-                    {this._statusLabel(membersHash[checkin.member_id].membership_kind)}
+                    {this._statusLabel(membersHash[checkin.member_id].membership_kind, checkin)}
                   </td>
                   <td>
                     {membersHash[checkin.member_id].qr_code_number}
                   </td>
                   <td>{DateFormat(checkin.created_at, "mm-dd-yy h:MM TT")}</td>
                   <td>
-                    <Label bsStyle={checkin.paid == true ? 'success' : 'danger'}>
-                      {checkin.paid == true ? 'Paid' : 'Unpaid'}
-                    </Label>
-                  </td>
-                  <td>
-                    <DropdownButton bsStyle={`default`} title={'Options'} id={`dropdown-basic`}>
-                      <MenuItem onSelect={this._showDeleteConfirmationModal.bind(this, checkin)}>
-                        Delete Check-in
-                      </MenuItem>
-                      <MenuItem divider={true}/>
-                      <MenuItem onSelect={this._updateCheckin.bind(this, checkin, {paid: true})}>
-                        Mark Paid
-                      </MenuItem>
-                      <MenuItem onSelect={this._updateCheckin.bind(this, checkin, {paid: false})}>
-                        Mark Up-Paid
-                      </MenuItem>
-                    </DropdownButton>
+                    {this.getDropdownButton(checkin, membersHash[checkin.member_id])}
                   </td>
                 </tr>
               );
@@ -116,10 +98,36 @@ class CheckinTable extends Component {
     );
   };
   
-  _statusLabel = (membership_kind) => {
+  getDropdownButton(checkin, member) {
+    return <DropdownButton bsStyle={`default`} title={"Options"} id={`dropdown-basic`}>
+      <MenuItem onSelect={this._showDeleteConfirmationModal.bind(this, checkin)}>
+        Delete Check-in
+      </MenuItem>
+      { member.membership_kind == "part_time" ? <MenuItem divider={true}/> : '' }
+      { member.membership_kind == "part_time" ? <MenuItem onSelect={this._updateCheckin.bind(this, checkin, { paid: true })}>
+          Mark Paid
+        </MenuItem> : ''}
+      { member.membership_kind == "part_time" ? <MenuItem onSelect={this._updateCheckin.bind(this, checkin, { paid: false })}>
+        Mark Up-Paid
+      </MenuItem> : ''}
+      
+  
+  
+  
+      
+    </DropdownButton>;
+  }
+  
+  _statusLabel = (membership_kind, checkin) => {
     switch(membership_kind){
       case 'part_time':
-        return <Label className='label-danger'>Part-Time</Label>;
+        return <div>
+          <Label className='label-danger'>Part-Time</Label>{"  "}
+          <Label bsStyle={checkin.paid == true ? 'success' : 'danger'}>
+            {checkin.paid == true ? 'Paid' : 'Unpaid'}
+            <i className="icon-ok"></i>
+          </Label>
+        </div>
       case 'full_time':
         return <Label className='label-success'>Full-Time</Label>;
       case 'complimentary':

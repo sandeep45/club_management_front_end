@@ -55,25 +55,7 @@ class MemberTable extends Component {
                   <td>{member.phone_number ? PhoneFormatter.format(member.phone_number, "(NNN) NNN-NNNN") : ''}</td>
                   <td>{member.qr_code_number}</td>
                   <td>
-                    <DropdownButton bsStyle={`default`} title={'Options'} id={`dropdown-basic`}>
-                      <MenuItem onSelect={goToPage.bind(this, `${match.url}/${member.id}/edit`)}>
-                        Edit Member
-                      </MenuItem>
-                      <MenuItem onSelect={goToPage.bind(this, `${match.url}/${member.id}`)}>
-                        Member Profile
-                      </MenuItem>
-                      <MenuItem divider />
-                      <MenuItem onSelect={goToPage.bind(this, `${match.url}/${member.id}/checkins`)}>
-                        All Check-in's
-                      </MenuItem>
-                      <MenuItem divider />
-                      <MenuItem onSelect={this._createCheckin.bind(this, member)}>
-                        Create Check-in
-                      </MenuItem>
-                      <MenuItem onSelect={this._createCheckinAndMarkPaid.bind(this, member)}>
-                        Check-in & Mark paid
-                      </MenuItem>
-                    </DropdownButton>
+                    {this.getDropdownButton(goToPage, match, member)}
                   </td>
                 </tr>
               );
@@ -83,7 +65,29 @@ class MemberTable extends Component {
       </div>
     );
   };
-
+  
+  getDropdownButton(goToPage, match, member) {
+    return <DropdownButton bsStyle={`default`} title={"Options"} id={`dropdown-basic`}>
+      <MenuItem onSelect={goToPage.bind(this, `${match.url}/${member.id}/edit`)}>
+        Edit Member
+      </MenuItem>
+      <MenuItem onSelect={goToPage.bind(this, `${match.url}/${member.id}`)}>
+        Member Profile
+      </MenuItem>
+      <MenuItem divider/>
+      <MenuItem onSelect={goToPage.bind(this, `${match.url}/${member.id}/checkins`)}>
+        All Check-in's
+      </MenuItem>
+      <MenuItem divider/>
+      <MenuItem onSelect={this._createCheckin.bind(this, member)}>
+        Create Check-in
+      </MenuItem>
+      {member.membership_kind == 'part_time' ? <MenuItem onSelect={this._createCheckinAndMarkPaid.bind(this, member)}>
+        Check-in & Mark paid
+      </MenuItem> : ''}
+    </DropdownButton>;
+  }
+  
   _createCheckin = (member) => {
     const {createCheckin} = this.props;
     console.log("in _createCheckin with: ", member.id);
