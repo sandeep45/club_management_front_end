@@ -39,6 +39,7 @@ class MemberForm extends Component {
       league_rating: '',
       usatt_number: '',
       table_number: '',
+      notes: '',
     }
   };
 
@@ -112,6 +113,14 @@ class MemberForm extends Component {
                          value={member.table_number}
                          onChange={this._tableNumberChanged} />
           </FormGroup>
+          <FormGroup controlId='NotesBox'>
+            <ControlLabel>Notes</ControlLabel>
+            <FormControl componentClass='textarea'
+                         placeholder='Type here anything you want to be reminded on, e.g. this guy owes me $2.50'
+                         inputRef={c => this._notesInput = c}
+                         value={member.notes || ''}
+                         onChange={this._notesChanged} />
+          </FormGroup>
           <Button type="submit" onClick={this._submitClickHandler} bsStyle='primary'>
             Submit
           </Button>
@@ -171,6 +180,10 @@ class MemberForm extends Component {
     const member = {...this.state.member, table_number: e.target.value};
     this.setState({member});
   };
+  _notesChanged = e => {
+    const member = {...this.state.member, notes: e.target.value};
+    this.setState({member});
+  };
 
   _qrCodeNumberChangedViaScan = num => {
     const member = {...this.state.member, qr_code_number: num};
@@ -191,6 +204,7 @@ class MemberForm extends Component {
       usatt_number: this._usattNumberInput.value,
       league_rating: this._leagueRatingInput.value,
       table_number: this._tableNumberInput.value,
+      notes: this._notesInput.value,
     }).then(
       response => {
         console.log("form action has been fired. now moving to listing page");

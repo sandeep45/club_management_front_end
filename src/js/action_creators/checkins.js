@@ -78,8 +78,12 @@ export const createCheckin = (clubId, memberId) => (dispatch , getState)=> {
         type: K.RECEIVE_ENTITY_ITEM,
         payload: normalizedData
       });
-      
       toast.success(_checkinMessage(member));
+      if(member.notes && member.notes.length > 0){
+        toast.info(
+          `Note for ${member.name} – ${member.notes}`,
+          {autoClose: false, closeButton: true})
+      }
       return response;
     }
   ).catch(redirectOnUnAuthorized.bind(this, dispatch))

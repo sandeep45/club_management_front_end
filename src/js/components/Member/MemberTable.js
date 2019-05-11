@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {Table, Bootstrap, Button, Dropdown, DropdownButton, MenuItem} from 'react-bootstrap'
+import {Table, Bootstrap, Button, Dropdown, DropdownButton,
+  MenuItem, Badge, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import PhoneFormatter from 'phone-formatter'
+import NotesSignWithTooltip from '../Generic/NotesSignWithTooltip'
 
 class MemberTable extends Component {
   constructor(props) {
@@ -48,7 +50,10 @@ class MemberTable extends Component {
             {members.map(member => {
               return (
                 <tr key={member.id}>
-                  <td className={`contained-column`}>{member.name}</td>
+                  <td className={`contained-column`}>
+                    {member.name}{' '}
+                    <NotesSignWithTooltip notes={member.notes} />
+                  </td>
                   <td className={`contained-column`}>{member.email}</td>
                   <td>{member.league_rating}</td>
                   <td>{member.membership_kind}</td>

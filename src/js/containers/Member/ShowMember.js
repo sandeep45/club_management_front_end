@@ -75,6 +75,7 @@ class ShowMember extends Component {
           <ListGroupItem>QR Code Number: {member.qr_code_number} </ListGroupItem>
           <ListGroupItem>Table Number: {member.table_number} </ListGroupItem>
           <ListGroupItem>Membership Type: {member.membership_kind} </ListGroupItem>
+          <ListGroupItem>Notes: {member.notes} </ListGroupItem>
         </ListGroup>
       </Panel>
 

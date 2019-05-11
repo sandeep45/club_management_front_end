@@ -4,6 +4,7 @@ import { Table, Button, Label, MenuItem, DropdownButton } from "react-bootstrap"
 import {Link} from 'react-router-dom'
 import ConfirmationModal from "../Generic/ConfirmationModal";
 import DateFormat from "dateformat";
+import NotesSignWithTooltip from "../Generic/NotesSignWithTooltip";
 
 class CheckinTable extends Component {
   constructor(props) {
@@ -68,7 +69,8 @@ class CheckinTable extends Component {
               return (
                 <tr key={checkin.id}>
                   <td className={`contained-column`}>
-                    {membersHash[checkin.member_id].name}
+                    {membersHash[checkin.member_id].name}{' '}
+                    <NotesSignWithTooltip notes={membersHash[checkin.member_id].notes} />
                   </td>
                   <td className={`contained-column`}>
                     {membersHash[checkin.member_id].email}
