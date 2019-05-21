@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {Table, Button} from 'react-bootstrap'
+import { Table, Button, PageHeader } from "react-bootstrap";
 import {Link} from 'react-router-dom'
 import ConfirmationModal from "../Generic/ConfirmationModal";
 import * as fromConstants from "../../constants";
@@ -26,6 +26,7 @@ class ManualCheckinBox extends Component {
 
     return (
       <input type='text'
+             className={'no-print'}
              autoFocus
              onChange={this._handleInput}
              onKeyPress={this._handleEnter}

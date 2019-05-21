@@ -88,7 +88,7 @@ class MemberTable extends Component {
         Create Check-in
       </MenuItem>
       {member.membership_kind == 'part_time' ? <MenuItem onSelect={this._createCheckinAndMarkPaid.bind(this, member)}>
-        Check-in & Mark paid
+        Create Paid Check-in
       </MenuItem> : ''}
     </DropdownButton>;
   }

@@ -3,6 +3,7 @@ import K from '../constants/'
 import { createSelector } from 'reselect'
 import moment from 'moment'
 import {getSearchFields} from './searchFields'
+import _ from "lodash";
 
 const initialState = {
   owners: { },
@@ -154,6 +155,25 @@ export const getTodaysCheckinsArrayFromClubInUrl = (state, ownProps) => {
     checkin => moment(checkin.created_at || null).isSame(moment(), 'day')
   );
   return todayCheckins;
+};
+
+export const getTodaysCheckinsSortedByMemberShipType = (state, ownProps) => {
+  const todaysCheckins = getTodaysCheckinsArrayFromClubInUrl(state, ownProps);
+  const membersHash = getMembersHash(state);
+  
+  let sortedCheckins = _.sortBy(todaysCheckins, checkin => {
+    if(membersHash[checkin.member_id].membership_kind == 'part_time'){
+      return 0;
+    }else if(membersHash[checkin.member_id].membership_kind == 'full_time'){
+      return 1;
+    }else if(membersHash[checkin.member_id].membership_kind == 'complimentary'){
+      return 2;
+    }else{
+      return 1000;
+    }
+  });
+  
+  return sortedCheckins;
 };
 
 export const getCheckedInMembersFromClubInUrl = (state, ownProps) => {

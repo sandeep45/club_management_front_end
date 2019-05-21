@@ -16,6 +16,7 @@ const mapStateToProps = (state, ownProps) => {
   const clubId = ownProps.match.params.clubId;
   const club = reducers.getClubFromIdInUrl(state, ownProps);
   const todaysCheckins = reducers.getTodaysCheckinsArrayFromClubInUrl(state, ownProps);
+  const todaysCheckinsSorted = reducers.getTodaysCheckinsSortedByMemberShipType(state, ownProps);
   const membersHash = reducers.getMembersHash(state, ownProps);
   const checkinActivity = reducers.getCheckinActivity(state, ownProps);
   const checkedInMembers = reducers.getCheckedInMembersFromClubInUrl(state, ownProps);
@@ -23,6 +24,7 @@ const mapStateToProps = (state, ownProps) => {
     club,
     clubId,
     todaysCheckins,
+    todaysCheckinsSorted,
     membersHash,
     checkinActivity,
     checkedInMembers
@@ -58,21 +60,26 @@ class CheckinsDashboard extends Component {
 
 
   render() {
-    const {club, clubId, todaysCheckins, membersHash, getTodaysCheckins,
+    const {club, clubId, todaysCheckins, todaysCheckinsSorted, membersHash, getTodaysCheckins,
       removeCheckin, updateCheckin,
       createCheckinFromQrCode, checkinActivity, checkedInMembers} = this.props;
     return (
       <div>
-        <PageHeader>
+        <PageHeader className={'no-print'}>
           Checkin's
           <small> / of club - {club.name ? Capitalize(club.name) : ''} </small>
-          <Button bsStyle="primary" style={{float:'right'}}
+          <Button bsStyle="primary" style={{float:'right', marginLeft: 10}}
                   onClick={getTodaysCheckins} >
             Reload Checkin's
           </Button>
+          <Button bsStyle="success" onClick={window.print}
+                  style={{float:'right', marginLeft: 10}}>
+            Print
+          </Button>
         </PageHeader>
         <ManualCheckinBox updateQrCode={createCheckinFromQrCode} />
-        <CheckinTable checkins={todaysCheckins} membersHash={membersHash}
+        <CheckinTable checkins={todaysCheckins} checkinsSorted={todaysCheckinsSorted}
+                      membersHash={membersHash}
                       clubId={clubId} checkedInMembers={checkedInMembers}
                       removeCheckin={removeCheckin}
                       updateCheckin={updateCheckin}/>

@@ -40,6 +40,7 @@ export const getMembersArrayFromClubInUrl = (state, ownProps) => fromEntities.ge
 export const getCheckinsArrayFromMemberInUrl = (state, ownProps) => fromEntities.getCheckinsArrayFromMemberInUrl(state.entities, ownProps);
 
 export const getTodaysCheckinsArrayFromClubInUrl = (state, ownProps) => fromEntities.getTodaysCheckinsArrayFromClubInUrl(state.entities, ownProps);
+export const getTodaysCheckinsSortedByMemberShipType = (state, ownProps) => fromEntities.getTodaysCheckinsSortedByMemberShipType(state.entities, ownProps);
 export const getCheckedInMembersFromClubInUrl = (state, ownProps) => fromEntities.getCheckedInMembersFromClubInUrl(state.entities, ownProps);
 
 export const getAuthEmail = (state, ownProps) => fromEntities.getAuthEmail(state.entities, ownProps);
