@@ -27,6 +27,7 @@ class ClubForm extends Component {
       simply_compete_username: '',
       simply_compete_password: '',
       simply_compete_league_id: '',
+      default_amount_to_collect: '',
     }
   };
 
@@ -53,6 +54,12 @@ class ClubForm extends Component {
             <FormControl type='text' placeholder='an easy name for texting goes here'
                          inputRef={c => this._keywordInput = c} value={club.keyword}
                          onChange={this._keywordChanged}/>
+          </FormGroup>
+          <FormGroup controlId='defaultAmountToCollectBox'>
+            <ControlLabel>Default Amount to Collect</ControlLabel>
+            <FormControl type='text' placeholder='what is the default payment amount'
+                         inputRef={c => this._defaultAmountToCollectInput = c} value={club.default_amount_to_collect}
+                         onChange={this._defaultAmountToCollectChanged} />
           </FormGroup>
           <FormGroup controlId='simplyCompeteUsernameBox'>
             <ControlLabel>SimplyCompete Username</ControlLabel>
@@ -92,6 +99,11 @@ class ClubForm extends Component {
     this.setState({club});
   };
 
+  _defaultAmountToCollectChanged = e => {
+    const club = {...this.state.club, default_amount_to_collect: e.target.value};
+    this.setState({club});
+  };
+
   _simplyCompeteUsernameChanged = e => {
     const club = {...this.state.club, simply_compete_username: e.target.value};
     this.setState({club});
@@ -116,7 +128,8 @@ class ClubForm extends Component {
       keyword: this._keywordInput.value,
       simply_compete_username: this._simplyCompeteUsernameInput.value,
       simply_compete_password: this._simplyCompetePasswordInput.value,
-      simply_compete_league_id: this._simplyCompeteLeagueIdInput.value
+      simply_compete_league_id: this._simplyCompeteLeagueIdInput.value,
+      default_amount_to_collect: this._defaultAmountToCollectInput.value
     }).then(
       response => {
         console.log("form action has been fired. now moving to listing page");

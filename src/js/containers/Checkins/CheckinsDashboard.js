@@ -82,6 +82,7 @@ class CheckinsDashboard extends Component {
                       membersHash={membersHash}
                       clubId={clubId} checkedInMembers={checkedInMembers}
                       removeCheckin={removeCheckin}
+                      club={club}
                       updateCheckin={updateCheckin}/>
       </div>
     );

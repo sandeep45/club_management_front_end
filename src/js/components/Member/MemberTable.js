@@ -23,13 +23,14 @@ class MemberTable extends Component {
   static propTypes = {
     members: PropTypes.array.isRequired,
     match: PropTypes.object.isRequired,
+    club: PropTypes.object.isRequired,
     createCheckin: PropTypes.func.isRequired,
     updateCheckin: PropTypes.func.isRequired,
     goToPage: PropTypes.func.isRequired,
   };
 
   render() {
-    const {members, match, searchFields, goToPage} = this.props;
+    const {members, match, searchFields, goToPage, club} = this.props;
     const {checkedInMember} = this.state;
     return (
       <div>
@@ -60,7 +61,7 @@ class MemberTable extends Component {
                   <td>{member.phone_number ? PhoneFormatter.format(member.phone_number, "(NNN) NNN-NNNN") : ''}</td>
                   <td>{member.qr_code_number}</td>
                   <td>
-                    {this.getDropdownButton(goToPage, match, member)}
+                    {this.getDropdownButton(goToPage, match, member, club)}
                   </td>
                 </tr>
               );
@@ -71,7 +72,7 @@ class MemberTable extends Component {
     );
   };
   
-  getDropdownButton(goToPage, match, member) {
+  getDropdownButton(goToPage, match, member, club) {
     return <DropdownButton bsStyle={`default`} title={"Options"} id={`dropdown-basic`}>
       <MenuItem onSelect={goToPage.bind(this, `${match.url}/${member.id}/edit`)}>
         Edit Member
@@ -88,7 +89,7 @@ class MemberTable extends Component {
         Create Check-in
       </MenuItem>
       {member.membership_kind == 'part_time' ? <MenuItem onSelect={this._createCheckinAndMarkPaid.bind(this, member)}>
-        Create Paid Check-in
+        Create ${club.default_amount_to_collect} Paid Check-in
       </MenuItem> : ''}
     </DropdownButton>;
   }
@@ -111,12 +112,15 @@ class MemberTable extends Component {
   };
   
   _createCheckinAndMarkPaid = (member) => {
-    const {createCheckin, updateCheckin} = this.props;
+    const {createCheckin, updateCheckin, club} = this.props;
     console.log("in _createCheckin with: ", member.id);
     createCheckin(member.id).then(
       response => {
         console.log("create checkin success for:" , member);
-        updateCheckin(member.id, response.data.id, {paid: true})
+        updateCheckin(member.id, response.data.id, {
+          paid: true,
+          amount_collected: club.default_amount_to_collect
+        })
       },
       error => {
         console.error("got error creating checkin");

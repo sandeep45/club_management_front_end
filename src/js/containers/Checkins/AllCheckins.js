@@ -15,6 +15,7 @@ import { OverlayTrigger, Popover, Tooltip } from "react-bootstrap"
 const mapStateToProps = (state, ownProps) => {
   const {match} = ownProps;
   const {clubId, memberId} = match.params;
+  const club = reducers.getClubFromIdInUrl(state, ownProps);
   const checkinDate = reducers.getCheckinDate(state, ownProps);
   let checkinsArray = reducers.getCheckinsArray(state, ownProps);
   console.log("the complete checkinsArray is ", checkinsArray);
@@ -30,6 +31,7 @@ const mapStateToProps = (state, ownProps) => {
     match,
     checkins: checkinsArray,
     clubId,
+    club,
     memberId,
     membersHash,
     checkinDate

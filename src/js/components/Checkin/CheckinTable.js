@@ -31,13 +31,14 @@ class CheckinTable extends Component {
     checkins: PropTypes.array.isRequired,
     checkinsSorted: PropTypes.array.isRequired,
     membersHash: PropTypes.object.isRequired,
+    club: PropTypes.object.isRequired,
     removeCheckin: PropTypes.func.isRequired,
     updateCheckin: PropTypes.func.isRequired,
     clubId: PropTypes.number.isRequired,
   };
 
   render() {
-    let {checkins, checkinsSorted, membersHash, checkedInMembers} = this.props;
+    let {checkins, checkinsSorted, membersHash, checkedInMembers, club} = this.props;
     if(!checkedInMembers){
       checkedInMembers = [];
     }
@@ -102,7 +103,7 @@ class CheckinTable extends Component {
                   </td>
                   <td>{DateFormat(checkin.created_at, "mm-dd-yy h:MM TT")}</td>
                   <td className={`no-print`}>
-                    {this.getDropdownButton(checkin, membersHash[checkin.member_id])}
+                    {this.getDropdownButton(checkin, membersHash[checkin.member_id], club)}
                   </td>
                 </tr>
               );
@@ -122,16 +123,18 @@ class CheckinTable extends Component {
     );
   };
   
-  getDropdownButton(checkin, member) {
+  getDropdownButton(checkin, member, club) {
     return <DropdownButton bsStyle={`default`} title={"Options"} id={`dropdown-basic`}>
       { member.membership_kind == "complimentary" ? '' : <MenuItem onSelect={this._showEditCheckinModal.bind(this, checkin)}>
           Update Check-in
       </MenuItem> }
       { member.membership_kind == "part_time" ? <MenuItem divider={true}/> : '' }
-      { member.membership_kind == "part_time" ? <MenuItem onSelect={this._updateCheckin.bind(this, checkin, { paid: true })}>
-          Paid
+      { member.membership_kind == "part_time" ? <MenuItem
+        onSelect={this._updateCheckin.bind(this, checkin, { paid: true, amount_collected: club.default_amount_to_collect })}>
+          Paid ${club.default_amount_to_collect}
         </MenuItem> : ''}
-      { member.membership_kind == "part_time" ? <MenuItem onSelect={this._updateCheckin.bind(this, checkin, { paid: false })}>
+      { member.membership_kind == "part_time" ? <MenuItem
+        onSelect={this._updateCheckin.bind(this, checkin, { paid: false, amount_collected: 0 })}>
         Unpaid
       </MenuItem> : ''}
       { member.membership_kind == "part_time" ? <MenuItem divider={true}/> : '' }
