@@ -10,16 +10,21 @@ class NotificationModal extends Component {
   static propTypes = {
     visible: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
-    title: PropTypes.string
+    title: PropTypes.string,
+    actionButtonText: PropTypes.string,
+    actionButtonClicked: PropTypes.func,
   };
 
   static defaultProps = {
     visible: false,
-    title: "Alert"
+    title: "Alert",
+    actionButtonClicked: () => {},
+    actionButtonText: null
   };
 
   render() {
-    const {visible, closeModal, title} = this.props;
+    const {visible, closeModal, title,
+      actionButtonText, actionButtonClicked} = this.props;
 
     return (
       <Modal show={visible} onHide={closeModal}>
@@ -30,6 +35,7 @@ class NotificationModal extends Component {
           {this.props.children ? this.props.children : <h4>Processed</h4>}
         </Modal.Body>
         <Modal.Footer>
+          {actionButtonText ? <Button onClick={actionButtonClicked} bsStyle='primary'>{actionButtonText}</Button> : ''}
           <Button onClick={closeModal} bsStyle='primary'>Close</Button>
         </Modal.Footer>
       </Modal>

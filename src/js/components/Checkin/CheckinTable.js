@@ -1,25 +1,30 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Table, Button, Label, MenuItem, DropdownButton } from "react-bootstrap";
+import { Table, Button, Label, MenuItem, DropdownButton, ControlLabel, FormGroup, FormControl } from "react-bootstrap";
 import {Link} from 'react-router-dom'
 import ConfirmationModal from "../Generic/ConfirmationModal";
 import DateFormat from "dateformat";
 import NotesSignWithTooltip from "../Generic/NotesSignWithTooltip";
 import _ from 'lodash'
+import NotificationModal from "../Generic/NotificationModal";
+import UpdateCheckinModal from "../Generic/UpdateCheckinModal";
 
 class CheckinTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showDeleteConfirmationModal: false,
-      checkinToBeDeleted: null
+      showEditCheckinModal: false,
+      checkinToBeDeleted: null,
+      checkinInFocusForModal: {}
     }
   };
 
   static defaultProps = {
     checkins: [],
     checkinsSorted: [],
-    membersHash: {}
+    membersHash: {},
+    title: 'hey'
   };
 
   static propTypes = {
@@ -41,6 +46,7 @@ class CheckinTable extends Component {
     const complimentaryCheckins = checkedInMembers.filter(m => m.membership_kind == 'complimentary');
     const paidCheckins = checkins.filter(c => c.paid == true);
     const unpaidCheckinsCount = partTimeCheckins.length - paidCheckins.length;
+    const totalAmountCollected = checkins.reduce((accumulator, currentValue) => accumulator + currentValue.amount_collected, 0);
     
     return (
       <div>
@@ -54,6 +60,9 @@ class CheckinTable extends Component {
           <Label bsStyle="success">Paid - {paidCheckins.length}</Label>{' '}
           <Label bsStyle="danger">Unpaid- {unpaidCheckinsCount}</Label>{' '}
         </h4>
+        <h4>
+          Total Amount Collected: ${totalAmountCollected}.00
+        </h4>
 
         <Table striped bordered hover>
           <thead>
@@ -62,6 +71,7 @@ class CheckinTable extends Component {
               <th className={`no-print`}>Email</th>
               <th className={`no-print`}>Rating</th>
               <th>Status</th>
+              <th>Amount</th>
               <th className={`no-print`}>QR Code</th>
               <th>Checkin</th>
               <th className={`no-print`}></th>
@@ -84,6 +94,9 @@ class CheckinTable extends Component {
                   <td>
                     {this._statusLabel(membersHash[checkin.member_id].membership_kind, checkin)}
                   </td>
+                  <td>
+                    ${checkin.amount_collected}.00
+                  </td>
                   <td className={`no-print`}>
                     {membersHash[checkin.member_id].qr_code_number}
                   </td>
@@ -98,6 +111,12 @@ class CheckinTable extends Component {
           <ConfirmationModal visible={this.state.showDeleteConfirmationModal}
                              closeModal={() => this.setState({showDeleteConfirmationModal: false})}
                              actionButtonClicked={this._deleteCheckin}/>
+          <UpdateCheckinModal
+            visible={this.state.showEditCheckinModal}
+            closeModal={() => this.setState({showEditCheckinModal: false})}
+            updateCheckin={this._updateCheckin}
+            checkin={this.state.checkinInFocusForModal}>
+          </UpdateCheckinModal>
         </Table>
       </div>
     );
@@ -105,9 +124,9 @@ class CheckinTable extends Component {
   
   getDropdownButton(checkin, member) {
     return <DropdownButton bsStyle={`default`} title={"Options"} id={`dropdown-basic`}>
-      <MenuItem onSelect={this._showDeleteConfirmationModal.bind(this, checkin)}>
-        Delete Check-in
-      </MenuItem>
+      { member.membership_kind == "complimentary" ? '' : <MenuItem onSelect={this._showEditCheckinModal.bind(this, checkin)}>
+          Update Check-in
+      </MenuItem> }
       { member.membership_kind == "part_time" ? <MenuItem divider={true}/> : '' }
       { member.membership_kind == "part_time" ? <MenuItem onSelect={this._updateCheckin.bind(this, checkin, { paid: true })}>
           Paid
@@ -115,6 +134,10 @@ class CheckinTable extends Component {
       { member.membership_kind == "part_time" ? <MenuItem onSelect={this._updateCheckin.bind(this, checkin, { paid: false })}>
         Unpaid
       </MenuItem> : ''}
+      { member.membership_kind == "part_time" ? <MenuItem divider={true}/> : '' }
+      <MenuItem onSelect={this._showDeleteConfirmationModal.bind(this, checkin)}>
+        Delete Check-in
+      </MenuItem>
       
   
   
@@ -144,7 +167,12 @@ class CheckinTable extends Component {
     this.setState({checkinToBeDeleted: checkin});
     this.setState({showDeleteConfirmationModal: true});
   };
-
+  
+  _showEditCheckinModal = (checkin) => {
+    this.setState({checkinInFocusForModal: checkin});
+    this.setState({showEditCheckinModal: true});
+  };
+  
   _deleteCheckin = () => {
     const {checkinToBeDeleted} = this.state;
     const {clubId, removeCheckin} = this.props;
