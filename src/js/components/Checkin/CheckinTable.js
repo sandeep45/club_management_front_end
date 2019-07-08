@@ -65,7 +65,7 @@ class CheckinTable extends Component {
           Total Amount Collected: ${totalAmountCollected}.00
         </h4>
 
-        <Table striped bordered hover>
+        <Table striped bordered hover style={{pageBreakInside: 'auto'}}>
           <thead>
             <tr>
               <th>Name</th>
