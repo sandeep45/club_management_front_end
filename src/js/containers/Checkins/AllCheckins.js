@@ -11,6 +11,8 @@ import {PageHeader, Button} from 'react-bootstrap'
 import { push } from 'react-router-redux'
 import { Calendar } from 'react-date-range';
 import { OverlayTrigger, Popover, Tooltip } from "react-bootstrap"
+import _ from "lodash";
+import { getMembersHash, getTodaysCheckinsArrayFromClubInUrl } from "../../reducers/entities";
 
 const mapStateToProps = (state, ownProps) => {
   const {match} = ownProps;
@@ -18,7 +20,7 @@ const mapStateToProps = (state, ownProps) => {
   const club = reducers.getClubFromIdInUrl(state, ownProps);
   const checkinDate = reducers.getCheckinDate(state, ownProps);
   let checkinsArray = reducers.getCheckinsArray(state, ownProps);
-  console.log("the complete checkinsArray is ", checkinsArray);
+  
   let checkinsArrayOfDate = checkinsArray.filter( checkin => {
     console.log("looking at ", checkin.id , " whose created at is ", checkin.created_at , " in moment is ", moment(checkin.created_at).format("MM-DD-YYYY"));
     console.log("comparing with ", checkinDate);
@@ -27,13 +29,28 @@ const mapStateToProps = (state, ownProps) => {
   } );
   checkinsArray = checkinsArrayOfDate;
   const membersHash = reducers.getMembersHash(state, ownProps);
+  const checkedInMembers = checkinsArray.map(checkin => membersHash[checkin.member_id]);
+  const checkinsSorted = _.sortBy(checkinsArray, checkin => {
+    if(membersHash[checkin.member_id].membership_kind == 'part_time'){
+      return 0;
+    }else if(membersHash[checkin.member_id].membership_kind == 'full_time'){
+      return 1;
+    }else if(membersHash[checkin.member_id].membership_kind == 'complimentary'){
+      return 2;
+    }else{
+      return 1000;
+    }
+  });
+  
   return {
     match,
     checkins: checkinsArray,
+    checkinsSorted: checkinsSorted,
     clubId,
     club,
     memberId,
     membersHash,
+    checkedInMembers,
     checkinDate
   };
 };

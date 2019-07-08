@@ -52,14 +52,14 @@ class CheckinTable extends Component {
     return (
       <div>
         <h4>
-          <Label bsStyle="default">Total - {checkins.length}</Label>{' '}
-          <Label bsStyle="danger">Part-Time - {partTimeCheckins.length}</Label>{' '}
-          <Label bsStyle="success">Full-Time - {fullTimeCheckins.length}</Label>{' '}
-          <Label bsStyle="info">Complimentary - {complimentaryCheckins.length}</Label>{' '}
+          <Label bsStyle="default">Total: {checkins.length}</Label>{' '}
+          <Label bsStyle="danger">Part-Time: {partTimeCheckins.length}</Label>{' '}
+          <Label bsStyle="success">Full-Time: {fullTimeCheckins.length}</Label>{' '}
+          <Label bsStyle="info">Complimentary: {complimentaryCheckins.length}</Label>{' '}
         </h4>
         <h4>
-          <Label bsStyle="success">Paid - {paidCheckins.length}</Label>{' '}
-          <Label bsStyle="danger">Unpaid- {unpaidCheckinsCount}</Label>{' '}
+          <Label bsStyle="success">Paid: {paidCheckins.length}</Label>{' '}
+          <Label bsStyle="danger">Unpaid: {unpaidCheckinsCount}</Label>{' '}
         </h4>
         <h4>
           Total Amount Collected: ${totalAmountCollected}.00
@@ -125,9 +125,9 @@ class CheckinTable extends Component {
   
   getDropdownButton(checkin, member, club) {
     return <DropdownButton bsStyle={`default`} title={"Options"} id={`dropdown-basic`}>
-      { member.membership_kind == "complimentary" ? '' : <MenuItem onSelect={this._showEditCheckinModal.bind(this, checkin)}>
+      { member.membership_kind == "part_time" ? <MenuItem onSelect={this._showEditCheckinModal.bind(this, checkin)}>
           Update Check-in
-      </MenuItem> }
+      </MenuItem> : ""}
       { member.membership_kind == "part_time" ? <MenuItem divider={true}/> : '' }
       { member.membership_kind == "part_time" ? <MenuItem
         onSelect={this._updateCheckin.bind(this, checkin, { paid: true, amount_collected: club.default_amount_to_collect })}>
