@@ -10,6 +10,7 @@ import GroupOfThree from "../PlayOrder/GroupOfThree";
 import GroupOfFour from "../PlayOrder/GroupOfFour";
 import GroupOfFive from "../PlayOrder/GroupOfFive";
 import GroupOfSix from "../PlayOrder/GroupOfSix";
+import GroupOfSevenAndEight from "../PlayOrder/GroupOfSevenAndEight";
 import _ from "lodash"
 import { toast } from 'react-toastify';
 
@@ -68,6 +69,7 @@ class AllPlayTables extends Component {
                 <option value="5">5</option>
                 <option value="6">6</option>
                 <option value="7">7</option>
+                <option value="7">8</option>
               </select>
             </FormGroup>
             <DropdownButton bsStyle={`default`} title={'Table Assignment Options'} id={`dropdown-basic`}>
@@ -172,6 +174,10 @@ class AllPlayTables extends Component {
         return <GroupOfFive />;
       case 6:
         return <GroupOfSix />;
+      case 7:
+        return <GroupOfSevenAndEight />;
+      case 8:
+        return <GroupOfSevenAndEight />;
       default:
         return '';
     }
