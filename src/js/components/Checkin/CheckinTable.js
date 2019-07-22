@@ -42,11 +42,23 @@ class CheckinTable extends Component {
     if(!checkedInMembers){
       checkedInMembers = [];
     }
-    const partTimeCheckins = checkedInMembers.filter(m => m.membership_kind == 'part_time');
-    const fullTimeCheckins = checkedInMembers.filter(m => m.membership_kind == 'full_time');
-    const complimentaryCheckins = checkedInMembers.filter(m => m.membership_kind == 'complimentary');
-    const paidCheckins = checkins.filter(c => c.paid == true);
-    const unpaidCheckinsCount = partTimeCheckins.length - paidCheckins.length;
+  
+    checkins = checkins.map( checkin => {
+      return {
+        ...checkin,
+        membership_kind: membersHash[checkin.member_id].membership_kind
+      }
+    });
+    
+    const partTimeCheckins = checkins.filter(m => m.membership_kind == 'part_time');
+    const fullTimeCheckins = checkins.filter(m => m.membership_kind == 'full_time');
+    const complimentaryCheckins = checkins.filter(m => m.membership_kind == 'complimentary');
+  
+    
+    const fullTimePaidCheckinsCount = fullTimeCheckins.filter(c => c.paid == true).length;
+    const partTimePaidCheckinsCount = partTimeCheckins.filter(c => c.paid == true).length;
+    const partTimeUnpaidCheckinsCount = partTimeCheckins.filter(c => c.paid == false).length;
+    
     const totalAmountCollected = checkins.reduce((accumulator, currentValue) => accumulator + currentValue.amount_collected, 0);
     
     return (
@@ -58,8 +70,9 @@ class CheckinTable extends Component {
           <Label bsStyle="info">Complimentary: {complimentaryCheckins.length}</Label>{' '}
         </h4>
         <h4>
-          <Label bsStyle="success">Paid: {paidCheckins.length}</Label>{' '}
-          <Label bsStyle="danger">Unpaid: {unpaidCheckinsCount}</Label>{' '}
+          <Label bsStyle="success">Full-Time Paid: {fullTimePaidCheckinsCount}</Label>{' '}
+          <Label bsStyle="success">Part-Time Paid: {partTimePaidCheckinsCount}</Label>{' '}
+          <Label bsStyle="danger">Part-Time Unpaid: {partTimeUnpaidCheckinsCount}</Label>{' '}
         </h4>
         <h4>
           Total Amount Collected: ${totalAmountCollected}.00
